@@ -29,15 +29,13 @@ const conferenceRouter = require("../routes/conferenceRouter");
 const userRouter = require("../routes/UserRouter");
 
 
-const corsOption = {
-    origin: ['http://localhost:3000'],
-};
+
 
 const app = express();
 
 //Middlewares
 app.use(express.json());
-app.use(cors(corsOption));
+app.use(cors());
 app.use(cors())
 
 app.use((req, res, next) => {
