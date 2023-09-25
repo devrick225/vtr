@@ -27,37 +27,24 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         navire,
         agence,
         acconier,
+        quai,
         date_accostage_prevue,
         date_appareillage_prevue,
         heure_accostage_prevue,
         heure_appareillage_prevue,
-        date_accostage_estimee,
-        date_appareillage_estimee,
-        heure_accostage_estimee,
-        heure_appareillage_estimee,
         operations,
     } = req.body;
 
     const userAuth = req.userAuth;
-    console.log('user', userAuth)
     const acconierExist = await Acconier.findById(acconier);
-    console.log('acconierExist', acconierExist)
     const outsideZone = await Zone.findOne().where('code').equals('OUTSIDE');
-    console.log('outsideZone', outsideZone)
     const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
-    console.log('prevueEtat', prevueEtat)
     const waitingEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
-    console.log('prevueEtat', prevueEtat)
     const navireExist = await Navire.findById(navire);
-    console.log('navireExist', navireExist)
     const agenceExist = await Agence.findById(agence);
-    console.log('agenceExist', agenceExist)
-    const quaiExist = await Quai.findById('6505d55395b2b64f19460221');
-    console.log('quaiExist', quaiExist)
+    const quaiExist = await Quai.findById(quai);
     const defautPrestataire = await Prestataire.findOne().where('code').equals('PAC');
-    console.log('defautPrestataire', defautPrestataire)
     const commandeEtat = await Etat.findOne().where('code').equals('COMMANDEE');
-    console.log('commandeEtat', commandeEtat)
     const userDefaultRessource = await User.findOne().where('username').equals('default');
     const serviceAssistances = await ServiceAssistance.find().where('auto_generated').equals(true);
 
@@ -74,10 +61,10 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         date_appareillage_prevue,
         heure_accostage_prevue,
         heure_appareillage_prevue,
-        date_accostage_estimee,
-        date_appareillage_estimee,
-        heure_accostage_estimee,
-        heure_appareillage_estimee,
+        date_accostage_estimee : date_accostage_prevue,
+        date_appareillage_estimee: date_appareillage_prevue,
+        heure_accostage_estimee : heure_accostage_prevue,
+        heure_appareillage_estimee : heure_appareillage_prevue,
     });
 
     await Demande.create({
@@ -151,6 +138,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
             serviceAssistance: serviceAssistance._id,
             date_commande: escaleCreate.date_accostage_prevue,
             heure_commande: escaleCreate.heure_accostage_prevue,
+            escale: escaleCreate._id,
             etat: commandeEtat._id
         })
         await Prestation.create({
@@ -160,6 +148,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
             date_commande: escaleCreate.date_appareillage_prevue,
             heure_commande: escaleCreate.heure_appareillage_prevue,
             etat: commandeEtat._id,
+            escale: escaleCreate._id,
             type_prestation: 'Sortie',
         })
     }
@@ -185,6 +174,7 @@ exports.getEscales = AsyncHandler(async (req, res) => {
         .populate('etat')
         .populate('zone')
         .populate('quai')
+        .populate('agence')
         .populate({ path: 'user',
             populate: [
                 { path: 'agence', model: 'Agence' },

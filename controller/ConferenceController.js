@@ -7,6 +7,7 @@ const Quai = require('../model/Quai');
 const Prestation = require('../model/Prestation');
 const Conference = require('../model/Conference');
 const Demande = require("../model/Demande");
+const axios = require("axios");
 
 
 exports.startConference = AsyncHandler(async (req, res) => {
@@ -56,6 +57,9 @@ exports.closeConference = AsyncHandler(async (req, res) => {
     }, {
         new: true,
     })
+
+
+
     res.status(200).json({
         status: "success",
         message: "La conférence a été clôturée avec succès",

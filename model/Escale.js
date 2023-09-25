@@ -19,14 +19,12 @@ const escaleSchema = new mongoose.Schema({
     },
     date_appareillage_estimee: {
         type: Date,
-
     },
     heure_accostage_estimee: {
         type: String,
     },
     heure_appareillage_estimee: {
         type: String,
-
     },
     agence: {
         type: mongoose.Schema.Types.ObjectId,

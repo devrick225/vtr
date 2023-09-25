@@ -45,6 +45,13 @@ const prestationSchema = new mongoose.Schema({
         enum: ['Entrée', 'Sortie'],
         default: 'Entrée'
     },
+    signature: {
+        type: Buffer,
+    },
+    escale: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Escale"
+    },
     okConsignataire: {
         type: Boolean,
         default: false,

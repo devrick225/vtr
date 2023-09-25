@@ -50,9 +50,12 @@ exports.getPrestations = AsyncHandler(async (req, res) => {
 exports.confirmPrestation = AsyncHandler(async (req, res) => {
     const userAuth = req.userAuth;
 
+    let updatePrestation = null
     const userGroup = await UserGroup.findById(req.userAuth.userGroup)
+    const etatTerminee = await Etat.findOne().where('code').equals('TERMINEE');
+
     if(userGroup.code === 'CONSIGNATAIRE') {
-       await Prestation.findByIdAndUpdate(req.params.id, {
+        updatePrestation = await Prestation.findByIdAndUpdate(req.params.id, {
             okConsignataire : true,
             consignataire: userAuth._id
 
@@ -61,9 +64,21 @@ exports.confirmPrestation = AsyncHandler(async (req, res) => {
         })
     }
     if(userGroup.code === 'CAPITAINERIE') {
-        await Prestation.findByIdAndUpdate(req.params.id, {
+        updatePrestation = await Prestation.findByIdAndUpdate(req.params.id, {
             okCapitainerie : true,
             capitaine: userAuth._id
+        }, {
+            new: true,
+        })
+    }
+    if(userGroup.code === 'COMMANDANT') {
+        const {signature}= req.body
+        const binaryData = Buffer.from(signature, 'base64');
+        updatePrestation = await Prestation.findByIdAndUpdate(req.params.id, {
+            etat: etatTerminee._id,
+            signature: binaryData,
+            okCommandant : true,
+            commandant: userAuth._id
         }, {
             new: true,
         })
@@ -71,6 +86,7 @@ exports.confirmPrestation = AsyncHandler(async (req, res) => {
 
     res.status(200).json({
         status: "Success",
+        data: updatePrestation,
         message: `La prestation a été confirmé par : ${userGroup.libelle} - ${userAuth.lastname} ${userAuth.firstname}`,
     })
 
@@ -102,16 +118,20 @@ exports.choosePrestataire = AsyncHandler(async (req, res) => {
 
 
 exports.runPrestation = AsyncHandler(async (req, res) => {
-    const {user} = req.body;
+    const {date, heure} = req.body;
+    const etatEnCours = await Etat.findOne().where('code').equals('EN_COURS');
+    console.log(etatEnCours)
     const updatePrestation = await Prestation.findByIdAndUpdate(req.params.id, {
-        user
+        etat: etatEnCours._id,
+        date_debut_prestation: date,
+        heure_debut_prestation: heure,
     }, {
         new: true,
     })
 
     res.status(200).json({
         status: "Success",
-        message: `La ressource a bien été défini pour la prestation`,
+        message: `La prestation a bien été démarré`,
         data: updatePrestation
     })
 
@@ -120,16 +140,22 @@ exports.runPrestation = AsyncHandler(async (req, res) => {
 });
 
 exports.closePrestation= AsyncHandler(async (req, res) => {
-    const {user} = req.body;
+    const {date, heure} = req.body;
+    const etatAttente = await Etat.findOne().where('code').equals('EN_ATTENTE');
     const updatePrestation = await Prestation.findByIdAndUpdate(req.params.id, {
-        user
+        date_fin_prestation: date,
+        heure_fin_prestation: heure,
+        date_realisation: date,
+        heure_realisation: heure,
+        etat: etatAttente._id,
+        okPrestataire: true
     }, {
         new: true,
     })
 
     res.status(200).json({
         status: "Success",
-        message: `La ressource a bien été défini pour la prestation`,
+        message: `La prestation a bien été clôturé`,
         data: updatePrestation
     })
 
