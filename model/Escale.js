@@ -26,6 +26,10 @@ const escaleSchema = new mongoose.Schema({
     heure_appareillage_estimee: {
         type: String,
     },
+
+    is_commerciale: {
+        type: Boolean,
+    },
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"
