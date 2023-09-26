@@ -1,49 +1,55 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const dossierEscaleSchema = new mongoose.Schema({
-    date_arrivee_rade: {
-        type: Date,
-    },
-    heure_arrivee_rade: {
-        type: String,
-
-    },
-    date_mouillage: {
-        type: Date,
-    },
-    heure_mouillage: {
-        type: String,
-    },
-    destination: {
-        type: String,
-    },
-    provenance: {
-        type: String,
-    },
-    motif_attente: {
-        type: String,
-    },
-    numero_atp: {
-        type: String,
-
-    },
-    tirant_deau_arr: {
-        type: String,
-    },
-    tirant_eau_:{
-
-    },
-    numero_escale: { // Numéro PGOP
-
-    },
     escale: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Escale"
+        ref: 'Escale', // Reference to the Escale model
     },
+    date_accostage_estimee: Date,
+    heure_accostage_estimee: String,
+    agence: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Agence', // Reference to the Escale model
+    },
+    pol: String,
+    atp: String,
+    numero_escale: String,
+    date_appareillage_estimee: Date,
+    heure_appareillage_estimee: String,
+    pod: String,
+    tel: String,
+    etat: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Etat', // Reference to the Etat model (assuming you have an Etat model)
+    },
+    date_arrivee_rade: Date,
+    heure_arrivee_rade: String,
+    date_arrivee_mouillage: Date,
+    heure_arrivee_mouillage: String,
+    motif_attente: String,
+    sejour_rade: String,
+    date_accostage: Date,
+    heure_accostage: String,
+    entree_tirant_eau_arr: String,
+    entree_tirant_eau_av: String,
+    date_accostage_prevue: Date,
+    heure_accostage_prevue: String,
+    cause_retard: String,
+    sejour_prevu: String,
+    date_depart_rade: Date,
+    heure_depart_rade: String,
+    date_depart_mouillage: Date,
+    heure_depart_mouillage: String,
+    date_appareillage: Date,
+    heure_appareillage: String,
+    sortie_tirant_eau_arr: String,
+    sortie_tirant_eau_av: String,
+    date_appareillage_prevue: Date,
+    heure_appareillage_prevue: String,
+    sejour_effectif: String,
+    sejour_duree: String,
+});
 
-}, {
-    timestamps: true
-})
+const DossierEscale = mongoose.model('DossierEscale', dossierEscaleSchema);
 
-const DossierEscaleSchema = mongoose.model("DossierEscale", dossierEscaleSchema);
-
-module.exports = DossierEscaleSchema;
+module.exports = DossierEscale;

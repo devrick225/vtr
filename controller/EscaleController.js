@@ -20,6 +20,7 @@ const Demande = require("../model/Demande");
 const Agence = require("../model/Agence");
 const Acconier = require("../model/Acconier");
 const Notification = require("../model/Notification");
+const DossierEscale = require("../model/DossierEscale");
 
 
 exports.createEscale = AsyncHandler(async (req, res) => {
@@ -63,18 +64,54 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         heure_accostage_prevue,
         heure_appareillage_prevue,
         is_commerciale,
-        date_accostage_estimee : date_accostage_prevue,
+        date_accostage_estimee: date_accostage_prevue,
         date_appareillage_estimee: date_appareillage_prevue,
-        heure_accostage_estimee : heure_accostage_prevue,
-        heure_appareillage_estimee : heure_appareillage_prevue,
+        heure_accostage_estimee: heure_accostage_prevue,
+        heure_appareillage_estimee: heure_appareillage_prevue,
     });
+
+    await DossierEscale.create({
+        escale:escaleCreate._id,
+        date_accostage_estimee:date_accostage_prevue,
+        heure_accostage_estimee: heure_accostage_prevue,
+        agence: agence,
+        pol: 'n/a', atp: 'n/a', numero_escale:'n/a',
+        date_appareillage_estimee:date_appareillage_prevue,
+        heure_appareillage_estimee: heure_appareillage_prevue,
+        pod:'n/a',
+        tel: '/a',
+        etat: prevueEtat._id,
+        date_arrivee_rade: '',
+        heure_arrivee_rade: '',
+        date_arrivee_mouillage: '',
+        heure_arrivee_mouillage: '',
+        motif_attente:'', sejour_rade:'', date_accostage:'',
+        heure_accostage:'', entree_tirant_eau_arr:'',
+        entree_tirant_eau_av:'',
+        date_accostage_prevue:'',
+        heure_accostage_prevue:'',
+        cause_retard:'',
+        sejour_prevu:'',
+        date_depart_rade:'',
+        heure_depart_rade:'',
+        date_depart_mouillage:'',
+        heure_depart_mouillage:'',
+        date_appareillage:'',
+        heure_appareillage:'',
+        sortie_tirant_eau_arr:'',
+        sortie_tirant_eau_av:'',
+        date_appareillage_prevue:'',
+        heure_appareillage_prevue:'',
+        sejour_effectif:'',
+        sejour_duree:''
+    })
 
     await Demande.create({
         user: req.userAuth._id,
         incoming: true,
         escale: escaleCreate._id,
         etat: waitingEtat._id,
-        date:date_accostage_prevue,
+        date: date_accostage_prevue,
         heure: heure_accostage_prevue,
     });
 
@@ -83,7 +120,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         incoming: false,
         escale: escaleCreate._id,
         etat: waitingEtat._id,
-        date:date_appareillage_prevue,
+        date: date_appareillage_prevue,
         heure: heure_appareillage_prevue,
     });
 
@@ -93,7 +130,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
         if (typeOperationExist && marchandiseExist && conditionnementExist) {
 
-             await Operation.create({
+            await Operation.create({
                 escale: escaleCreate._id,
                 typeOperation: typeOperationExist._id,
                 marchandise: marchandiseExist._id,
@@ -159,7 +196,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     const users = await User.find().where('fonction').equals('Capitaine');
     const message = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname}a crée une escale pour le navire ${navireExist.nom}`
     for (const receiver of users) {
-        const notification = new Notification({ sender: req.userAuth._id, receivers: [receiver], message});
+        const notification = new Notification({sender: req.userAuth._id, receivers: [receiver], message});
         await notification.save();
     }
     res.status(201).json({
@@ -177,10 +214,12 @@ exports.getEscales = AsyncHandler(async (req, res) => {
         .populate('zone')
         .populate('quai')
         .populate('agence')
-        .populate({ path: 'user',
+        .populate({
+            path: 'user',
             populate: [
-                { path: 'agence', model: 'Agence' },
-            ],}).populate('acconier');
+                {path: 'agence', model: 'Agence'},
+            ],
+        }).populate('acconier');
     res.status(200).json({
         status: "Success",
         message: "La liste des escales a été récupérée avec succès",
@@ -203,14 +242,16 @@ exports.getEscaleOperations = AsyncHandler(async (req, res) => {
         .populate('marchandise')
         .populate('typeOperation')
         .populate('conditionnement')
-        .populate({ path: 'mouvements',
+        .populate({
+            path: 'mouvements',
             populate: [
-                { path: 'etat', model: 'Etat' },
-                { path: 'zone', model: 'Zone' },
-                { path: 'typeMouvement', model: 'TypeMouvement' },
-                { path: 'positionNavire', model: 'PositionNavire' },
-                { path: 'quai', model: 'Quai' },
-            ],});
+                {path: 'etat', model: 'Etat'},
+                {path: 'zone', model: 'Zone'},
+                {path: 'typeMouvement', model: 'TypeMouvement'},
+                {path: 'positionNavire', model: 'PositionNavire'},
+                {path: 'quai', model: 'Quai'},
+            ],
+        });
 
 
     res.status(200).json({
@@ -223,14 +264,7 @@ exports.getEscaleOperations = AsyncHandler(async (req, res) => {
 
 exports.getEscalePrestations = AsyncHandler(async (req, res) => {
 
-    const operations = await Operation.find().where('escale').equals(req.params.id);
-
-    let mouvementIds = []
-    for (operation of operations) {
-        mouvementIds.push(operation.mouvements)
-    }
-
-    const prestations = await Prestation.find({ mouvement: { $in: mouvementIds } }).populate('user').populate('mouvement').populate('serviceAssistance').populate('etat');
+    const prestations = await Prestation.find().where('escale').equals(req.params.id).populate('user').populate('mouvement').populate('serviceAssistance').populate('etat');
 
     res.status(200).json({
         status: "Success",
@@ -247,7 +281,7 @@ exports.getEscaleMouvements = AsyncHandler(async (req, res) => {
         mouvementIds.push(operation.mouvements)
     }
 
-    const mouvements = await Mouvement.find({ _id: { $in: mouvementIds } }).populate('typeMouvement').populate('quai');
+    const mouvements = await Mouvement.find({_id: {$in: mouvementIds}}).populate('typeMouvement').populate('quai');
 
     res.status(200).json({
         status: "Success",
@@ -258,5 +292,42 @@ exports.getEscaleMouvements = AsyncHandler(async (req, res) => {
 });
 
 exports.scheduleArrivalEscale = AsyncHandler(async (req, res) => {
+
+});
+
+
+exports.getDossierEscale = AsyncHandler(async (req, res) => {
+
+    const escale = await Escale.findById(req.params.id);
+
+    if (!escale) {
+        throw new Error(`L'escale n'existe pas`);
+    }
+
+    const dossierEscale = await DossierEscale.findOne().where('escale').equals(escale._id).populate('escale').populate('etat').populate('agence');
+    return res.status(200).json({
+        status: "Success",
+        message: "Le dossier de l'escale a été récupérée avec succès",
+        data: dossierEscale
+    })
+
+
+});
+
+
+exports.updateDossierEscale = AsyncHandler(async (req, res) => {
+
+    const dossierEscale = await DossierEscale.findOne().where('escale').equals(req.params.id);
+
+    const dossierEscaleUpdate = await DossierEscale.findByIdAndUpdate(dossierEscale._id, req.body, {
+        new: true,
+    })
+
+   return res.status(200).json({
+        status: "Success",
+        message: "Le dossier de l'escale a été modifié avec succès",
+        data: dossierEscaleUpdate
+    })
+
 
 });

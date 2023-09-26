@@ -71,6 +71,12 @@ exports.login = AsyncHandler(async (req, res) => {
 
 
 exports.me = AsyncHandler(async (req, res) => {
+
+    /* envoiMail(req.userAuth.email, 'Test', 'mailBienvenue', {
+        nomUtilisateur: req.userAuth.lastname,
+        prenomUtilisateur: req.userAuth.firstname,
+        lienAccesApplicationVTR: 'test'
+    }) */
     return res.status(200).json({
         status: "Success",
         message: "le profile de l'utilisateur a été récupéré avec succès",
