@@ -201,9 +201,9 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     const messageDemandeEntree = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande d'entrée (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_accostage_prevue} à ${heure_accostage_prevue}. `
     const messageDemandeSortie = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande de sortie (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_appareillage_prevue} à ${heure_appareillage_prevue}. `
     for (const receiver of users) {
-        const notificationEscale = new Notification({sender: req.userAuth._id, receivers: [receiver], messageEscale});
-        const notificationDemandeEntree = new Notification({sender: req.userAuth._id, receivers: [receiver], messageDemandeEntree});
-        const notificationDemandeSortie = new Notification({sender: req.userAuth._id, receivers: [receiver], messageDemandeSortie});
+        const notificationEscale = new Notification({sender: req.userAuth._id, receivers: [receiver], message:messageEscale});
+        const notificationDemandeEntree = new Notification({sender: req.userAuth._id, receivers: [receiver], message:messageDemandeEntree});
+        const notificationDemandeSortie = new Notification({sender: req.userAuth._id, receivers: [receiver], message:messageDemandeSortie});
         await notificationEscale.save();
         await notificationDemandeEntree.save();
         await notificationDemandeSortie.save();
