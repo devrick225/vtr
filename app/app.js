@@ -27,6 +27,7 @@ const agenceRouter = require("../routes/admin/AgenceRouter");
 const prestationRouter = require("../routes/prestationsRouter");
 const conferenceRouter = require("../routes/conferenceRouter");
 const userRouter = require("../routes/UserRouter");
+const notificationRouter = require("../routes/NotificationRouter");
 
 
 
@@ -68,6 +69,7 @@ app.use("/api/v1/position-navires", positionNavireRouter)
 app.use("/api/v1/escales", escaleRouter)
 app.use("/api/v1/demandes", demandeRouter)
 app.use("/api/v1/bollards", bollardRouter)
+app.use("/api/v1/notifications", notificationRouter)
 
 //Error Middlewares
 app.use(globalErrHandler);

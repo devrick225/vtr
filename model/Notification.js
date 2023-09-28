@@ -8,4 +8,10 @@ const notificationSchema = new mongoose.Schema({
     isRead: { type: Boolean, default: false },
 });
 
+notificationSchema.methods.markAsRead = async function (userId) {
+    if (!this.isRead && this.receivers.includes(userId)) {
+        this.isRead = true;
+        await this.save();
+    }
+};
 module.exports = mongoose.model('Notification', notificationSchema);

@@ -123,52 +123,55 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         date: date_appareillage_prevue,
         heure: heure_appareillage_prevue,
     });
+    if(is_commerciale) {
+        for (const operation of operations) {
+            const typeOperationExist = await TypeOperation.findById(operation.typeOperation);
+            const marchandiseExist = await Marchandise.findById(operation.marchandise);
+            const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
+            if (typeOperationExist && marchandiseExist && conditionnementExist) {
 
-    for (const operation of operations) {
-        const typeOperationExist = await TypeOperation.findById(operation.typeOperation);
-        const marchandiseExist = await Marchandise.findById(operation.marchandise);
-        const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
-        if (typeOperationExist && marchandiseExist && conditionnementExist) {
+                await Operation.create({
+                    escale: escaleCreate._id,
+                    typeOperation: typeOperationExist._id,
+                    marchandise: marchandiseExist._id,
+                    conditionnement: conditionnementExist._id,
+                    nombre_prevu: operation.nombre_prevu,
+                    tonnage_prevu: operation.tonnage_prevu
+                })
+                /* if (operationCreate) {
+                    for (const mouvement of operation.mouvements) {
+                        const typeMouvementExist = await TypeMouvement.findById(mouvement.typeMouvement);
+                        const positionNavireExist = await PositionNavire.findById(mouvement.positionNavire);
+                        const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
+                        const quaiMouvementExist = await Quai.findById(mouvement.quai);
+                        if (typeMouvementExist && positionNavireExist && berthZoneExist && quaiMouvementExist) {
+                            const createMouvement = await Mouvement.create({
+                                operation: operationCreate._id,
+                                typeMouvement: typeMouvementExist._id,
+                                positionNavire: positionNavireExist._id,
+                                zone: berthZoneExist._id,
+                                etat: prevueEtat._id,
+                                quai: quaiMouvementExist._id,
+                                date_accostage_prevue: mouvement.date_accostage_prevue,
+                                date_appareillage_prevue: mouvement.date_appareillage_prevue,
+                                heure_accostage_prevue: mouvement.heure_accostage_prevue,
+                                heure_appareillage_prevue: mouvement.heure_appareillage_prevue,
+                                nombre_remorque_demande: mouvement.nombre_remorque_demande
+                            });
 
-            await Operation.create({
-                escale: escaleCreate._id,
-                typeOperation: typeOperationExist._id,
-                marchandise: marchandiseExist._id,
-                conditionnement: conditionnementExist._id,
-                nombre_prevu: operation.nombre_prevu,
-                tonnage_prevu: operation.tonnage_prevu
-            })
-            /* if (operationCreate) {
-                for (const mouvement of operation.mouvements) {
-                    const typeMouvementExist = await TypeMouvement.findById(mouvement.typeMouvement);
-                    const positionNavireExist = await PositionNavire.findById(mouvement.positionNavire);
-                    const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
-                    const quaiMouvementExist = await Quai.findById(mouvement.quai);
-                    if (typeMouvementExist && positionNavireExist && berthZoneExist && quaiMouvementExist) {
-                        const createMouvement = await Mouvement.create({
-                            operation: operationCreate._id,
-                            typeMouvement: typeMouvementExist._id,
-                            positionNavire: positionNavireExist._id,
-                            zone: berthZoneExist._id,
-                            etat: prevueEtat._id,
-                            quai: quaiMouvementExist._id,
-                            date_accostage_prevue: mouvement.date_accostage_prevue,
-                            date_appareillage_prevue: mouvement.date_appareillage_prevue,
-                            heure_accostage_prevue: mouvement.heure_accostage_prevue,
-                            heure_appareillage_prevue: mouvement.heure_appareillage_prevue,
-                            nombre_remorque_demande: mouvement.nombre_remorque_demande
-                        });
-
-                        await Operation.findByIdAndUpdate(
-                            operationCreate._id,
-                            { $push: { mouvements: createMouvement._id } },
-                            { new: true, useFindAndModify: false }
-                        );
+                            await Operation.findByIdAndUpdate(
+                                operationCreate._id,
+                                { $push: { mouvements: createMouvement._id } },
+                                { new: true, useFindAndModify: false }
+                            );
+                        }
                     }
-                }
-            } */
+                } */
+            }
         }
     }
+
+
 
     for (const serviceAssistance of serviceAssistances) {
         await Prestation.create({
@@ -194,11 +197,19 @@ exports.createEscale = AsyncHandler(async (req, res) => {
 
 
     const users = await User.find().where('fonction').equals('Capitaine');
-    const message = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname}a crée une escale pour le navire ${navireExist.nom}`
+    const messageEscale = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a annoncé une escale (ID Escale : ${escaleCreate._id}) pour le navire ${navireExist.nom} dont l' ETA est le ${date_accostage_prevue} à ${heure_accostage_prevue} le quai sollicité est le quai : ${quaiExist.code}. `
+    const messageDemandeEntree = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande d'entrée (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_accostage_prevue} à ${heure_accostage_prevue}. `
+    const messageDemandeSortie = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande de sortie (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_appareillage_prevue} à ${heure_appareillage_prevue}. `
     for (const receiver of users) {
-        const notification = new Notification({sender: req.userAuth._id, receivers: [receiver], message});
-        await notification.save();
+        const notificationEscale = new Notification({sender: req.userAuth._id, receivers: [receiver], messageEscale});
+        const notificationDemandeEntree = new Notification({sender: req.userAuth._id, receivers: [receiver], messageDemandeEntree});
+        const notificationDemandeSortie = new Notification({sender: req.userAuth._id, receivers: [receiver], messageDemandeSortie});
+        await notificationEscale.save();
+        await notificationDemandeEntree.save();
+        await notificationDemandeSortie.save();
     }
+
+
     res.status(201).json({
         status: "Success",
         message: "L'escale a été crée avec succès",

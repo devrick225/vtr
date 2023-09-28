@@ -2,11 +2,12 @@ const AsyncHandler = require('express-async-handler');
 
 const User = require('../model/User');
 const UserGroup = require('../model/UserGroup');
+const Agence = require('../model/Agence');
 const {hashPassword, isPasswordMatched} = require("../utils/helpers");
 const generateToken = require("../utils/generateToken");
 
 exports.register = AsyncHandler(async (req, res) => {
-    const {username, firstname, lastname, email, password, contact, fonction,userGroup} = req.body;
+    const {username, firstname, lastname, email, password, contact, fonction,userGroup, agence} = req.body;
     const existUsername = await User.findOne({username});
     if (existUsername) {
         throw new Error(`L'utilisateur avec le nom d'utilsateur ${username} existe déjà`);
@@ -21,6 +22,10 @@ exports.register = AsyncHandler(async (req, res) => {
         throw new Error(`Le groupe d'utilisateur n'existe pas`);
     }
 
+    const existAgence =  await Agence.findById(agence);
+    if(!existAgence) {
+        throw new Error(`L'agence n'existe pas`);
+    }
 
     const user = await User.create({
         username,
@@ -29,6 +34,7 @@ exports.register = AsyncHandler(async (req, res) => {
         email,
         contact,
         fonction,
+        agence,
         password: await hashPassword(password),
         userGroup,
     });

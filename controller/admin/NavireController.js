@@ -64,7 +64,7 @@ exports.getNavire = AsyncHandler(async (req, res) => {
 
 
 exports.getNaviresByImoOrMmsi = AsyncHandler(async (req, res) => {
-    const { valeur } = req.body;
+    const { valeur } = req.query;
 
     if (!valeur) {
         return res.status(400).json({ message: 'Le champ de recherche est requis' });
@@ -72,11 +72,12 @@ exports.getNaviresByImoOrMmsi = AsyncHandler(async (req, res) => {
     // Créer un objet de filtre pour rechercher les navires en fonction du champ
     const filter = {
         $or: [
-            { nom: { $regex: champ, $options: 'i' } }, // Recherche insensible à la casse dans le nom
-            { imo: champ },
-            { mmsi: champ },
+            { nom: { $regex: valeur, $options: 'i' } }, // Recherche insensible à la casse dans le nom
+            { imo: valeur },
+            { mmsi: valeur },
         ],
     };
+
 
     // Rechercher la liste des navires en fonction du filtre
     const navires = await Navire.find(filter);
