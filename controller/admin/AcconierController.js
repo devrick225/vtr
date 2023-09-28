@@ -23,6 +23,7 @@ exports.createAcconier = AsyncHandler(async (req, res) => {
 
 exports.getAcconiers = AsyncHandler(async (req, res) => {
     const acconiers = await Acconier.find();
+
     res.status(200).json({
         status: "success",
         message: "La liste des états ont été récupéré avec succès",

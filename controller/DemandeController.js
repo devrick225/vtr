@@ -67,6 +67,7 @@ exports.validateDemande= AsyncHandler(async (req, res) => {
             new: true,
         }
     );
+    console.log(demandeChanged)
     res.status(200).json({
         status: "success",
         message: "La demande a été validée avec succès",

@@ -7,7 +7,7 @@ const agenceSchema = new mongoose.Schema({
     code: {
         type: String,
     },
-    code_pgog: {
+    code_pgop: {
         type: String,
     }
 

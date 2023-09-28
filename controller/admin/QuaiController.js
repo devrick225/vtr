@@ -22,6 +22,7 @@ exports.createQuai = AsyncHandler(async (req, res) => {
 
 exports.getQuais = AsyncHandler(async (req, res) => {
     const quais = await Quai.find();
+
     res.status(200).json({
         status: "success",
         message: "La liste des quais ont été récupéré avec succès",

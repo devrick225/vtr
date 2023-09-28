@@ -23,6 +23,7 @@ exports.createAgence = AsyncHandler(async (req, res) => {
 
 exports.getAgences = AsyncHandler(async (req, res) => {
     const agences = await Agence.find();
+
     res.status(200).json({
         status: "success",
         message: "La liste des états ont été récupéré avec succès",

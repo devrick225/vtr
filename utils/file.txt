@@ -1,0 +1,316 @@
+ const listQuais = [
+        {
+            "CODE": "Q11",
+            "LIBELLE": "Q11",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4192,
+            "LATITUDE": 6.3463,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q11"
+        },
+        {
+            "CODE": "Q8",
+            "LIBELLE": "Q8",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4194,
+            "LATITUDE": 6.3476,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q8"
+        },
+        {
+            "CODE": "Q7",
+            "LIBELLE": "Q7",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4196,
+            "LATITUDE": 6.3478,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q7"
+        },
+        {
+            "CODE": "Q6",
+            "LIBELLE": "Q6",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4207,
+            "LATITUDE": 6.3478,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q6"
+        },
+        {
+            "CODE": "Q10",
+            "LIBELLE": "Q10",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4212,
+            "LATITUDE": 6.3454,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "QSE"
+        },
+        {
+            "CODE": "Q5",
+            "LIBELLE": "Q5",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4231,
+            "LATITUDE": 6.348,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q5"
+        },
+        {
+            "CODE": "Q9",
+            "LIBELLE": "Q9",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4241,
+            "LATITUDE": 6.3455,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "QSO"
+        },
+        {
+            "CODE": "QO",
+            "LIBELLE": "Q ORYX",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4261,
+            "LATITUDE": 6.3458,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "ORY"
+        },
+        {
+            "CODE": "Q4",
+            "LIBELLE": "Q4",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4263,
+            "LATITUDE": 6.3481,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q4"
+        },
+        {
+            "CODE": "Q3",
+            "LIBELLE": "Q3",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4287,
+            "LATITUDE": 6.3485,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q3"
+        },
+        {
+            "CODE": "Q2",
+            "LIBELLE": "Q2",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4296,
+            "LATITUDE": 6.3485,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q2"
+        },
+        {
+            "CODE": "Q1",
+            "LIBELLE": "Q1",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4316,
+            "LATITUDE": 6.3488,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "Q1"
+        },
+        {
+            "CODE": "P2",
+            "LIBELLE": "P2",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.432,
+            "LATITUDE": 6.3455,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "P2"
+        },
+        {
+            "CODE": "QC",
+            "LIBELLE": "QC",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4328,
+            "LATITUDE": 6.3477,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "QC"
+        },
+        {
+            "CODE": "QB",
+            "LIBELLE": "QB",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4336,
+            "LATITUDE": 6.3491,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "QB"
+        },
+        {
+            "CODE": "RIN",
+            "LIBELLE": "RADE INT",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4593,
+            "LATITUDE": 6.335,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "RIN"
+        },
+        {
+            "CODE": "REX",
+            "LIBELLE": "RADE EXT",
+            "T_EAU": "",
+            "LONGUEUR": 0,
+            "LONGITUDE": 2.4596,
+            "LATITUDE": 6.3352,
+            "LEPORT": "BJCOO",
+            "CODE_PGOP": "REX"
+        }
+    ]
+
+    try {
+        for (const quaiData of listQuais) {
+            const quai = new Quai({
+                code: quaiData.CODE,
+                libelle: quaiData.LIBELLE,
+                code_pgop: quaiData.CODE_PGOP,
+                latitude: quaiData.LATITUDE,
+                longitude: quaiData.LONGITUDE,
+            });
+            await quai.save();
+        }
+    } catch (error) {
+        console.error('Error creating quais:', error);
+    } finally {
+    }
+
+const marchandiseList = [
+        {
+            "CODE": "AUTRES",
+            "LIBELLE": "AUTRES MARCHANDISES"
+        },
+        {
+            "CODE": "BLE",
+            "LIBELLE": "BLE"
+        },
+        {
+            "CODE": "BOIS",
+            "LIBELLE": "BOIS"
+        },
+        {
+            "CODE": "CACAO",
+            "LIBELLE": "CACAO"
+        },
+        {
+            "CODE": "CAFE",
+            "LIBELLE": "CAFE"
+        },
+        {
+            "CODE": "CAJOU",
+            "LIBELLE": "CAJOU"
+        },
+        {
+            "CODE": "CALCA",
+            "LIBELLE": "CALCAIRE (LIMESTONE)"
+        },
+        {
+            "CODE": "CAOUT",
+            "LIBELLE": "CAOUTCHOUC"
+        },
+        {
+            "CODE": "CHARBON",
+            "LIBELLE": "CHARBON"
+        },
+        {
+            "CODE": "CIMENT",
+            "LIBELLE": "CIMENT"
+        },
+        {
+            "CODE": "CLINKER",
+            "LIBELLE": "CLINKER"
+        },
+        {
+            "CODE": "COTON",
+            "LIBELLE": "COTON"
+        },
+        {
+            "CODE": "ENGRA",
+            "LIBELLE": "ENGRAIS"
+        },
+        {
+            "CODE": "FER",
+            "LIBELLE": "FER"
+        },
+        {
+            "CODE": "GYPSE",
+            "LIBELLE": "GYPSE"
+        },
+        {
+            "CODE": "HUILE",
+            "LIBELLE": "HUILE DE PALME"
+        },
+        {
+            "CODE": "KARI",
+            "LIBELLE": "KARITE"
+        },
+        {
+            "CODE": "LAITIER",
+            "LIBELLE": "LAITIER"
+        },
+        {
+            "CODE": "PETROL",
+            "LIBELLE": "PETROLIERS"
+        },
+        {
+            "CODE": "POISCON",
+            "LIBELLE": "POISSONS CONGELES"
+        },
+        {
+            "CODE": "PROAL",
+            "LIBELLE": "PRODUIT ALIMENTAIRE"
+        },
+        {
+            "CODE": "PROMI",
+            "LIBELLE": "PRODUITS MINERALIERS"
+        },
+        {
+            "CODE": "RIZ",
+            "LIBELLE": "RIZ"
+        },
+        {
+            "CODE": "SONBLE",
+            "LIBELLE": "SON DE BLE"
+        },
+        {
+            "CODE": "SOUFRE",
+            "LIBELLE": "SOUFRE"
+        },
+        {
+            "CODE": "TCSTRANS",
+            "LIBELLE": "CONTENEURS TRANSBO"
+        },
+        {
+            "CODE": "TCVIDE",
+            "LIBELLE": "CONTENEURS VIDES"
+        },
+        {
+            "CODE": "VEH",
+            "LIBELLE": "VEHICULES"
+        }
+    ]
+
+    try {
+        for (const mar of marchandiseList) {
+            const quai = new Marchandise({
+                code: mar.CODE,
+                libelle: mar.LIBELLE,
+            });
+            await quai.save();
+        }
+    } catch (error) {
+        console.error('Error creating quais:', error);
+    } finally {
+    }
