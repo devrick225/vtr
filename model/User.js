@@ -39,6 +39,9 @@ const userSchema = new mongoose.Schema({
     code_pgop: {
         type: String,
     },
+    signature: {
+        type: Buffer,
+    },
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"

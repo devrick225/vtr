@@ -5,6 +5,8 @@ const UserGroup = require('../model/UserGroup');
 const Agence = require('../model/Agence');
 const {hashPassword, isPasswordMatched} = require("../utils/helpers");
 const generateToken = require("../utils/generateToken");
+const HistoriqueAction = require("../model/HistoriqueAction");
+const actions = require("../utils/actions");
 
 exports.register = AsyncHandler(async (req, res) => {
     const {username, firstname, lastname, email, password, contact, fonction,userGroup, agence} = req.body;
@@ -64,6 +66,7 @@ exports.login = AsyncHandler(async (req, res) => {
             message: "Mot de passe ou Email invalide"
         })
     }else {
+        await new HistoriqueAction({user: user._id, type: actions.authentification}).save();
         return res.status(200).json({
             status: "Success",
             message: "L'utilisateur a été connecté avec succès",

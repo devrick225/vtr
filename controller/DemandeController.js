@@ -7,10 +7,12 @@ const Escale = require("../model/Escale");
 
 exports.createDemande= AsyncHandler(async (req, res) => {
     const userAuth = req.userAuth;
-    const demandes = await Demande.find().where('escale').equals(req.body.escale).where('user').equals(req.userAuth._id);
-    if(userAuth.userGroup.libelle !== 'CONSIGNATAIRE') {
+    if(userAuth.userGroup.libelle !== 'CONSIGNATAIRE' ) {
         throw new Error('Seul les consignataires peuvent éffectuer une demande')
     }
+    const demandes = await Demande.find().where('escale').equals(req.body.escale).where('user').equals(req.userAuth._id);
+
+
     const {
         incoming,
         escale,
