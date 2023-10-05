@@ -7,7 +7,9 @@ const Escale = require("../model/Escale");
 
 exports.createDemande= AsyncHandler(async (req, res) => {
     const userAuth = req.userAuth;
-    if(userAuth.userGroup.libelle !== 'CONSIGNATAIRE' ) {
+    const etatEnAttente = await Etat.findOne().where('code').equals('EN_ATTENTE');
+
+    if(userAuth.userGroup.code !== 'CONSIGNATAIRE' ) {
         throw new Error('Seul les consignataires peuvent éffectuer une demande')
     }
     const demandes = await Demande.find().where('escale').equals(req.body.escale).where('user').equals(req.userAuth._id);
@@ -16,7 +18,6 @@ exports.createDemande= AsyncHandler(async (req, res) => {
     const {
         incoming,
         escale,
-        etat,
         date,
         heure,
     } = req.body;
@@ -24,7 +25,7 @@ exports.createDemande= AsyncHandler(async (req, res) => {
     const demandeCreated = await Demande.create({
         incoming,
         escale,
-        etat,
+        etat: etatEnAttente._id,
         date,
         heure,
     })
@@ -38,7 +39,7 @@ exports.createDemande= AsyncHandler(async (req, res) => {
 
 
 exports.getDemandes= AsyncHandler(async (req, res) => {
-    const demandes = await Demande.find()
+    const demandes = await Demande.find().sort('-createdAt')
         .populate({ path: 'escale',
             populate: [
                 { path: 'user', model: 'User', populate: [

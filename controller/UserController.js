@@ -1,6 +1,5 @@
 const AsyncHandler = require('express-async-handler');
 const User = require('../model/User');
-const Prestation = require("../model/Prestation");
 
 
 exports.getUsers= AsyncHandler(async (req, res) => {
@@ -11,6 +10,17 @@ exports.getUsers= AsyncHandler(async (req, res) => {
         status: "Success",
         message: "La liste des utilisateurs a été récupérée avec succès",
         data: users
+    })
+
+});
+
+
+exports.getUser= AsyncHandler(async (req, res) => {
+
+    res.status(200).json({
+        status: "Success",
+        message: "L'utilisateur' a été récupérée avec succès",
+        data: req.userAuth
     })
 
 });
