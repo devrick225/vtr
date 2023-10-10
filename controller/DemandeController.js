@@ -2,17 +2,17 @@ const AsyncHandler = require('express-async-handler');
 const Demande = require('../model/Demande');
 const Etat = require("../model/Etat");
 const Escale = require("../model/Escale");
+const User = require("../model/User");
+const Notification = require("../model/Notification");
 
 
-
-exports.createDemande= AsyncHandler(async (req, res) => {
+exports.createDemande = AsyncHandler(async (req, res) => {
     const userAuth = req.userAuth;
     const etatEnAttente = await Etat.findOne().where('code').equals('EN_ATTENTE');
 
-    if(userAuth.userGroup.code !== 'CONSIGNATAIRE' ) {
+    if (userAuth.userGroup.code !== 'CONSIGNATAIRE') {
         throw new Error('Seul les consignataires peuvent éffectuer une demande')
     }
-    const demandes = await Demande.find().where('escale').equals(req.body.escale).where('user').equals(req.userAuth._id);
 
 
     const {
@@ -22,6 +22,8 @@ exports.createDemande= AsyncHandler(async (req, res) => {
         heure,
     } = req.body;
 
+    const escaleSearch = await Demande.findById(escale).populate('navire');
+
     const demandeCreated = await Demande.create({
         incoming,
         escale,
@@ -29,6 +31,19 @@ exports.createDemande= AsyncHandler(async (req, res) => {
         date,
         heure,
     })
+    const users = await User.find().where('fonction').equals('Capitaine');
+    let message = '';
+    if (incoming) {
+        message = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande d'entrée (ID Escale : ${escaleSearch._id}) du navire ${escaleSearch.navire.nom} le ${escaleSearch.date_accostage_prevue} à ${escaleSearch.heure_accostage_prevue}. `
+
+    } else {
+        message = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande de sortie (ID Escale : ${escaleSearch._id}) du navire ${escaleSearch.navire.nom} le ${escaleSearch.date_appareillage_prevue} à ${escaleSearch.heure_appareillage_prevue}. `
+
+    }
+    for (const receiver of users) {
+        const notificationDemande = new Notification({sender: req.userAuth._id, receivers: [receiver], message});
+        await notificationDemande.save();
+    }
     res.status(201).json({
         status: "Success",
         message: "La demande a été crée avec succès",
@@ -37,18 +52,21 @@ exports.createDemande= AsyncHandler(async (req, res) => {
 });
 
 
-
-exports.getDemandes= AsyncHandler(async (req, res) => {
+exports.getDemandes = AsyncHandler(async (req, res) => {
     const demandes = await Demande.find().sort('-createdAt')
-        .populate({ path: 'escale',
+        .populate({
+            path: 'escale',
             populate: [
-                { path: 'user', model: 'User', populate: [
-                        { path: 'agence', model: 'Agence' },
-                    ], },
-                { path: 'navire', model: 'Navire' },
-                { path: 'quai', model: 'Quai' },
-                { path: 'acconier', model: 'Acconier' },
-            ],})
+                {
+                    path: 'user', model: 'User', populate: [
+                        {path: 'agence', model: 'Agence'},
+                    ],
+                },
+                {path: 'navire', model: 'Navire'},
+                {path: 'quai', model: 'Quai'},
+                {path: 'acconier', model: 'Acconier'},
+            ],
+        })
 
         .populate('etat').populate('user');
     res.status(200).json({
@@ -60,8 +78,13 @@ exports.getDemandes= AsyncHandler(async (req, res) => {
 });
 
 
-exports.validateDemande= AsyncHandler(async (req, res) => {
+exports.validateDemande = AsyncHandler(async (req, res) => {
     const etatValidate = await Etat.findOne().where('code').equals('VALIDEE');
+    const etatEntry = await Etat.findOne().where('code').equals('PROGRAMME_EN_ENTREE');
+    const etatOut = await Etat.findOne().where('code').equals('PROGRAMMER_EN_SORTIE');
+    const demande = await Demande.findById(req.params.id)
+
+
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,
         {
@@ -70,7 +93,17 @@ exports.validateDemande= AsyncHandler(async (req, res) => {
             new: true,
         }
     );
-    console.log(demandeChanged)
+    if (demande.incoming) {
+        await Escale.findByIdAndUpdate(demande.escale, {
+            etat: etatEntry._id
+        }, {new: true})
+    } else {
+        await Escale.findByIdAndUpdate(demande.escale, {
+            etat: etatOut._id
+        }, {new: true})
+
+    }
+
     res.status(200).json({
         status: "success",
         message: "La demande a été validée avec succès",
@@ -79,8 +112,27 @@ exports.validateDemande= AsyncHandler(async (req, res) => {
 });
 
 
-exports.invalidateDemande= AsyncHandler(async (req, res) => {
+exports.invalidateDemande = AsyncHandler(async (req, res) => {
     const etatReject = await Etat.findOne().where('code').equals('REJETEE');
+    const etatValidee = await Etat.findOne().where('code').equals('VALIDEE');
+    const demande = await Demande.findById(req.params.id);
+
+    if (demande.incoming) {
+        const demandeOutgoing = await Demande.findOne().where('escale').equals(demande.escale).where('incoming').equals(false)
+        if (demandeOutgoing.etat !== etatValidee._id) {
+            await Demande.findByIdAndUpdate(
+                demandeOutgoing._id,
+                {
+                    etat: etatReject._id,
+                    rejection_reason: req.body.rejection_reason
+                }, {
+                    new: true,
+                }
+            );
+        }
+
+
+    }
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,
         {
@@ -96,8 +148,26 @@ exports.invalidateDemande= AsyncHandler(async (req, res) => {
         data: demandeChanged
     })
 });
-exports.cancelDemande= AsyncHandler(async (req, res) => {
+exports.cancelDemande = AsyncHandler(async (req, res) => {
     const etatAnnulee = await Etat.findOne().where('code').equals('ANNULEE');
+    const etatValidee = await Etat.findOne().where('code').equals('VALIDEE');
+    const demande = await Demande.findById(req.params.id);
+    if (demande.incoming) {
+        const demandeOutgoing = await Demande.findOne().where('escale').equals(demande.escale).where('incoming').equals(false)
+        if (demandeOutgoing.etat !== etatValidee._id) {
+            await Demande.findByIdAndUpdate(
+                demandeOutgoing._id,
+                {
+                    etat: etatAnnulee._id,
+                    rejection_reason: req.body.rejection_reason
+                }, {
+                    new: true,
+                }
+            );
+        }
+
+
+    }
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,
         {
@@ -107,6 +177,8 @@ exports.cancelDemande= AsyncHandler(async (req, res) => {
             new: true,
         }
     );
+
+
     res.status(200).json({
         status: "success",
         message: "La demande a été annulée avec succès",
@@ -114,7 +186,7 @@ exports.cancelDemande= AsyncHandler(async (req, res) => {
     })
 });
 
-exports.updateDemande= AsyncHandler(async (req, res) => {
+exports.updateDemande = AsyncHandler(async (req, res) => {
     const demande = Demande.findById(req.params.id)
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,
@@ -125,17 +197,18 @@ exports.updateDemande= AsyncHandler(async (req, res) => {
             new: true,
         }
     );
-    if(demande.incoming) {
+    if (demande.incoming) {
         await Escale.findByIdAndUpdate(demande.escale, {
             date_accostage_prevue: req.body.date,
             heure_accostage_prevue: req.body.heure,
         }, {new: true})
-    }else {
+    } else {
         await Escale.findByIdAndUpdate(demande.escale, {
             date_appareillage_prevue: req.body.date,
             heure_appareillage_prevue: req.body.heure,
         }, {new: true})
     }
+
     res.status(200).json({
         status: "success",
         message: "La demande a été modifié avec succès",

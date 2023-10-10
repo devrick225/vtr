@@ -22,6 +22,7 @@ const demandeRouter = require("../routes/demandeRouter");
 const bollardRouter = require("../routes/admin/BollardRouter");
 const historiqueActionRouter = require("../routes/historiqueActionRouter");
 const documentRouter = require("../routes/documentRouter");
+const mouvementRouter = require("../routes/mouvementRouter");
 
 const {notFoundErr, globalErrHandler} = require("../middlewares/globalErrHandler");
 const acconierRouter = require("../routes/admin/AcconierRouter");
@@ -74,6 +75,7 @@ app.use("/api/v1/bollards", bollardRouter)
 app.use("/api/v1/notifications", notificationRouter)
 app.use("/api/v1/historique-actions", historiqueActionRouter)
 app.use("/api/v1/documents", documentRouter)
+app.use("/api/v1/mouvements", mouvementRouter)
 
 //Error Middlewares
 app.use(globalErrHandler);

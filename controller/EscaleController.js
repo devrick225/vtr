@@ -46,6 +46,8 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     const waitingEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
     const navireExist = await Navire.findById(navire);
     const agenceExist = await Agence.findById(agence);
+    const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
+
     const quaiExist = await Quai.findById(quai);
     const defautPrestataire = await Prestataire.findOne().where('code').equals('PAC');
     const commandeEtat = await Etat.findOne().where('code').equals('COMMANDEE');
@@ -74,39 +76,39 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     });
 
     await DossierEscale.create({
-        escale:escaleCreate._id,
-        date_accostage_estimee:date_accostage_prevue,
+        escale: escaleCreate._id,
+        date_accostage_estimee: date_accostage_prevue,
         heure_accostage_estimee: heure_accostage_prevue,
         agence: agence,
-        pol: 'n/a', atp: 'n/a', numero_escale:'n/a',
-        date_appareillage_estimee:date_appareillage_prevue,
+        pol: 'n/a', atp: 'n/a', numero_escale: 'n/a',
+        date_appareillage_estimee: date_appareillage_prevue,
         heure_appareillage_estimee: heure_appareillage_prevue,
-        pod:'n/a',
+        pod: 'n/a',
         tel: '/a',
         etat: prevueEtat._id,
         date_arrivee_rade: '',
         heure_arrivee_rade: '',
         date_arrivee_mouillage: '',
         heure_arrivee_mouillage: '',
-        motif_attente:'', sejour_rade:'', date_accostage:'',
-        heure_accostage:'', entree_tirant_eau_arr:'',
-        entree_tirant_eau_av:'',
-        date_accostage_prevue:'',
-        heure_accostage_prevue:'',
-        cause_retard:'',
-        sejour_prevu:'',
-        date_depart_rade:'',
-        heure_depart_rade:'',
-        date_depart_mouillage:'',
-        heure_depart_mouillage:'',
-        date_appareillage:'',
-        heure_appareillage:'',
-        sortie_tirant_eau_arr:'',
-        sortie_tirant_eau_av:'',
-        date_appareillage_prevue:'',
-        heure_appareillage_prevue:'',
-        sejour_effectif:'',
-        sejour_duree:''
+        motif_attente: '', sejour_rade: '', date_accostage: '',
+        heure_accostage: '', entree_tirant_eau_arr: '',
+        entree_tirant_eau_av: '',
+        date_accostage_prevue: '',
+        heure_accostage_prevue: '',
+        cause_retard: '',
+        sejour_prevu: '',
+        date_depart_rade: '',
+        heure_depart_rade: '',
+        date_depart_mouillage: '',
+        heure_depart_mouillage: '',
+        date_appareillage: '',
+        heure_appareillage: '',
+        sortie_tirant_eau_arr: '',
+        sortie_tirant_eau_av: '',
+        date_appareillage_prevue: '',
+        heure_appareillage_prevue: '',
+        sejour_effectif: '',
+        sejour_duree: ''
     })
 
     await Demande.create({
@@ -126,7 +128,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         date: date_appareillage_prevue,
         heure: heure_appareillage_prevue,
     });
-    if(is_commerciale) {
+    if (is_commerciale) {
         for (const operation of operations) {
             const typeOperationExist = await TypeOperation.findById(operation.typeOperation);
             const marchandiseExist = await Marchandise.findById(operation.marchandise);
@@ -174,22 +176,25 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         }
     }
 
-   /* await Mouvement.create({
+    await Mouvement.create({
         escale: escaleCreate._id,
-        mouvement_accostage: '',
-        mouvement_appareillage: '',
-        pab_accostage_date: '',
-        pab_accostage_heure: '',
-        pab_appareillage_date:'',
-        pab_appareillage_heure: '',
-        quai: escaleCreate.quai._id:,
-        etat: prevueEtat._id
+        mouvement_accostage: 'Entrée',
+        mouvement_appareillage: 'Sortie',
+        date_accostage_prevue: escaleCreate.date_accostage_estimee,
+        heure_accostage_prevue: escaleCreate.heure_accostage_estimee,
+        date_appareillage_prevue: escaleCreate.date_appareillage_estimee,
+        heure_appareillage_prevue: escaleCreate.heure_appareillage_estimee,
+        pab_accostage_date: escaleCreate.date_accostage_estimee,
+        pab_accostage_heure: escaleCreate.heure_accostage_estimee,
+        pab_appareillage_date: escaleCreate.date_appareillage_estimee,
+        pab_appareillage_heure: escaleCreate.heure_appareillage_estimee,
+        quai: escaleCreate.quai._id,
+        etat: prevueEtat._id,
+        zone: berthZoneExist._id
+    })
 
-    })*/
 
-
-
-    for(const typeDoc of typeDocuments) {
+    for (const typeDoc of typeDocuments) {
         await Document.create({
             escale: escaleCreate._id,
             typeDocument: typeDoc._id,
@@ -220,18 +225,29 @@ exports.createEscale = AsyncHandler(async (req, res) => {
 
 
     const users = await User.find().where('fonction').equals('Capitaine');
-    const messageEscale = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a annoncé une escale (ID Escale : ${escaleCreate._id}) pour le navire ${navireExist.nom} dont l' ETA est le ${date_accostage_prevue} à ${heure_accostage_prevue} le quai sollicité est le quai : ${quaiExist.code}. `
-    const messageDemandeEntree = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande d'entrée (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_accostage_prevue} à ${heure_accostage_prevue}. `
-    const messageDemandeSortie = `Le consigntaire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande de sortie (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_appareillage_prevue} à ${heure_appareillage_prevue}. `
+    const messageEscale = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a annoncé une escale (ID Escale : ${escaleCreate._id}) pour le navire ${navireExist.nom} dont l' ETA est le ${date_accostage_prevue} à ${heure_accostage_prevue} le quai sollicité est le quai : ${quaiExist.code}. `
+    const messageDemandeEntree = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande d'entrée (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_accostage_prevue} à ${heure_accostage_prevue}. `
+    const messageDemandeSortie = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande de sortie (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_appareillage_prevue} à ${heure_appareillage_prevue}. `
     for (const receiver of users) {
-        const notificationEscale = new Notification({sender: req.userAuth._id, receivers: [receiver], message:messageEscale});
-        const notificationDemandeEntree = new Notification({sender: req.userAuth._id, receivers: [receiver], message:messageDemandeEntree});
-        const notificationDemandeSortie = new Notification({sender: req.userAuth._id, receivers: [receiver], message:messageDemandeSortie});
+        const notificationEscale = new Notification({
+            sender: req.userAuth._id,
+            receivers: [receiver],
+            message: messageEscale
+        });
+        const notificationDemandeEntree = new Notification({
+            sender: req.userAuth._id,
+            receivers: [receiver],
+            message: messageDemandeEntree
+        });
+        const notificationDemandeSortie = new Notification({
+            sender: req.userAuth._id,
+            receivers: [receiver],
+            message: messageDemandeSortie
+        });
         await notificationEscale.save();
         await notificationDemandeEntree.save();
         await notificationDemandeSortie.save();
     }
-
 
     res.status(201).json({
         status: "Success",
@@ -357,7 +373,7 @@ exports.updateDossierEscale = AsyncHandler(async (req, res) => {
         new: true,
     })
 
-   return res.status(200).json({
+    return res.status(200).json({
         status: "Success",
         message: "Le dossier de l'escale a été modifié avec succès",
         data: dossierEscaleUpdate
