@@ -21,6 +21,8 @@ const Agence = require("../model/Agence");
 const Acconier = require("../model/Acconier");
 const Notification = require("../model/Notification");
 const DossierEscale = require("../model/DossierEscale");
+const TypeDocument = require("../model/TypeDocument");
+const Document = require("../model/Document");
 
 
 exports.createEscale = AsyncHandler(async (req, res) => {
@@ -49,6 +51,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     const commandeEtat = await Etat.findOne().where('code').equals('COMMANDEE');
     const userDefaultRessource = await User.findOne().where('username').equals('default');
     const serviceAssistances = await ServiceAssistance.find().where('auto_generated').equals(true);
+    const typeDocuments = await TypeDocument.find();
 
     const escaleCreate = await Escale.create({
 
@@ -171,7 +174,27 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         }
     }
 
+   /* await Mouvement.create({
+        escale: escaleCreate._id,
+        mouvement_accostage: '',
+        mouvement_appareillage: '',
+        pab_accostage_date: '',
+        pab_accostage_heure: '',
+        pab_appareillage_date:'',
+        pab_appareillage_heure: '',
+        quai: escaleCreate.quai._id:,
+        etat: prevueEtat._id
 
+    })*/
+
+
+
+    for(const typeDoc of typeDocuments) {
+        await Document.create({
+            escale: escaleCreate._id,
+            typeDocument: typeDoc._id,
+        })
+    }
 
     for (const serviceAssistance of serviceAssistances) {
         await Prestation.create({
@@ -338,6 +361,19 @@ exports.updateDossierEscale = AsyncHandler(async (req, res) => {
         status: "Success",
         message: "Le dossier de l'escale a été modifié avec succès",
         data: dossierEscaleUpdate
+    })
+
+
+});
+
+
+exports.getDocuments = AsyncHandler(async (req, res) => {
+    const escaleDocuments = await Document.find().where('escale').equals(req.params.id).populate('typeDocument').populate('etat');
+
+    return res.status(200).json({
+        status: "Success",
+        message: "Le dossier de l'escale a été récupérer avec succès",
+        data: escaleDocuments
     })
 
 

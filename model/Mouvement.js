@@ -12,6 +12,19 @@ const mouvementSchema = new mongoose.Schema({
     heure_appareillage_prevue: {
         type: String,
     },
+
+    date_accostage_effective: {
+        type: Date,
+    },
+    date_appareillage_effective: {
+        type: Date,
+    },
+    heure_accostage_effective: {
+        type: String,
+    },
+    heure_appareillage_effective: {
+        type: String,
+    },
     debordement_avant: {
         type: String,
     },
@@ -21,24 +34,21 @@ const mouvementSchema = new mongoose.Schema({
     nombre_remorque_demande: {
         type: Number,
     },
+
     leaving_reason: {
         type: String,
+    },
+    escale: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Escale"
     },
     zone: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Zone"
     },
-    typeMouvement: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "TypeMouvement"
-    },
     quai: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Quai"
-    },
-    operation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Operation"
     },
     positionNavire: {
         type: mongoose.Schema.Types.ObjectId,
@@ -47,7 +57,32 @@ const mouvementSchema = new mongoose.Schema({
     etat: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Etat"
-    }
+    },
+    mouvement_accostage: {
+        type: String,
+        enum: ['Entrée', 'Sortie', 'Mouvement'],
+    },
+    mouvement_appareillage: {
+        type: String,
+        enum: ['Entrée', 'Sortie', 'Mouvement'],
+    },
+    pab_accostage_date: {
+        type: Date,
+
+    },
+    pab_accostage_heure: {
+        type: String,
+
+    },
+    pab_appareillage_date: {
+        type: Date,
+
+    },
+    pab_appareillage_heure: {
+        type: String,
+
+    },
+
 }, {
     timestamps: true
 })
