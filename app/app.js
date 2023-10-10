@@ -29,7 +29,7 @@ const agenceRouter = require("../routes/admin/AgenceRouter");
 const prestationRouter = require("../routes/prestationsRouter");
 const conferenceRouter = require("../routes/conferenceRouter");
 const userRouter = require("../routes/UserRouter");
-const notificationRouter = require("../routes/NotificationRouter");
+const notificationRouter = require("../routes/notificationRouter");
 
 
 
