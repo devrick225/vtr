@@ -1,5 +1,6 @@
 require('dotenv').config()
-const https = require('http');
+const http = require('http');
+const https = require('https');
 const app  = require('./app/app');
 require('./config/dbConnect');
 const fs = require("fs");
@@ -16,5 +17,7 @@ const cred = {
 
 
 //server
-const server = https.createServer(cred,app);
-server.listen(PORT, console.log(`Server is running on port ${PORT}`))
+const server = http.createServer(app);
+const httpsServer = https.createServer(cred, app)
+server.listen(PORT, console.log(`Server http is running on port ${PORT}`))
+httpsServer.listen(8443, console.log(`Server https is running on port ${PORT}`))
