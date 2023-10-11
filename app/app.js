@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
+const path = require('path');
+
 const authRouter = require('../routes/authRouter');
 const userGroupRouter = require('../routes/admin/UserGroupRouter');
 const privilegeRouter = require("../routes/admin/PrivilegeRouter");
@@ -42,8 +44,11 @@ const app = express();
 //Middlewares
 app.use(express.json());
 app.use(cors());
+
+
 app.get('/.well-known/pki-validation/E48F5105B30C1718F6DE446B40C171D4.txt',( req, res) => {
-    res.sendFile('./E48F5105B30C1718F6DE446B40C171D4.txt')
+
+    res.sendFile('/home/ubuntu/vtr/app/E48F5105B30C1718F6DE446B40C171D4.txt');
 
 })
 app.use((req, res, next) => {
