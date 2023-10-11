@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const fs = require('fs');
 const authRouter = require('../routes/authRouter');
 const userGroupRouter = require('../routes/admin/UserGroupRouter');
 const privilegeRouter = require("../routes/admin/PrivilegeRouter");
@@ -37,10 +38,15 @@ const notificationRouter = require("../routes/notificationRouter");
 
 const app = express();
 
+
 //Middlewares
 app.use(express.json());
 app.use(cors());
+const file = fs.readFileSync('./E48F5105B30C1718F6DE446B40C171D4.txt');
+app.get('/.well-known/pki-validation/E48F5105B30C1718F6DE446B40C171D4.txt',( req, res) => {
+    res.sendFile('./E48F5105B30C1718F6DE446B40C171D4.txt')
 
+})
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl}`)
     next();
