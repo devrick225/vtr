@@ -42,7 +42,6 @@ const app = express();
 //Middlewares
 app.use(express.json());
 app.use(cors());
-const file = fs.readFileSync('./E48F5105B30C1718F6DE446B40C171D4.txt');
 app.get('/.well-known/pki-validation/E48F5105B30C1718F6DE446B40C171D4.txt',( req, res) => {
     res.sendFile('./E48F5105B30C1718F6DE446B40C171D4.txt')
 
