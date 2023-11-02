@@ -39,6 +39,7 @@ exports.getQuai = AsyncHandler(async (req, res) => {
     });
 });
 
+
 exports.updateQuai = AsyncHandler(async (req, res) => {
     const {code, description, longitude, latitude} = req.body;
     const createQuaiFound = await Quai.find({code});
@@ -58,7 +59,6 @@ exports.updateQuai = AsyncHandler(async (req, res) => {
         message: "Le quai a été modifié avec succès",
         data: quai
     })
-
 })
 
 exports.deleteQuai = AsyncHandler(async (req, res) => {

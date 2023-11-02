@@ -18,6 +18,8 @@ exports.getNotificationsUser= AsyncHandler(async (req, res) => {
 });
 
 
+
+
 exports.getNotificationsUserUnread= AsyncHandler(async (req, res) => {
 
     const notifications = await Notification.find({

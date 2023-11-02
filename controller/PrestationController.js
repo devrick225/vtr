@@ -120,7 +120,6 @@ exports.choosePrestataire = AsyncHandler(async (req, res) => {
 exports.runPrestation = AsyncHandler(async (req, res) => {
     const {date, heure} = req.body;
     const etatEnCours = await Etat.findOne().where('code').equals('EN_COURS');
-    console.log(etatEnCours)
     const updatePrestation = await Prestation.findByIdAndUpdate(req.params.id, {
         etat: etatEnCours._id,
         date_debut_prestation: date,

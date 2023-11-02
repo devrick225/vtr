@@ -4,6 +4,7 @@ const Etat = require("../model/Etat");
 const Escale = require("../model/Escale");
 const User = require("../model/User");
 const Notification = require("../model/Notification");
+const DossierEscale = require("../model/DossierEscale");
 
 
 exports.createDemande = AsyncHandler(async (req, res) => {
@@ -13,8 +14,6 @@ exports.createDemande = AsyncHandler(async (req, res) => {
     if (userAuth.userGroup.code !== 'CONSIGNATAIRE') {
         throw new Error('Seul les consignataires peuvent éffectuer une demande')
     }
-
-
     const {
         incoming,
         escale,
@@ -83,7 +82,7 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
     const etatEntry = await Etat.findOne().where('code').equals('PROGRAMME_EN_ENTREE');
     const etatOut = await Etat.findOne().where('code').equals('PROGRAMMER_EN_SORTIE');
     const demande = await Demande.findById(req.params.id)
-
+    const dossierEscale = await DossierEscale.findOne().where('escale').equals(demande.escale);
 
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,
@@ -97,11 +96,19 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatEntry._id
         }, {new: true})
+
+        await DossierEscale.findByIdAndUpdate(dossierEscale._id, {
+            date_accostage_prevue: demande.date,
+            heure_accostage_prevue: demande.heure
+        }, {new: true})
     } else {
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatOut._id
         }, {new: true})
-
+        await DossierEscale.findByIdAndUpdate(dossierEscale._id, {
+            date_appareillage_prevue: demande.date,
+            heure_appareillage_prevue: demande.heure
+        }, {new: true})
     }
 
     res.status(200).json({
@@ -177,7 +184,6 @@ exports.cancelDemande = AsyncHandler(async (req, res) => {
             new: true,
         }
     );
-
 
     res.status(200).json({
         status: "success",

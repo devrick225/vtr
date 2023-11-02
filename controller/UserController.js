@@ -5,7 +5,6 @@ const {hashPassword, isPasswordMatched} = require("../utils/helpers");
 
 exports.getUsers= AsyncHandler(async (req, res) => {
 
-
        const users = await User.find();
     res.status(200).json({
         status: "Success",
@@ -34,7 +33,6 @@ exports.updateSign= AsyncHandler(async (req, res) => {
     }, {
         new: true,
     })
-
 
     res.status(200).json({
         status: "Success",
