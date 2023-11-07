@@ -75,7 +75,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         heure_appareillage_estimee: heure_appareillage_prevue,
     });
 
-    await DossierEscale.create({
+    const dossierEscale = await DossierEscale.create({
         escale: escaleCreate._id,
         date_accostage_estimee: date_accostage_prevue,
         heure_accostage_estimee: heure_accostage_prevue,
@@ -248,7 +248,9 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         await notificationDemandeEntree.save();
         await notificationDemandeSortie.save();
     }
-
+    await Escale.findByIdAndUpdate(escaleCreate._id, {
+        dossierEscale: dossierEscale._id,
+    }, {new: true})
     res.status(201).json({
         status: "Success",
         message: "L'escale a été crée avec succès",
@@ -261,6 +263,7 @@ exports.getEscales = AsyncHandler(async (req, res) => {
     const escales = await Escale.find().sort('-createdAt')
         .populate('navire')
         .populate('etat')
+        .populate('dossierEscale')
         .populate('zone')
         .populate('quai')
         .populate('agence')

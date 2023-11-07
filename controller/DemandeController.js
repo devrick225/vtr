@@ -5,6 +5,7 @@ const Escale = require("../model/Escale");
 const User = require("../model/User");
 const Notification = require("../model/Notification");
 const DossierEscale = require("../model/DossierEscale");
+const Mouvement = require("../model/Mouvement");
 
 
 exports.createDemande = AsyncHandler(async (req, res) => {
@@ -83,6 +84,7 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
     const etatOut = await Etat.findOne().where('code').equals('PROGRAMMER_EN_SORTIE');
     const demande = await Demande.findById(req.params.id)
     const dossierEscale = await DossierEscale.findOne().where('escale').equals(demande.escale);
+    const mouvement = await Mouvement.findOne().where('escale').equals(demande.escale)
 
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,
@@ -101,6 +103,13 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
             date_accostage_prevue: demande.date,
             heure_accostage_prevue: demande.heure
         }, {new: true})
+
+
+        await Mouvement.findByIdAndUpdate(mouvement._id, {
+            date_accostage_prevue: demande.date,
+            heure_accostage_prevue: demande.heure,
+            etat: etatEntry._id,
+        }, {new: true})
     } else {
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatOut._id
@@ -108,6 +117,12 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
         await DossierEscale.findByIdAndUpdate(dossierEscale._id, {
             date_appareillage_prevue: demande.date,
             heure_appareillage_prevue: demande.heure
+        }, {new: true})
+
+        await Mouvement.findByIdAndUpdate(mouvement._id, {
+            date_appareillage_prevue: demande.date,
+            heure_appareillage_prevue: demande.heure,
+            etat: etatOut._id,
         }, {new: true})
     }
 

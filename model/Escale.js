@@ -63,6 +63,11 @@ const escaleSchema = new mongoose.Schema({
             ref: "User"
         },
 
+    dossierEscale: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'DossierEscale', // Reference to the Escale model
+    },
+
 }, {
     timestamps: true
 })

@@ -28,7 +28,6 @@ exports.todayConference = AsyncHandler(async (req, res) => {
     today.setHours(0, 0, 0, 0);
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-
     const query = {createdAt: {$gte: today, $lt: tomorrow}};
     const conferences = await Conference.find(query)
     if (conferences.length > 0) {
@@ -44,7 +43,6 @@ exports.todayConference = AsyncHandler(async (req, res) => {
             data: conferences
         })
     }
-
 })
 
 exports.closeConference = AsyncHandler(async (req, res) => {
@@ -57,8 +55,6 @@ exports.closeConference = AsyncHandler(async (req, res) => {
     }, {
         new: true,
     })
-
-
 
     res.status(200).json({
         status: "success",
