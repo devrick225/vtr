@@ -1,5 +1,6 @@
 const AsyncHandler = require('express-async-handler');
 const User = require('../model/User');
+const UserGroup = require('../model/UserGroup');
 const {hashPassword, isPasswordMatched} = require("../utils/helpers");
 
 
@@ -24,6 +25,8 @@ exports.getUser= AsyncHandler(async (req, res) => {
     })
 
 });
+
+
 
 exports.updateSign= AsyncHandler(async (req, res) => {
     const {signature}= req.body

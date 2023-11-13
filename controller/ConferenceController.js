@@ -30,6 +30,9 @@ exports.todayConference = AsyncHandler(async (req, res) => {
     tomorrow.setDate(today.getDate() + 1);
     const query = {createdAt: {$gte: today, $lt: tomorrow}};
     const conferences = await Conference.find(query)
+
+
+
     if (conferences.length > 0) {
         res.status(200).json({
             status: "Success",

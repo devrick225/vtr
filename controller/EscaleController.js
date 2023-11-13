@@ -290,6 +290,18 @@ exports.getEscale = AsyncHandler(async (req, res) => {
     })
 });
 
+
+exports.getShippingEscales = AsyncHandler(async (req, res) => {
+    const axios = require('axios');
+
+    const response = await axios.get(`https://www.shippingexplorer.net/api/ad_cotonou`);
+    res.status(200).json({
+        status: "Success",
+        message: "La liste des escales a été récupérée avec succès",
+        data: response.data
+    })
+});
+
 exports.getEscaleOperations = AsyncHandler(async (req, res) => {
     const operations = await Operation.find().where('escale').equals(req.params.id)
         .populate('marchandise')
@@ -349,6 +361,41 @@ exports.scheduleArrivalEscale = AsyncHandler(async (req, res) => {
 });
 
 
+exports.updateEtaEscale = AsyncHandler(async (req, res) => {
+    const idEscale = req.params.id;
+    const escale = await Escale.findById(idEscale);
+    const demande = await Demande.findOne().where('escale').equals(escale).where('incoming').equals(true);
+    const {date, heure} = req.body;
+    if (!escale) {
+        throw new Error(`L'escale n'existe pas`);
+    }
+    const updateEscaleEta = await Escale.findByIdAndUpdate(idEscale, {
+        date_accostage_estimee: date,
+        heure_accostage_estimee: heure,
+        date_accostage_prevue: date,
+        heure_accostage_prevue: heure
+    }, {new: true})
+
+    await Demande.findByIdAndUpdate(demande._id, {
+        date,
+        heure,
+    }, {new: true})
+
+    await DossierEscale.findByIdAndUpdate(escale.dossierEscale, {
+        date_accostage_estimee: date,
+        heure_accostage_estimee: heure,
+        date_accostage_prevue: date,
+        heure_accostage_prevue: heure
+    }, {new: true})
+
+    res.status(200).json({
+        status: "Success",
+        message: "L'ETA a été modifié avec succès",
+        data: updateEscaleEta
+    })
+
+});
+
 exports.getDossierEscale = AsyncHandler(async (req, res) => {
 
     const escale = await Escale.findById(req.params.id);
@@ -378,32 +425,30 @@ exports.updateDossierEscale = AsyncHandler(async (req, res) => {
     const radeZone = await Zone.findOne().where('code').equals('HARBOUR');
     const extZone = await Zone.findOne().where('code').equals('OUTSIDE');
     const mouillageZone = await Zone.findOne().where('code').equals('ANCHORAGE');
-    if(!dossierEscale.date_arrivee_rade && !dossierEscale.heure_arrivee_rade && date_arrivee_rade, heure_arrivee_rade) {
-        await Escale.findByIdAndUpdate(escaleId, {zone: radeZone._id }, {
+    if (!dossierEscale.date_arrivee_rade && !dossierEscale.heure_arrivee_rade && date_arrivee_rade, heure_arrivee_rade) {
+        await Escale.findByIdAndUpdate(escaleId, {zone: radeZone._id}, {
             new: true
         })
     }
 
-    if(!dossierEscale.date_arrivee_mouillage && !dossierEscale.heure_arrivee_mouillage && date_arrivee_mouillage, heure_arrivee_mouillage) {
-        await Escale.findByIdAndUpdate(escaleId, {zone: mouillageZone._id }, {
-            new: true
-        })
-    }
-
-
-    if(!dossierEscale.date_depart_rade && !dossierEscale.heure_depart_rade && date_depart_rade, heure_depart_rade) {
-        await Escale.findByIdAndUpdate(escaleId, {zone: extZone._id }, {
-            new: true
-        })
-    }
-
-    if(!dossierEscale.date_depart_mouillage && !dossierEscale.heure_depart_mouillage && date_depart_mouillage, heure_depart_mouillage) {
-        await Escale.findByIdAndUpdate(escaleId, {zone: radeZone._id }, {
+    if (!dossierEscale.date_arrivee_mouillage && !dossierEscale.heure_arrivee_mouillage && date_arrivee_mouillage, heure_arrivee_mouillage) {
+        await Escale.findByIdAndUpdate(escaleId, {zone: mouillageZone._id}, {
             new: true
         })
     }
 
 
+    if (!dossierEscale.date_depart_rade && !dossierEscale.heure_depart_rade && date_depart_rade, heure_depart_rade) {
+        await Escale.findByIdAndUpdate(escaleId, {zone: extZone._id}, {
+            new: true
+        })
+    }
+
+    if (!dossierEscale.date_depart_mouillage && !dossierEscale.heure_depart_mouillage && date_depart_mouillage, heure_depart_mouillage) {
+        await Escale.findByIdAndUpdate(escaleId, {zone: radeZone._id}, {
+            new: true
+        })
+    }
 
 
     const dossierEscaleUpdate = await DossierEscale.findByIdAndUpdate(dossierEscale._id, req.body, {

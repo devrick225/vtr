@@ -1,7 +1,7 @@
 const express = require('express')
 
 const {createEscale, getEscales, getEscaleOperations, getEscalePrestations, getEscale, getEscaleMouvements,
-    updateDossierEscale, getDossierEscale, getDocuments
+    updateDossierEscale, getDossierEscale, getDocuments, getShippingEscales, updateEtaEscale
 } = require("../controller/EscaleController")
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const historiqueDesActions = require("../middlewares/historiqueDesActions");
@@ -18,5 +18,7 @@ escaleRouter.get('/:id/mouvements', isAuthenticated, getEscaleMouvements);
 escaleRouter.put('/:id/dossierEscale', isAuthenticated, updateDossierEscale);
 escaleRouter.get('/:id/dossierEscale', isAuthenticated, getDossierEscale);
 escaleRouter.get('/:id/documents', isAuthenticated, getDocuments);
+escaleRouter.put('/:id/eta', isAuthenticated, updateEtaEscale);
+escaleRouter.get('/lists/shipping', getShippingEscales);
 
 module.exports = escaleRouter
