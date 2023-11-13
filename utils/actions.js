@@ -8,6 +8,7 @@ let actions = {
     modifierMotDePasse: 'modifier_motdepasse',
     modifierDemande: 'modifier_demande',
     validerDemande: 'valider_demande',
+    devaliderDemande: 'devalider_demande',
     rejeterDemande: 'rejeter_demande',
     annulerDemande: 'annuler_demande',
     modifierSignature: 'modifier_signature'

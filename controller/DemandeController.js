@@ -133,6 +133,22 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
     })
 });
 
+exports.devalidateDemande = AsyncHandler(async (req, res) => {
+    const attenteEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
+    await Demande.findByIdAndUpdate(
+        req.params.id,
+        {
+            etat: attenteEtat._id,
+        }, {
+            new: true,
+        })
+
+    res.status(200).json({
+        status: "success",
+        message: "La demande a été devalidée avec succès",
+    })
+});
+
 
 exports.invalidateDemande = AsyncHandler(async (req, res) => {
     const etatReject = await Etat.findOne().where('code').equals('REJETEE');
