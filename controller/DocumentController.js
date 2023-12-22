@@ -40,6 +40,7 @@ exports.uploadDoc = AsyncHandler(async (req, res) => {
         const updateDoc = await Document.findByIdAndUpdate(req.params.id, {
             etat: enAttenteEtat._id,
             deposer_par: req.userAuth._id,
+            motif: '',
             file_name: fileName,
             full_path: filePath
         }, {
@@ -52,4 +53,38 @@ exports.uploadDoc = AsyncHandler(async (req, res) => {
             data: updateDoc
         });
     });
+});
+exports.validateDoc = AsyncHandler(async (req, res) => {
+    const valideeEtat = await Etat.findOne().where('code').equals('VALIDEE');
+    await Document.findByIdAndUpdate(
+        req.params.id,
+        {
+            etat: valideeEtat._id,
+            valider_par: req.userAuth._id
+        }, {
+            new: true,
+        })
+
+    res.status(200).json({
+        status: "success",
+        message: "Le document a été validé avec succès",
+    })
+});
+
+exports.devalidateDoc = AsyncHandler(async (req, res) => {
+    const rejetEtat = await Etat.findOne().where('code').equals('REJETEE');
+    await Document.findByIdAndUpdate(
+        req.params.id,
+        {
+            motif: req.body.motif,
+            etat: rejetEtat._id,
+            rejeter_par: req.userAuth._id
+        }, {
+            new: true,
+        })
+
+    res.status(200).json({
+        status: "success",
+        message: "Le document a été rejeté avec succès",
+    })
 });

@@ -36,14 +36,14 @@ const userRouter = require("../routes/UserRouter");
 const notificationRouter = require("../routes/notificationRouter");
 
 
-
-
 const app = express();
 
 
 //Middlewares
 app.use(express.json());
 app.use(cors());
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl}`)

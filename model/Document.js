@@ -6,7 +6,7 @@ const documentSchema = new mongoose.Schema({
     file_name: {
         type: String,
     },
-    reject_reason: {
+    motif: {
         type: String,
     },
     escale:
@@ -25,6 +25,12 @@ const documentSchema = new mongoose.Schema({
             ref: "TypeDocument"
         },
     valider_par:
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+
+    rejeter_par:
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"

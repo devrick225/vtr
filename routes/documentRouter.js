@@ -13,13 +13,14 @@ const upload = multer({
     },
 });
 
-const {uploadDoc
+const {uploadDoc, validateDoc, devalidateDoc
 } = require("../controller/DocumentController")
 const isAuthenticated = require("../middlewares/isAuthenticated");
-
 
 const documentRouter = express.Router();
 
 documentRouter.post('/:id/upload',upload.single('file'), isAuthenticated, uploadDoc);
+documentRouter.post('/:id/validate', isAuthenticated, validateDoc);
+documentRouter.post('/:id/invalidate', isAuthenticated, devalidateDoc);
 
 module.exports = documentRouter

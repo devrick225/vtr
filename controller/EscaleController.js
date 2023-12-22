@@ -210,6 +210,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
             await Document.create({
                 escale: escaleCreate._id,
                 typeDocument: typeDoc._id,
+                etat: waitingEtat._id,
             })
         }
 
@@ -397,6 +398,41 @@ exports.updateEtaEscale = AsyncHandler(async (req, res) => {
         heure_accostage_estimee: heure,
         date_accostage_prevue: date,
         heure_accostage_prevue: heure
+    }, {new: true})
+
+    res.status(200).json({
+        status: "Success",
+        message: "L'ETA a été modifié avec succès",
+        data: updateEscaleEta
+    })
+
+});
+
+exports.updateEtdEscale = AsyncHandler(async (req, res) => {
+    const idEscale = req.params.id;
+    const escale = await Escale.findById(idEscale);
+    const demande = await Demande.findOne().where('escale').equals(escale).where('incoming').equals(false);
+    const {date, heure} = req.body;
+    if (!escale) {
+        throw new Error(`L'escale n'existe pas`);
+    }
+    const updateEscaleEta = await Escale.findByIdAndUpdate(idEscale, {
+        date_appareillage_estimee: date,
+        heure_appareillage_estimee: heure,
+        date_appareillage_prevue: date,
+        heure_appareillage_prevue: heure
+    }, {new: true})
+
+    await Demande.findByIdAndUpdate(demande._id, {
+        date,
+        heure,
+    }, {new: true})
+
+    await DossierEscale.findByIdAndUpdate(escale.dossierEscale, {
+        date_appareillage_estimee: date,
+        heure_appareillage_estimee: heure,
+        date_appareillage_prevue: date,
+        heure_appareillage_prevue: heure
     }, {new: true})
 
     res.status(200).json({
