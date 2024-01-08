@@ -224,6 +224,7 @@ exports.cancelDemande = AsyncHandler(async (req, res) => {
 });
 
 exports.updateDemande = AsyncHandler(async (req, res) => {
+
     const demande = Demande.findById(req.params.id)
     const demandeChanged = await Demande.findByIdAndUpdate(
         req.params.id,

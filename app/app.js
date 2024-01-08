@@ -27,7 +27,6 @@ const historiqueActionRouter = require("../routes/historiqueActionRouter");
 const documentRouter = require("../routes/documentRouter");
 const mouvementRouter = require("../routes/mouvementRouter");
 
-const {notFoundErr, globalErrHandler} = require("../middlewares/globalErrHandler");
 const acconierRouter = require("../routes/admin/AcconierRouter");
 const agenceRouter = require("../routes/admin/AgenceRouter");
 const prestationRouter = require("../routes/prestationsRouter");
@@ -35,20 +34,26 @@ const conferenceRouter = require("../routes/conferenceRouter");
 const userRouter = require("../routes/UserRouter");
 const notificationRouter = require("../routes/notificationRouter");
 
+const {notFoundErr, globalErrHandler} = require("../middlewares/globalErrHandler");
 
 const app = express();
+const dirname = path.dirname(__dirname);
+app.use('/uploads', express.static(path.join(dirname, '/uploads')))
 
 
 //Middlewares
 app.use(express.json());
 app.use(cors());
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl}`)
     next();
 })
+app.use('/.well-known/pki-validation', express.static(path.join(__dirname, '.well-known/pki-validation')));
+
+
+
 
 //Routes
 app.use("/api/v1/auth", authRouter)

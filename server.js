@@ -1,8 +1,9 @@
 require('dotenv').config()
-// const http = require('http');
+const http = require('http');
 const https = require('https');
 const app  = require('./app/app');
 require('./config/dbConnect');
+const express = express();
 const fs = require("fs");
 const PORT = process.env.PORT || 3005;
 
@@ -16,8 +17,9 @@ const cred = {
 //middleware
 
 
+
 //server
 //const server = http.createServer(app);
 const httpsServer = https.createServer(cred, app)
-// server.listen(PORT, console.log(`Server http is running on port ${PORT}`))
+//server.listen(PORT, console.log(`Server http is running on port ${PORT}`))
 httpsServer.listen(8443, console.log(`Server https is running on port ${PORT}`))
