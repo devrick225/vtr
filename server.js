@@ -3,7 +3,6 @@ const http = require('http');
 const https = require('https');
 const app  = require('./app/app');
 require('./config/dbConnect');
-const express = express();
 const fs = require("fs");
 const PORT = process.env.PORT || 3005;
 
