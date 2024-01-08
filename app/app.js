@@ -50,7 +50,6 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl}`)
     next();
 })
-app.use('/.well-known/pki-validation', express.static(path.join(__dirname, '.well-known/pki-validation')));
 
 
 
