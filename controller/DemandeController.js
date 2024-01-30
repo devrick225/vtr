@@ -16,20 +16,13 @@ exports.createDemande = AsyncHandler(async (req, res) => {
         throw new Error('Seul les consignataires peuvent éffectuer une demande')
     }
     const {
-        incoming,
-        escale,
-        date,
-        heure,
+        incoming, escale, date, heure,
     } = req.body;
 
     const escaleSearch = await Demande.findById(escale).populate('navire');
 
     const demandeCreated = await Demande.create({
-        incoming,
-        escale,
-        etat: etatEnAttente._id,
-        date,
-        heure,
+        incoming, escale, etat: etatEnAttente._id, date, heure,
     })
     const users = await User.find().where('fonction').equals('Capitaine');
     let message = '';
@@ -45,9 +38,7 @@ exports.createDemande = AsyncHandler(async (req, res) => {
         await notificationDemande.save();
     }
     res.status(201).json({
-        status: "Success",
-        message: "La demande a été crée avec succès",
-        data: demandeCreated
+        status: "Success", message: "La demande a été crée avec succès", data: demandeCreated
     })
 });
 
@@ -55,24 +46,17 @@ exports.createDemande = AsyncHandler(async (req, res) => {
 exports.getDemandes = AsyncHandler(async (req, res) => {
     const demandes = await Demande.find().sort('-createdAt')
         .populate({
-            path: 'escale',
-            populate: [
-                {
-                    path: 'user', model: 'User', populate: [
-                        {path: 'agence', model: 'Agence'},
-                    ],
-                },
-                {path: 'navire', model: 'Navire'},
-                {path: 'quai', model: 'Quai'},
-                {path: 'acconier', model: 'Acconier'},
-            ],
+            path: 'escale', populate: [{
+                path: 'user', model: 'User', populate: [{path: 'agence', model: 'Agence'},],
+            }, {path: 'navire', model: 'Navire'}, {path: 'quai', model: 'Quai'}, {
+                path: 'acconier',
+                model: 'Acconier'
+            },],
         })
 
         .populate('etat').populate('user');
     res.status(200).json({
-        status: "Success",
-        message: "La liste des demandes a été récupérée avec succès",
-        data: demandes
+        status: "Success", message: "La liste des demandes a été récupérée avec succès", data: demandes
     })
 
 });
@@ -86,66 +70,52 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
     const dossierEscale = await DossierEscale.findOne().where('escale').equals(demande.escale);
     const mouvement = await Mouvement.findOne().where('escale').equals(demande.escale)
 
-    const demandeChanged = await Demande.findByIdAndUpdate(
-        req.params.id,
-        {
-            etat: etatValidate._id
-        }, {
-            new: true,
-        }
-    );
+    const demandeChanged = await Demande.findByIdAndUpdate(req.params.id, {
+        etat: etatValidate._id
+    }, {
+        new: true,
+    });
     if (demande.incoming) {
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatEntry._id
         }, {new: true})
 
         await DossierEscale.findByIdAndUpdate(dossierEscale._id, {
-            date_accostage_prevue: demande.date,
-            heure_accostage_prevue: demande.heure
+            date_accostage_prevue: demande.date, heure_accostage_prevue: demande.heure
         }, {new: true})
 
 
         await Mouvement.findByIdAndUpdate(mouvement._id, {
-            date_accostage_prevue: demande.date,
-            heure_accostage_prevue: demande.heure,
-            etat: etatEntry._id,
+            date_accostage_prevue: demande.date, heure_accostage_prevue: demande.heure, etat: etatEntry._id,
         }, {new: true})
     } else {
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatOut._id
         }, {new: true})
         await DossierEscale.findByIdAndUpdate(dossierEscale._id, {
-            date_appareillage_prevue: demande.date,
-            heure_appareillage_prevue: demande.heure
+            date_appareillage_prevue: demande.date, heure_appareillage_prevue: demande.heure
         }, {new: true})
 
         await Mouvement.findByIdAndUpdate(mouvement._id, {
-            date_appareillage_prevue: demande.date,
-            heure_appareillage_prevue: demande.heure,
-            etat: etatOut._id,
+            date_appareillage_prevue: demande.date, heure_appareillage_prevue: demande.heure, etat: etatOut._id,
         }, {new: true})
     }
 
     res.status(200).json({
-        status: "success",
-        message: "La demande a été validée avec succès",
-        data: demandeChanged
+        status: "success", message: "La demande a été validée avec succès", data: demandeChanged
     })
 });
 
 exports.devalidateDemande = AsyncHandler(async (req, res) => {
     const attenteEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
-    await Demande.findByIdAndUpdate(
-        req.params.id,
-        {
-            etat: attenteEtat._id,
-        }, {
-            new: true,
-        })
+    await Demande.findByIdAndUpdate(req.params.id, {
+        etat: attenteEtat._id,
+    }, {
+        new: true,
+    })
 
     res.status(200).json({
-        status: "success",
-        message: "La demande a été devalidée avec succès",
+        status: "success", message: "La demande a été devalidée avec succès",
     })
 });
 
@@ -158,32 +128,22 @@ exports.invalidateDemande = AsyncHandler(async (req, res) => {
     if (demande.incoming) {
         const demandeOutgoing = await Demande.findOne().where('escale').equals(demande.escale).where('incoming').equals(false)
         if (demandeOutgoing.etat !== etatValidee._id) {
-            await Demande.findByIdAndUpdate(
-                demandeOutgoing._id,
-                {
-                    etat: etatReject._id,
-                    rejection_reason: req.body.rejection_reason
-                }, {
-                    new: true,
-                }
-            );
+            await Demande.findByIdAndUpdate(demandeOutgoing._id, {
+                etat: etatReject._id, rejection_reason: req.body.rejection_reason
+            }, {
+                new: true,
+            });
         }
 
 
     }
-    const demandeChanged = await Demande.findByIdAndUpdate(
-        req.params.id,
-        {
-            etat: etatReject._id,
-            rejection_reason: req.body.rejection_reason
-        }, {
-            new: true,
-        }
-    );
+    const demandeChanged = await Demande.findByIdAndUpdate(req.params.id, {
+        etat: etatReject._id, rejection_reason: req.body.rejection_reason
+    }, {
+        new: true,
+    });
     res.status(200).json({
-        status: "success",
-        message: "La demande a été invalidée avec succès",
-        data: demandeChanged
+        status: "success", message: "La demande a été invalidée avec succès", data: demandeChanged
     })
 });
 exports.cancelDemande = AsyncHandler(async (req, res) => {
@@ -193,63 +153,45 @@ exports.cancelDemande = AsyncHandler(async (req, res) => {
     if (demande.incoming) {
         const demandeOutgoing = await Demande.findOne().where('escale').equals(demande.escale).where('incoming').equals(false)
         if (demandeOutgoing.etat !== etatValidee._id) {
-            await Demande.findByIdAndUpdate(
-                demandeOutgoing._id,
-                {
-                    etat: etatAnnulee._id,
-                    rejection_reason: req.body.rejection_reason
-                }, {
-                    new: true,
-                }
-            );
+            await Demande.findByIdAndUpdate(demandeOutgoing._id, {
+                etat: etatAnnulee._id, rejection_reason: req.body.rejection_reason
+            }, {
+                new: true,
+            });
         }
 
 
     }
-    const demandeChanged = await Demande.findByIdAndUpdate(
-        req.params.id,
-        {
-            etat: etatAnnulee._id,
-            rejection_reason: req.body.rejection_reason
-        }, {
-            new: true,
-        }
-    );
+    const demandeChanged = await Demande.findByIdAndUpdate(req.params.id, {
+        etat: etatAnnulee._id, rejection_reason: req.body.rejection_reason
+    }, {
+        new: true,
+    });
 
     res.status(200).json({
-        status: "success",
-        message: "La demande a été annulée avec succès",
-        data: demandeChanged
+        status: "success", message: "La demande a été annulée avec succès", data: demandeChanged
     })
 });
 
 exports.updateDemande = AsyncHandler(async (req, res) => {
 
     const demande = Demande.findById(req.params.id)
-    const demandeChanged = await Demande.findByIdAndUpdate(
-        req.params.id,
-        {
-            date: req.body.date,
-            heure: req.body.heure,
-        }, {
-            new: true,
-        }
-    );
+    const demandeChanged = await Demande.findByIdAndUpdate(req.params.id, {
+        date: req.body.date, heure: req.body.heure,
+    }, {
+        new: true,
+    });
     if (demande.incoming) {
         await Escale.findByIdAndUpdate(demande.escale, {
-            date_accostage_prevue: req.body.date,
-            heure_accostage_prevue: req.body.heure,
+            date_accostage_prevue: req.body.date, heure_accostage_prevue: req.body.heure,
         }, {new: true})
     } else {
         await Escale.findByIdAndUpdate(demande.escale, {
-            date_appareillage_prevue: req.body.date,
-            heure_appareillage_prevue: req.body.heure,
+            date_appareillage_prevue: req.body.date, heure_appareillage_prevue: req.body.heure,
         }, {new: true})
     }
 
     res.status(200).json({
-        status: "success",
-        message: "La demande a été modifié avec succès",
-        data: demandeChanged
+        status: "success", message: "La demande a été modifié avec succès", data: demandeChanged
     })
 });

@@ -2,10 +2,10 @@ const AsyncHandler = require('express-async-handler');
 const HistoriqueAction = require('../model/HistoriqueAction');
 
 
-exports.getHistoriqueActions= AsyncHandler(async (req, res) => {
+exports.getHistoriqueActions = AsyncHandler(async (req, res) => {
 
 
-       const historiques = await HistoriqueAction.find().populate('user');
+    const historiques = await HistoriqueAction.find().populate('user');
     res.status(200).json({
         status: "Success",
         message: "La liste des actions ont été récupérée avec succès",
@@ -13,7 +13,6 @@ exports.getHistoriqueActions= AsyncHandler(async (req, res) => {
     })
 
 });
-
 
 
 exports.getHistoriqueActionsByUser = AsyncHandler(async (req, res) => {
