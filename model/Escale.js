@@ -30,6 +30,10 @@ const escaleSchema = new mongoose.Schema({
     is_commerciale: {
         type: Boolean,
     },
+
+    is_dangerous: {
+        type: Boolean,
+    },
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"

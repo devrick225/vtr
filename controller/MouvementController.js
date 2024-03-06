@@ -8,17 +8,58 @@ const Mouvement = require('../model/Mouvement');
 
 
 exports.getMouvements = AsyncHandler(async (req, res) => {
-    const mouvements = await Mouvement.find().populate('quai').populate('zone').populate('etat').populate({
-        path: 'escale',
-        populate: [
-            {path: 'agence', model: 'Agence'},
-            {path: 'navire', model: 'Navire'},
-        ],
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
+    const mouvementsAcc = await Mouvement.find({
+        date_accostage_prevue: {
+            $gte: today,
+            $lt: tomorrow
+        },
+        etat: {
+            $ne: prevueEtat._id
+        }
+    })
+        .populate('quai').populate('zone').populate('etat').populate({
+            path: 'escale',
+            populate: [
+                {path: 'agence', model: 'Agence'},
+                {path: 'navire', model: 'Navire'},
+            ],
+        });
+
+
+    const mouvementsApp = await Mouvement.find({
+
+        date_appareillage_prevue: {
+            $gte: today,
+            $lt: tomorrow
+        },
+
+        etat: {
+            $ne: prevueEtat._id
+        }
+    })
+        .populate('quai').populate('zone').populate('etat').populate({
+            path: 'escale',
+            populate: [
+                {path: 'agence', model: 'Agence'},
+                {path: 'navire', model: 'Navire'},
+            ],
+        });
+    const mouvements = [...mouvementsAcc, ...mouvementsApp];
+
+    const filteredMouvements = mouvements.filter(mouvement => {
+        const mouvementDate = new Date(mouvement.date_appareillage_effective);
+        return !(mouvement.etat.code === "PARTI" && (mouvementDate >= today && mouvementDate < tomorrow));
     });
+
     res.status(200).json({
         status: "Success",
         message: "La liste des mouvements a été récupérée avec succès",
-        data: mouvements
+        data: filteredMouvements
     })
 
 });

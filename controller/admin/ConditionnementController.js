@@ -23,7 +23,7 @@ exports.createConditionnement = AsyncHandler(async (req, res) => {
 
 exports.getConditionnements = AsyncHandler(async (req, res) => {
 
-    const conditionnements = await Conditionnement.find();
+    const conditionnements = await Conditionnement.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des conditionnement ont été récupéré avec succès",

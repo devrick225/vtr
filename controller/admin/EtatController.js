@@ -22,7 +22,7 @@ exports.createEtat = AsyncHandler(async (req, res) => {
 });
 
 exports.getEtats = AsyncHandler(async (req, res) => {
-    const etats = await Etat.find();
+    const etats = await Etat.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des états ont été récupéré avec succès",

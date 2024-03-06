@@ -22,7 +22,7 @@ exports.createPositionNavire = AsyncHandler(async (req, res) => {
 });
 
 exports.getPositionNavires = AsyncHandler(async (req, res) => {
-    const servicesAssistances = await PositionNavire.find();
+    const servicesAssistances = await PositionNavire.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des positions d'un navire ont été récupéré avec succès",

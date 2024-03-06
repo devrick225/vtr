@@ -22,7 +22,7 @@ exports.createMarchandise = AsyncHandler(async (req, res) => {
 });
 
 exports.getMarchandises = AsyncHandler(async (req, res) => {
-    const marchandises = await Marchandise.find();
+    const marchandises = await Marchandise.find().sort({libelle: 1});
 
     res.status(200).json({
         status: "success",

@@ -23,7 +23,7 @@ exports.createServiceAssistance = AsyncHandler(async (req, res) => {
 });
 
 exports.getServiceAssistances = AsyncHandler(async (req, res) => {
-    const servicesAssistances = await ServiceAssistance.find();
+    const servicesAssistances = await ServiceAssistance.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des services d'assistances ont été récupéré avec succès",

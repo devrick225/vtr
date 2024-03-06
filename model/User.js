@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
     },
     fonction: {
         type: String,
-        enum: ['Pilotage', 'Remorquage', 'Lamanage', 'Capitaine', 'Consignataire', 'Agent', 'Administrateur', 'Commandant'],
+        enum: ['Pilotage', 'Remorquage', 'Lamanage', 'Capitaine', 'Consignataire', 'Agent', 'Administrateur', 'Commandant', 'Vigie'],
     },
     code_pgop: {
         type: String,

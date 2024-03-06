@@ -22,7 +22,7 @@ exports.createAgence = AsyncHandler(async (req, res) => {
 });
 
 exports.getAgences = AsyncHandler(async (req, res) => {
-    const agences = await Agence.find();
+    const agences = await Agence.find().sort({libelle: 1});
 
     res.status(200).json({
         status: "success",

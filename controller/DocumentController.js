@@ -8,6 +8,8 @@ const Etat = require("../model/Etat");
 
 exports.uploadDoc = AsyncHandler(async (req, res) => {
     const enAttenteEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
+    const document = await Document.findById(req.params.id).populate('typeDocument').populate('escale')
+
 
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded." });
@@ -25,7 +27,7 @@ exports.uploadDoc = AsyncHandler(async (req, res) => {
     }
 
     // Generate a unique filename or use the original filename
-    const fileName = `${Date.now()}_${req.file.originalname}`;
+    const fileName = `${document.escale._id}_${document.typeDocument.code}.pdf`;
 
     // Define the full path to save the file
     const filePath = `${uploadDir}/${fileName}`;

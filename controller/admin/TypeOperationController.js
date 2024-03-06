@@ -22,7 +22,7 @@ exports.createTypeOperation = AsyncHandler(async (req, res) => {
 });
 
 exports.getTypeOperations = AsyncHandler(async (req, res) => {
-    const typeOperations = await TypeOperation.find();
+    const typeOperations = await TypeOperation.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des états ont été récupéré avec succès",

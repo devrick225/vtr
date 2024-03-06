@@ -22,7 +22,7 @@ exports.createTypeMouvement = AsyncHandler(async (req, res) => {
 });
 
 exports.getTypeMouvements = AsyncHandler(async (req, res) => {
-    const typeMouvements = await TypeMouvement.find();
+    const typeMouvements = await TypeMouvement.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des états ont été récupéré avec succès",

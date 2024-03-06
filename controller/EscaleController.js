@@ -36,7 +36,8 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         heure_accostage_prevue,
         heure_appareillage_prevue,
         operations,
-        is_commerciale
+        is_commerciale,
+        is_dangerous
     } = req.body;
 
     const userAuth = req.userAuth;
@@ -81,6 +82,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
             heure_accostage_prevue,
             heure_appareillage_prevue,
             is_commerciale,
+            is_dangerous,
             date_accostage_estimee: date_accostage_prevue,
             date_appareillage_estimee: date_appareillage_prevue,
             heure_accostage_estimee: heure_accostage_prevue,

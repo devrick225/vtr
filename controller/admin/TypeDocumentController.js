@@ -23,7 +23,7 @@ exports.createTypeDocument = AsyncHandler(async (req, res) => {
 });
 
 exports.getTypeDocuments = AsyncHandler(async (req, res) => {
-    const typeDocuments = await TypeDocument.find();
+    const typeDocuments = await TypeDocument.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des types de documents ont été récupéré avec succès",

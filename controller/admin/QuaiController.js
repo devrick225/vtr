@@ -21,7 +21,7 @@ exports.createQuai = AsyncHandler(async (req, res) => {
 });
 
 exports.getQuais = AsyncHandler(async (req, res) => {
-    const quais = await Quai.find();
+    const quais = await Quai.find().sort({libelle: 1});
 
     res.status(200).json({
         status: "success",

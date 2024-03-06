@@ -22,7 +22,7 @@ exports.createAcconier = AsyncHandler(async (req, res) => {
 });
 
 exports.getAcconiers = AsyncHandler(async (req, res) => {
-    const acconiers = await Acconier.find();
+    const acconiers = await Acconier.find().sort({libelle: 1});
 
     res.status(200).json({
         status: "success",

@@ -23,7 +23,7 @@ exports.createZone = AsyncHandler(async (req, res) => {
 });
 
 exports.getZones = AsyncHandler(async (req, res) => {
-    const zones = await Zone.find();
+    const zones = await Zone.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des zones ont été récupéré avec succès",

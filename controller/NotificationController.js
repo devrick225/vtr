@@ -3,11 +3,17 @@ const Notification = require('../model/Notification');
 
 
 exports.getNotificationsUser= AsyncHandler(async (req, res) => {
-
+    const updateOperation = {
+        $set: {
+            receivers: req.userAuth._id,
+            isRead: true,
+        }
+    };
     const notifications = await Notification.find({
         receivers: req.userAuth._id,
     }).sort('-timestamp');
 
+    await Notification.updateMany({}, updateOperation)
     return res.status(200).json({
         status: "success",
         message: "Les notifications ont été récupérées avec succès",

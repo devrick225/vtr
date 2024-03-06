@@ -22,7 +22,7 @@ exports.createPrestataire = AsyncHandler(async (req, res) => {
 });
 
 exports.getPrestataires = AsyncHandler(async (req, res) => {
-    const prestataires = await Prestataire.find();
+    const prestataires = await Prestataire.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des prestataires ont été récupéré avec succès",

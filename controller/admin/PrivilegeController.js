@@ -22,7 +22,7 @@ exports.createPrivilege = AsyncHandler(async (req, res) => {
 });
 
 exports.getPrivileges = AsyncHandler(async (req, res) => {
-    const privileges = await Privilege.find();
+    const privileges = await Privilege.find().sort({libelle: 1});
     res.status(200).json({
         status: "success",
         message: "La liste des privilèges ont été récupéré avec succès",
