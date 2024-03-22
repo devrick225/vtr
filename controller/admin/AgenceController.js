@@ -3,7 +3,7 @@ const Agence = require('../../model/Agence');
 
 
 exports.createAgence = AsyncHandler(async (req, res) => {
-    const {libelle, code} = req.body;
+    const {libelle, code, code_pgop} = req.body;
 
     const agence = await Agence.findOne({code});
     if (agence) {
@@ -13,6 +13,7 @@ exports.createAgence = AsyncHandler(async (req, res) => {
     const agenceCreated = await Agence.create({
         libelle,
         code,
+        code_pgop
     })
     res.status(201).json({
         status: "Success",

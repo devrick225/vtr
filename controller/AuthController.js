@@ -7,6 +7,7 @@ const {hashPassword, isPasswordMatched} = require("../utils/helpers");
 const generateToken = require("../utils/generateToken");
 const HistoriqueAction = require("../model/HistoriqueAction");
 const actions = require("../utils/actions");
+const {Resend} = require("resend");
 
 exports.register = AsyncHandler(async (req, res) => {
     const {username, firstname, lastname, email, password, contact, fonction,userGroup, agence} = req.body;
@@ -41,6 +42,17 @@ exports.register = AsyncHandler(async (req, res) => {
         userGroup,
     });
 
+    const resend = new Resend('re_FhnxFeE6_BpiD5fYsMvY6vSvRfqkeSgQP');
+
+
+    resend.emails.send({
+        from: 'onboarding@resend.dev',
+        to: 'ivoprestalertes@gmail.com',
+        subject: 'Création de compte utilisateur',
+        html: `
+       
+    `,
+    });
     res.status(201).json({
         status: "Success",
         message: "L'utilisateur a été crée avec succès",

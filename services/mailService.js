@@ -5,17 +5,15 @@ const Promise = require('bluebird');
 const path = require('path');
 const e = require("express");
 exports.envoiMail = (to, subject, template, variables) => {
-    const params = {
-        host: process.env.SMTP_SERVER_HOST,
-        port: process.env.SMTP_SERVER_PORT
-    };
-    if (process.env.SMTP_SERVER_LOGIN && process.env.SMTP_SERVER_LOGIN.length>0) {
-        params.auth = {
-            user: process.env.SMTP_SERVER_LOGIN,
-            pass: process.env.SMTP_SERVER_PASSWORD
-        };
-    }
-    let transport = nodemailer.createTransport(params);
+
+    const transport = nodemailer.createTransport({
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+            user: "24fc815496b52a",
+            pass: "7dc383fb1db45a"
+        }
+    });   // let transport = nodemailer.createTransport(params);
 
             variables.logoSociete = '';
             variables.couleurSociete = '#3D92F5';
@@ -32,6 +30,7 @@ exports.envoiMail = (to, subject, template, variables) => {
                     html: str
                 };
                 transport.sendMail(message, function (err) {
+                    console.log(err)
                     if (err) {
                         console.log(err)
                     }
