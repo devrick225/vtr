@@ -8,12 +8,6 @@ const operationSchema = new mongoose.Schema({
         type: Number,
 
     },
-    mouvements: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Mouvement"
-        },
-    ],
     escale: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Escale"

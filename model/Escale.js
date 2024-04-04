@@ -34,6 +34,17 @@ const escaleSchema = new mongoose.Schema({
     is_dangerous: {
         type: Boolean,
     },
+    numero_voyage: {
+        type: String,
+
+    },
+
+    operations: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Operation"
+        },
+    ],
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"

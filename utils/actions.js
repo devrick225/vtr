@@ -6,6 +6,7 @@ let actions = {
     creerEscale: 'creer_escale',
     creerDemande: 'creer_demande',
     modifierMotDePasse: 'modifier_motdepasse',
+    modifierUtilisateur: 'modifier_utilisateur',
     modifierDemande: 'modifier_demande',
     validerDemande: 'valider_demande',
     devaliderDemande: 'devalider_demande',

@@ -1,6 +1,7 @@
 const express = require('express')
 
-const {getDemandes, createDemande, validateDemande, invalidateDemande, cancelDemande, updateDemande, devalidateDemande
+const {getDemandes, createDemande, validateDemande, invalidateDemande, cancelDemande, updateDemande, devalidateDemande,
+    getDemandesByEscaleId
 } = require("../controller/DemandeController")
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const historiqueDesActions = require("../middlewares/historiqueDesActions");

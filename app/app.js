@@ -33,6 +33,7 @@ const prestationRouter = require("../routes/prestationsRouter");
 const conferenceRouter = require("../routes/conferenceRouter");
 const userRouter = require("../routes/UserRouter");
 const notificationRouter = require("../routes/notificationRouter");
+const operationRouter = require("../routes/operationRouter");
 
 const {notFoundErr, globalErrHandler} = require("../middlewares/globalErrHandler");
 
@@ -83,6 +84,7 @@ app.use("/api/v1/notifications", notificationRouter)
 app.use("/api/v1/historique-actions", historiqueActionRouter)
 app.use("/api/v1/documents", documentRouter)
 app.use("/api/v1/mouvements", mouvementRouter)
+app.use("/api/v1/operations", operationRouter)
 
 //Error Middlewares
 app.use(globalErrHandler);

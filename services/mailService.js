@@ -1,43 +1,44 @@
-require('dotenv').config()
-const nodemailer = require('nodemailer');
-let ejs = require('ejs');
-const Promise = require('bluebird');
+const fs = require('fs');
 const path = require('path');
-const e = require("express");
-exports.envoiMail = (to, subject, template, variables) => {
+let ejs = require('ejs');
 
-    const transport = nodemailer.createTransport({
-        host: "sandbox.smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-            user: "24fc815496b52a",
-            pass: "7dc383fb1db45a"
-        }
-    });   // let transport = nodemailer.createTransport(params);
+const  {Resend}=  require("resend");
 
-            variables.logoSociete = '';
-            variables.couleurSociete = '#3D92F5';
+async function sendEmailWithResend(options) {
 
-            ejs.renderFile(path.join(__dirname, `../templates/${template}.ejs`), variables, {}, function (err, str) {
-                if (err) {
-                    reject(err);
-                    return;
-                }
-                let message = {
-                    from: process.env.SMTP_MAIL_FROM,
-                    to: to,
-                    subject: subject,
-                    html: str
-                };
-                transport.sendMail(message, function (err) {
-                    console.log(err)
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log('ok')
-                    }
-                });
-            });
+    const {to, from, subject, templateName, templateData} = options; // Destructure options
+    // Validate required parameters
+    if (!to || !from || !subject || !templateName || !templateData) {
+        throw new Error('Missing required email parameters.');
+    }
 
-};
+    const resendApiKey = process.env.RESEND_API_KEY; // Replace with your API key
+    if (!resendApiKey) {
+        throw new Error('RESEND_API_KEY environment variable not set.');
+    }
+
+    const resend = new Resend(resendApiKey);
+
+    const templatePath = path.join(__dirname, `../templates/${templateName}.ejs`); // Replace with your template path
+    const templateContent = await fs.promises.readFile(templatePath, 'utf8'); // Use fs.promises for async/await
+
+    try {
+        const htmlContent = await ejs.render(templateContent, templateData); // Render EJS template
+        const data = {
+            from,
+            to,
+            subject,
+            html: htmlContent,
+        };
+
+
+
+        const response = await resend.emails.send({to, from, subject, html: htmlContent})
+        console.log(response);
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error; // Re-throw for potential handling in calling code
+    }
+}
+
+module.exports = sendEmailWithResend;
