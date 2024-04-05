@@ -15,9 +15,9 @@ exports.getPrestations = AsyncHandler(async (req, res) => {
     const userGroup = await UserGroup.findById(userAuth.userGroup)
     if(userGroup.code === 'PRESTATAIRE') {
       const escales = await Prestation.find().where('user').equals(userAuth._id)
-            .populate('serviceAssistance')
+            .populate('serviceAssistance', {libelle: 1})
             .populate('etat')
-            .populate('user')
+            .populate('user', {firstname: 1, lastname: 1,})
             .populate({ path: 'mouvement',
                 populate: [
                     { path: 'typeMouvement', model: 'TypeMouvement' },
@@ -31,9 +31,9 @@ exports.getPrestations = AsyncHandler(async (req, res) => {
 
     }
         const escales = await Prestation.find()
-            .populate('serviceAssistance')
+            .populate('serviceAssistance', {libelle: 1})
             .populate('etat')
-            .populate('user')
+            .populate('user',{firstname: 1, lastname: 1,})
             .populate({ path: 'mouvement',
                 populate: [
                     { path: 'typeMouvement', model: 'TypeMouvement' },

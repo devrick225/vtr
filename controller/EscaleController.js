@@ -26,6 +26,14 @@ const Document = require("../model/Document");
 
 
 exports.createEscale = AsyncHandler(async (req, res) => {
+
+
+    const today = new Date();
+    const year = today.getFullYear().toString().slice(-2);
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    const latestEscale = await Escale.find().sort({_id:-1}).limit(1)
+
     const {
         navire,
         agence,
@@ -36,18 +44,16 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         heure_accostage_prevue,
         heure_appareillage_prevue,
         operations,
-        numero_voyage,
         is_commerciale,
         is_dangerous
     } = req.body;
 
     const userAuth = req.userAuth;
-    const acconierExist = await Acconier.findById(acconier);
+
     const outsideZone = await Zone.findOne().where('code').equals('OUTSIDE');
     const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
     const waitingEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
     const navireExist = await Navire.findById(navire);
-    const agenceExist = await Agence.findById(agence);
     const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
 
     const quaiExist = await Quai.findById(quai);
@@ -71,9 +77,8 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     }
     const escaleCreate = await Escale.create({
 
-        acconier: acconierExist._id,
-        numero_voyage,
-        agence: agenceExist._id,
+        acconier: acconier,
+        agence: agence,
         user: userAuth._id,
         zone: outsideZone._id,
         etat: prevueEtat._id,
@@ -146,16 +151,13 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     });
     if (is_commerciale) {
         for (const operation of operations) {
-            const typeOperationExist = await TypeOperation.findById(operation.typeOperation);
-            const marchandiseExist = await Marchandise.findById(operation.marchandise);
             const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
-            if (typeOperationExist && marchandiseExist && conditionnementExist) {
 
                 const operationCreated = await Operation.create({
                     escale: escaleCreate._id,
-                    typeOperation: typeOperationExist._id,
-                    marchandise: marchandiseExist._id,
-                    conditionnement: conditionnementExist._id,
+                    typeOperation: operation.typeOperation,
+                    marchandise: operation.marchandise,
+                    conditionnement: operation.conditionnement,
                     nombre_prevu: operation.nombre_prevu,
                     tonnage_prevu: operation.tonnage_prevu
                 })
@@ -193,7 +195,6 @@ exports.createEscale = AsyncHandler(async (req, res) => {
                         }
                     }
                 } */
-            }
         }
     }
 
@@ -283,18 +284,13 @@ exports.createEscale = AsyncHandler(async (req, res) => {
 exports.getEscales = AsyncHandler(async (req, res) => {
 
     const escales = await Escale.find().sort('-createdAt')
-        .populate('navire')
-        .populate('etat')
+        .populate('navire',{nom: 1})
+        .populate('etat',{libelle: 1})
         .populate('dossierEscale')
-        .populate('zone')
-        .populate('quai')
-        .populate('agence')
-        .populate({
-            path: 'user',
-            populate: [
-                {path: 'agence', model: 'Agence'},
-            ],
-        }).populate('acconier');
+        .populate('zone',{libelle: 1})
+        .populate('quai',{code: 1})
+        .populate('agence', {libelle: 1})
+        .populate( 'user', {firstname: 1, lastname:1}).populate('acconier', {libelle: 1});
     res.status(200).json({
         status: "Success",
         message: "La liste des escales a été récupérée avec succès",
