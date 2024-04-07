@@ -52,17 +52,6 @@ app.use((req, res, next) => {
     next();
 })
 
-app.get('/.well-known/pki-validation/2D827BC3C362ECB54BAED125AAFF2BCF.txt', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', '2D827BC3C362ECB54BAED125AAFF2BCF.txt'), (err) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error serving file');
-        } else {
-            console.log('Auth File served successfully');
-        }
-    });
-});
-
 
 //Routes
 app.use("/api/v1/auth", authRouter)
