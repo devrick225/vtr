@@ -85,7 +85,6 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
     const etatOut = await Etat.findOne().where('code').equals('PROGRAMMER_EN_SORTIE');
     const demande = await Demande.findById(req.params.id)
     const dossierEscale = await DossierEscale.findOne().where('escale').equals(demande.escale);
-    const mouvement = await Mouvement.findOne().where('escale').equals(demande.escale)
 
     const demandeChanged = await Demande.findByIdAndUpdate(req.params.id, {
         etat: etatValidate._id
@@ -93,6 +92,7 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
         new: true,
     });
     if (demande.incoming) {
+        const mouvement = await Mouvement.findOne().where('escale').equals(demande.escale).where('type').equals('Entrée')
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatEntry._id
         }, {new: true})
@@ -101,11 +101,11 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
             date_accostage_prevue: demande.date, heure_accostage_prevue: demande.heure
         }, {new: true})
 
-
         await Mouvement.findByIdAndUpdate(mouvement._id, {
             date_accostage_prevue: demande.date, heure_accostage_prevue: demande.heure, etat: etatEntry._id,
         }, {new: true})
     } else {
+        const mouvement = await Mouvement.findOne().where('escale').equals(demande.escale).where('type').equals('Sortie')
         await Escale.findByIdAndUpdate(demande.escale, {
             etat: etatOut._id
         }, {new: true})

@@ -86,28 +86,30 @@ const escaleSchema = new mongoose.Schema({
     timestamps: true
 })
 
-escaleSchema.pre('save', async function(next) {
-    const today = new Date();
-    const year = today.getFullYear().toString().slice(-2);
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    const day = ('0' + today.getDate()).slice(-2);
+escaleSchema.pre('save', async function (next) {
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, ''); // Format de date YYYYMMDD
 
-    const lastDoc = await this.constructor.findOne({ numero_voyage: new RegExp(`^VTR${year}${month}${day}`) })
-        .sort('numero_voyage')
-        .select('numero_voyage')
-        .limit(1);
+    // Recherche du nombre total d'escales créées jusqu'à la date actuelle
+    const count = await this.constructor.countDocuments({
+        createdAt: {
+            $lte: currentDate // Utilisez $lte pour rechercher les escales créées jusqu'à la date actuelle
+        }
+    });
 
-    let lastId = 1;
-    if (lastDoc) {
-        lastId = parseInt(lastDoc.numero_voyage.substr(11)) + 1;
-    }
+    console.log('count', count)
 
-    const paddedId = ('00000' + lastId).slice(-5);
-    this.numero_voyage = `VTR${year}${month}${day}${paddedId}`;
+    // Incrément de la séquence
+    const sequence = count + 1;
+
+    // Génération du numéro de voyage au format "VTR(datedujour)-sequence"
+    const numeroVoyage = `VTR${formattedDate}-${sequence}`;
+
+    // Attribution du numéro de voyage à l'escale
+    this.numero_voyage = numeroVoyage;
 
     next();
 });
-
 const EscaleSchema = mongoose.model("Escale", escaleSchema);
 
 

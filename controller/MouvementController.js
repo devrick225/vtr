@@ -8,6 +8,83 @@ const Mouvement = require('../model/Mouvement');
 
 
 exports.getMouvements = AsyncHandler(async (req, res) => {
+    const date = new Date();
+    const tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const allMouvements = await Mouvement.find({})
+        .populate('etat', {libelle: 1, code: 1})
+        .populate('zone', {libelle: 1})
+        .populate('quai', {libelle: 1})
+        .populate('quai', {libelle: 1}).populate({
+            path: 'escale',
+            populate: [
+                {path: 'agence', model: 'Agence'},
+                {path: 'navire', model: 'Navire'},
+                {path: 'dossierEscale', model: 'DossierEscale'},
+            ],
+        });;
+
+    const mouvementsAccostageProgrammesDuJour = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === today.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMME_EN_ENTREE'
+
+    });
+    const mouvementsAppareillageProgrammesDuJour = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === today.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMMER_EN_SORTIE';
+    });
+
+    const mouvementsAccostageRealiseDuJour = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === today.toISOString().split('T')[0] && movement.etat.code === 'QUAI'
+    });
+
+    const mouvementsAppareillageRealiseDuJour = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === today.toISOString().split('T')[0] && movement.etat.code === 'PARTI'
+    });
+
+    const mouvementsRealiseDuJour = [...mouvementsAccostageRealiseDuJour, ...mouvementsAppareillageRealiseDuJour]
+
+
+    const mouvementsProgrammesDuJour = [...mouvementsAccostageProgrammesDuJour, ...mouvementsAppareillageProgrammesDuJour].concat(mouvementsRealiseDuJour)
+
+    const mouvementsAccostageProgrammesDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMME_EN_ENTREE'
+    });
+
+    const mouvementsAppareillageProgrammesDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMMER_EN_SORTIE' // Additional state check
+    });
+
+    const mouvementsAccostageRealiseDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'QUAI'
+    });
+
+    const mouvementsAppareillageRealiseDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'PARTI'
+    });
+
+    const mouvementsRealiseDuJourPlusUn = [...mouvementsAccostageRealiseDuJourPlusUn, ...mouvementsAppareillageRealiseDuJourPlusUn]
+
+
+    const mouvementsProgrammesDuJourPlusUn = [...mouvementsAccostageProgrammesDuJourPlusUn, ...mouvementsAppareillageProgrammesDuJourPlusUn].concat(mouvementsRealiseDuJourPlusUn)
+
+    return res.status(200).json({
+        status: "Success",
+        message: "La liste des mouvements a été récupérée avec succès",
+        data: {
+            mouvementsProgrammesDuJour: mouvementsProgrammesDuJour,
+            mouvementsProgrammesDuJourPlusUn: mouvementsProgrammesDuJourPlusUn,
+        }
+    })
+});
+
+exports.getMouvementsTest = AsyncHandler(async (req, res) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const tomorrow = new Date();
@@ -63,6 +140,7 @@ exports.getMouvements = AsyncHandler(async (req, res) => {
     })
 
 });
+
 
 
 exports.updateMouvement = AsyncHandler(async (req, res) => {

@@ -8,6 +8,8 @@ const Prestation = require('../model/Prestation');
 const Conference = require('../model/Conference');
 const Demande = require("../model/Demande");
 const axios = require("axios");
+const User = require("../model/User");
+const Notification = require("../model/Notification");
 
 
 exports.startConference = AsyncHandler(async (req, res) => {
@@ -16,6 +18,12 @@ exports.startConference = AsyncHandler(async (req, res) => {
         heure_debut: new Date().toLocaleTimeString(['FR'], {hour: '2-digit', minute: '2-digit', second: '2-digit'}),
         user_run: userAuth._id,
     })
+    const users = await User.find({});
+    const messageConference = `L'agent ${userAuth.lastname} ${userAuth.firstname} démarrer la conférence virtuelle du jour à ${new Date().toLocaleTimeString(['FR'], {hour: '2-digit', minute: '2-digit', second: '2-digit'})}.`
+    for (const receiver of users) {
+        const notification = new Notification({sender: userAuth._id, receivers: [receiver], messageConference});
+        await notification.save();
+    }
     res.status(201).json({
         status: "Success",
         message: "La conférence a été crée avec succès",
@@ -56,6 +64,13 @@ exports.closeConference = AsyncHandler(async (req, res) => {
     }, {
         new: true,
     })
+
+    const users = await User.find({});
+    const messageConference = `L'agent ${userAuth.lastname} ${userAuth.firstname} a clôturé la conférence virtuelle du jour à ${new Date().toLocaleTimeString(['FR'], {hour: '2-digit', minute: '2-digit', second: '2-digit'})}.`
+    for (const receiver of users) {
+        const notification = new Notification({sender: userAuth._id, receivers: [receiver], messageConference});
+        await notification.save();
+    }
 
     res.status(200).json({
         status: "success",

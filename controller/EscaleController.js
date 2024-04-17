@@ -29,10 +29,6 @@ exports.createEscale = AsyncHandler(async (req, res) => {
 
 
     const today = new Date();
-    const year = today.getFullYear().toString().slice(-2);
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    const day = ('0' + today.getDate()).slice(-2);
-    const latestEscale = await Escale.find().sort({_id:-1}).limit(1)
 
     const {
         navire,
@@ -153,53 +149,73 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         for (const operation of operations) {
             const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
 
-                const operationCreated = await Operation.create({
-                    escale: escaleCreate._id,
-                    typeOperation: operation.typeOperation,
-                    marchandise: operation.marchandise,
-                    conditionnement: operation.conditionnement,
-                    nombre_prevu: operation.nombre_prevu,
-                    tonnage_prevu: operation.tonnage_prevu
-                })
-                await Escale.findByIdAndUpdate(escaleCreate._id,{
-                    $push: {operations:operationCreated._id},
-                }, {new: true})
+            const operationCreated = await Operation.create({
+                escale: escaleCreate._id,
+                typeOperation: operation.typeOperation,
+                marchandise: operation.marchandise,
+                conditionnement: operation.conditionnement,
+                nombre_prevu: operation.nombre_prevu,
+                tonnage_prevu: operation.tonnage_prevu
+            })
+
+            await Escale.findByIdAndUpdate(escaleCreate._id, {
+                $push: {operations: operationCreated._id},
+            }, {new: true})
 
 
-                /* if (operationCreate) {
-                    for (const mouvement of operation.mouvements) {
-                        const typeMouvementExist = await TypeMouvement.findById(mouvement.typeMouvement);
-                        const positionNavireExist = await PositionNavire.findById(mouvement.positionNavire);
-                        const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
-                        const quaiMouvementExist = await Quai.findById(mouvement.quai);
-                        if (typeMouvementExist && positionNavireExist && berthZoneExist && quaiMouvementExist) {
-                            const createMouvement = await Mouvement.create({
-                                operation: operationCreate._id,
-                                typeMouvement: typeMouvementExist._id,
-                                positionNavire: positionNavireExist._id,
-                                zone: berthZoneExist._id,
-                                etat: prevueEtat._id,
-                                quai: quaiMouvementExist._id,
-                                date_accostage_prevue: mouvement.date_accostage_prevue,
-                                date_appareillage_prevue: mouvement.date_appareillage_prevue,
-                                heure_accostage_prevue: mouvement.heure_accostage_prevue,
-                                heure_appareillage_prevue: mouvement.heure_appareillage_prevue,
-                                nombre_remorque_demande: mouvement.nombre_remorque_demande
-                            });
 
-                            await Operation.findByIdAndUpdate(
-                                operationCreate._id,
-                                { $push: { mouvements: createMouvement._id } },
-                                { new: true, useFindAndModify: false }
-                            );
-                        }
+            /* if (operationCreate) {
+                for (const mouvement of operation.mouvements) {
+                    const typeMouvementExist = await TypeMouvement.findById(mouvement.typeMouvement);
+                    const positionNavireExist = await PositionNavire.findById(mouvement.positionNavire);
+                    const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
+                    const quaiMouvementExist = await Quai.findById(mouvement.quai);
+                    if (typeMouvementExist && positionNavireExist && berthZoneExist && quaiMouvementExist) {
+                        const createMouvement = await Mouvement.create({
+                            operation: operationCreate._id,
+                            typeMouvement: typeMouvementExist._id,
+                            positionNavire: positionNavireExist._id,
+                            zone: berthZoneExist._id,
+                            etat: prevueEtat._id,
+                            quai: quaiMouvementExist._id,
+                            date_accostage_prevue: mouvement.date_accostage_prevue,
+                            date_appareillage_prevue: mouvement.date_appareillage_prevue,
+                            heure_accostage_prevue: mouvement.heure_accostage_prevue,
+                            heure_appareillage_prevue: mouvement.heure_appareillage_prevue,
+                            nombre_remorque_demande: mouvement.nombre_remorque_demande
+                        });
+
+                        await Operation.findByIdAndUpdate(
+                            operationCreate._id,
+                            { $push: { mouvements: createMouvement._id } },
+                            { new: true, useFindAndModify: false }
+                        );
                     }
-                } */
+                }
+            } */
         }
     }
 
     await Mouvement.create({
         escale: escaleCreate._id,
+        type: 'Entrée',
+        mouvement_accostage: 'Entrée',
+        mouvement_appareillage: 'Sortie',
+        date_accostage_prevue: escaleCreate.date_accostage_estimee,
+        heure_accostage_prevue: escaleCreate.heure_accostage_estimee,
+        date_appareillage_prevue: escaleCreate.date_appareillage_estimee,
+        heure_appareillage_prevue: escaleCreate.heure_appareillage_estimee,
+        pab_accostage_date: escaleCreate.date_accostage_estimee,
+        pab_accostage_heure: escaleCreate.heure_accostage_estimee,
+        pab_appareillage_date: escaleCreate.date_appareillage_estimee,
+        pab_appareillage_heure: escaleCreate.heure_appareillage_estimee,
+        quai: escaleCreate.quai._id,
+        etat: prevueEtat._id,
+        zone: berthZoneExist._id
+    })
+    await Mouvement.create({
+        escale: escaleCreate._id,
+        type: 'Sortie',
         mouvement_accostage: 'Entrée',
         mouvement_appareillage: 'Sortie',
         date_accostage_prevue: escaleCreate.date_accostage_estimee,
@@ -284,13 +300,13 @@ exports.createEscale = AsyncHandler(async (req, res) => {
 exports.getEscales = AsyncHandler(async (req, res) => {
 
     const escales = await Escale.find().sort('-createdAt')
-        .populate('navire',{nom: 1})
-        .populate('etat',{libelle: 1})
+        .populate('navire', {nom: 1})
+        .populate('etat', {libelle: 1})
         .populate('dossierEscale')
-        .populate('zone',{libelle: 1})
-        .populate('quai',{code: 1})
+        .populate('zone', {libelle: 1})
+        .populate('quai', {code: 1})
         .populate('agence', {libelle: 1})
-        .populate( 'user', {firstname: 1, lastname:1}).populate('acconier', {libelle: 1});
+        .populate('user', {firstname: 1, lastname: 1}).populate('acconier', {libelle: 1});
     res.status(200).json({
         status: "Success",
         message: "La liste des escales a été récupérée avec succès",
@@ -324,16 +340,6 @@ exports.getEscaleOperations = AsyncHandler(async (req, res) => {
         .populate('marchandise')
         .populate('typeOperation')
         .populate('conditionnement')
-        .populate({
-            path: 'mouvements',
-            populate: [
-                {path: 'etat', model: 'Etat'},
-                {path: 'zone', model: 'Zone'},
-                {path: 'typeMouvement', model: 'TypeMouvement'},
-                {path: 'positionNavire', model: 'PositionNavire'},
-                {path: 'quai', model: 'Quai'},
-            ],
-        });
 
 
     res.status(200).json({
@@ -380,8 +386,8 @@ exports.getSituations = AsyncHandler(async (req, res) => {
     const outsideZone = await Zone.findOne().where('code').equals('OUTSIDE');
     const berthZone = await Zone.findOne().where('code').equals('BERTH');
     const anchorageZone = await Zone.findOne().where('code').equals('ANCHORAGE');
+    const habourZone = await Zone.findOne().where('code').equals('HARBOUR');
     const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
-    const entryEtat = await Etat.findOne().where('code').equals('PROGRAMME_EN_ENTREE');
 
     const allEscales = await Escale.find().sort('-createdAt')
         .populate('navire')
@@ -401,34 +407,97 @@ exports.getSituations = AsyncHandler(async (req, res) => {
         .populate('user', {firstname: 1, lastname: 1})
         .populate('acconier', {libelle: 1});
 
+
+    const allMouvements = await Mouvement.find({})
+        .populate('etat', {libelle: 1, code: 1})
+        .populate('zone', {libelle: 1})
+        .populate('quai', {libelle: 1}).populate({
+            path: 'escale',
+            populate: [
+                {path: 'agence', model: 'Agence'},
+                {path: 'navire', model: 'Navire'},
+                {path: 'dossierEscale', model: 'DossierEscale'},
+            ],
+        });
+
+
     const escalesAttendus = allEscales.filter(escale => {
         const escaleDate = new Date(escale.date_accostage_prevue);
         return (
-            escaleDate >= tomorrow && // Check if date is greater than or equal to tomorrow
-            escale.etat.equals(prevueEtat._id) || // Check if etat matches prevueEtat._id
-            escale.etat.equals(entryEtat._id) && // Check if etat matches entryEtat._id
-            escale.zone.equals(outsideZone._id) // Check if zone matches outsideZone._id
+            (escaleDate >= today) && // Check if date is greater than or equal to tomorrow
+            escale.etat?.equals(prevueEtat._id) && // Check if etat matches entryEtat._id
+            escale.zone?.equals(outsideZone._id) // Check if zone matches outsideZone._id
         );
     });
     const escalesAttendusNonMisAJour = allEscales.filter(escale => {
         const escaleDate = new Date(escale.date_accostage_prevue);
         return (
-            escaleDate <= today &&
-            escale.etat.equals(prevueEtat._id)
+            escaleDate < today &&
+            escale.etat?.equals(prevueEtat._id)
         );
     });
 
     const naviresDansLePort = allEscales.filter(escale => {
         return (
-            escale.zone.equals(berthZone._id)
+            escale.zone?.equals(berthZone._id)
         )
     })
 
     const naviresAuMouillage = allEscales.filter(escale => {
         return (
-            escale.zone.equals(anchorageZone._id)
+            escale.zone?.equals(anchorageZone._id) ||
+            escale.zone?.equals(habourZone._id)
         )
     })
+
+    const mouvementsAccostageProgrammesDuJour = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === today.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMME_EN_ENTREE'
+
+    });
+
+    const mouvementsAccostageRealiseDuJour = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === today.toISOString().split('T')[0] && movement.etat.code === 'QUAI'
+    });
+
+    const mouvementsAppareillageRealiseDuJour = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === today.toISOString().split('T')[0] && movement.etat.code === 'PARTI'
+    });
+
+    const mouvementsRealiseDuJour = [...mouvementsAccostageRealiseDuJour, ...mouvementsAppareillageRealiseDuJour]
+
+    const mouvementsAppareillageProgrammesDuJour = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === today.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMMER_EN_SORTIE';
+    });
+
+    const mouvementsProgrammesDuJour = [...mouvementsAccostageProgrammesDuJour, ...mouvementsAppareillageProgrammesDuJour].concat(mouvementsRealiseDuJour)
+
+    const mouvementsAccostageProgrammesDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMME_EN_ENTREE'
+    });
+
+    const mouvementsAppareillageProgrammesDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'PROGRAMMER_EN_SORTIE' // Additional state check
+    });
+
+    const mouvementsAccostageRealiseDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAccostageDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+        return movementAccostageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'QUAI'
+    });
+
+    const mouvementsAppareillageRealiseDuJourPlusUn = allMouvements.filter(movement => {
+        const movementAppareillageDate = new Date(movement.date_appareillage_prevue).toISOString().split('T')[0];
+        return movementAppareillageDate === tomorrow.toISOString().split('T')[0] && movement.etat.code === 'PARTI'
+    });
+
+    const mouvementsRealiseDuJourPlusUn = [...mouvementsAccostageRealiseDuJourPlusUn, ...mouvementsAppareillageRealiseDuJourPlusUn]
+
+    const mouvementsProgrammesDuJourPlusUn = [...mouvementsAccostageProgrammesDuJourPlusUn, ...mouvementsAppareillageProgrammesDuJourPlusUn].concat(mouvementsRealiseDuJourPlusUn)
     return res.status(200).json({
         status: "Success",
         message: "La liste des escales a été récupérée avec succès",
@@ -436,11 +505,83 @@ exports.getSituations = AsyncHandler(async (req, res) => {
             escalesAttendus: escalesAttendus,
             escalesAttendusNonMisAJour: escalesAttendusNonMisAJour,
             naviresDansLePort: naviresDansLePort,
-            naviresAuMouillage: naviresAuMouillage
+            naviresAuMouillage: naviresAuMouillage,
+            mouvementsProgrammesDuJour: mouvementsProgrammesDuJour,
+            mouvementsProgrammesDuJourPlusUn: mouvementsProgrammesDuJourPlusUn,
         }
     })
 })
 
+exports.getSituationsTest = AsyncHandler(async (req, res) => {
+    const today = new Date().setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const [outsideZone, berthZone, anchorageZone, harbourZone, prevueEtat] = await Promise.all([
+        Zone.findOne({code: 'OUTSIDE'}),
+        Zone.findOne({code: 'BERTH'}),
+        Zone.findOne({code: 'ANCHORAGE'}),
+        Zone.findOne({code: 'HARBOUR'}),
+        Etat.findOne({code: 'PREVUE'}),
+    ]);
+
+    const allEscales = await Escale.find()
+        .sort('-createdAt')
+        .populate('navire')
+        .populate('etat', {libelle: 1})
+        .populate({
+            path: 'operations',
+            populate: [
+                {path: 'marchandise', model: 'Marchandise'},
+                {path: 'typeOperation', model: 'TypeOperation'},
+                {path: 'conditionnement', model: 'Conditionnement'},
+            ],
+        })
+        .populate('dossierEscale')
+        .populate('zone', {libelle: 1})
+        .populate('quai', {libelle: 1})
+        .populate('agence', {libelle: 1})
+        .populate('user', {firstname: 1, lastname: 1})
+        .populate('acconier', {libelle: 1});
+
+    const allMouvements = await Mouvement.find({})
+        .populate('etat', {libelle: 1, code: 1})
+        .populate('zone', {libelle: 1})
+        .populate('quai', {libelle: 1})
+        .populate({
+            path: 'escale',
+            populate: [{path: 'agence', model: 'Agence'}, {path: 'navire', model: 'Navire'}],
+        });
+
+    const filterByDateAndCode = (movements, date, codes) =>
+        movements.filter(movement => {
+            const movementDate = new Date(movement.date_accostage_prevue).toISOString().split('T')[0];
+            return movementDate === date.toISOString().split('T')[0] && codes.includes(movement.etat.code);
+        });
+
+    const mouvementsProgrammesDuJour = filterByDateAndCode(allMouvements, today, ['PROGRAMME_EN_ENTREE', 'PROGRAMMER_EN_SORTIE', 'QUAI', 'PARTI']);
+    const mouvementsProgrammesDuJourPlusUn = filterByDateAndCode(allMouvements, tomorrow, ['PROGRAMME_EN_ENTREE', 'PROGRAMMER_EN_SORTIE', 'QUAI', 'PARTI']);
+
+    return res.status(200).json({
+        status: "Success",
+        message: "La liste des escales a été récupérée avec succès",
+        data: {
+            escalesAttendus: allEscales.filter(escale =>
+                new Date(escale.date_accostage_prevue) >= today &&
+                escale.etat?.equals(prevueEtat._id) &&
+                escale.zone?.equals(outsideZone._id)
+            ),
+            escalesAttendusNonMisAJour: allEscales.filter(escale =>
+                new Date(escale.date_accostage_prevue) < today &&
+                escale.etat.equals(prevueEtat._id)
+            ),
+            naviresDansLePort: allEscales.filter(escale => escale.zone.equals(berthZone._id)),
+            naviresAuMouillage: allEscales.filter(escale => escale.zone.equals(anchorageZone._id) || escale.zone.equals(harbourZone._id)),
+            mouvementsProgrammesDuJour,
+            mouvementsProgrammesDuJourPlusUn,
+        },
+    });
+});
 
 exports.updateEtaEscale = AsyncHandler(async (req, res) => {
     const idEscale = req.params.id;

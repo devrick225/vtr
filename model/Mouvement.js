@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const mouvementSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ['Entrée', 'Sortie', 'Mouvement'],
+    },
     date_accostage_prevue: {
         type: Date,
     },
