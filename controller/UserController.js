@@ -25,7 +25,7 @@ exports.getUser = AsyncHandler(async (req, res) => {
 });
 
 
-exports.updateSign = AsyncHandler(async (req, res) => {
+exports.updateSignature = AsyncHandler(async (req, res) => {
     const {signature} = req.body
     const binaryData = Buffer.from(signature, 'base64');
     const updateUser = await User.findByIdAndUpdate(req.userAuth._id, {

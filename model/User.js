@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema({
     signature: {
         type: Buffer,
     },
+
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"

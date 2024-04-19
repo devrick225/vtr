@@ -124,12 +124,19 @@ exports.validateDemande = AsyncHandler(async (req, res) => {
 });
 
 exports.devalidateDemande = AsyncHandler(async (req, res) => {
+    const demande = await Demande.findById(req.params.id)
     const attenteEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
-    await Demande.findByIdAndUpdate(req.params.id, {
+    const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
+    await Demande.findByIdAndUpdate(demande._id, {
         etat: attenteEtat._id,
+        motif: req.body.rejection_reason
     }, {
         new: true,
     })
+
+    await Escale.findByIdAndUpdate(demande.escale, {
+        etat: prevueEtat._id
+    }, {new: true})
 
     res.status(200).json({
         status: "success", message: "La demande a été devalidée avec succès",

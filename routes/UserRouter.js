@@ -1,7 +1,7 @@
 const express = require('express')
 
 const {
-    getUsers, updateSign, getUser, updatePassword,
+    getUsers, updateSignature, getUser, updatePassword,
     updateUser
 } = require("../controller/UserController")
 const isAuthenticated = require("../middlewares/isAuthenticated");
@@ -15,7 +15,7 @@ userRouter.get('/', isAuthenticated, getUsers);
 userRouter.get('/me', isAuthenticated, getUser);
 userRouter.put('/:id/changePassword', isAuthenticated, historiqueDesActions(actions.modifierMotDePasse), updatePassword);
 userRouter.put('/:id', isAuthenticated, historiqueDesActions(actions.modifierUtilisateur), updateUser);
-userRouter.put('/sign', isAuthenticated, historiqueDesActions(actions.modifierSignature), updateSign);
+userRouter.post('/signature', isAuthenticated, historiqueDesActions(actions.modifierSignature), updateSignature);
 
 
 module.exports = userRouter

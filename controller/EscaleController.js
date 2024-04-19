@@ -97,7 +97,7 @@ exports.createEscale = AsyncHandler(async (req, res) => {
         date_accostage_estimee: date_accostage_prevue,
         heure_accostage_estimee: heure_accostage_prevue,
         agence: agence,
-        pol: 'n/a', atp: 'n/a', numero_escale: 'n/a',
+        pol: 'n/a', atp: 'n/a', numero_escale: escaleCreate.numero_voyage,
         date_appareillage_estimee: date_appareillage_prevue,
         heure_appareillage_estimee: heure_appareillage_prevue,
         pod: 'n/a',
@@ -621,6 +621,7 @@ exports.updateEtaEscale = AsyncHandler(async (req, res) => {
 exports.updateEtdEscale = AsyncHandler(async (req, res) => {
     const idEscale = req.params.id;
     const escale = await Escale.findById(idEscale);
+    const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
     const demande = await Demande.findOne().where('escale').equals(escale).where('incoming').equals(false);
     const {date, heure} = req.body;
     if (!escale) {
@@ -630,7 +631,8 @@ exports.updateEtdEscale = AsyncHandler(async (req, res) => {
         date_appareillage_estimee: date,
         heure_appareillage_estimee: heure,
         date_appareillage_prevue: date,
-        heure_appareillage_prevue: heure
+        heure_appareillage_prevue: heure,
+        etat: prevueEtat._id
     }, {new: true})
 
     await Demande.findByIdAndUpdate(demande._id, {
