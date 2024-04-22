@@ -48,7 +48,7 @@ exports.getDemandes = AsyncHandler(async (req, res) => {
         .populate({
             path: 'escale', populate: [{
                 path: 'user', model: 'User', populate: [{path: 'agence', model: 'Agence'},],
-            }, {path: 'navire', model: 'Navire'}, {path: 'quai', model: 'Quai'}, {
+            }, {path: 'navire', model: 'Navire'}, {path: 'etat', model: 'Etat'}, {path: 'quai', model: 'Quai'}, {
                 path: 'acconier',
                 model: 'Acconier'
             },],
@@ -127,16 +127,24 @@ exports.devalidateDemande = AsyncHandler(async (req, res) => {
     const demande = await Demande.findById(req.params.id)
     const attenteEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
     const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
+    const entryEtat = await Etat.findOne().where('code').equals('PROGRAMME_EN_ENTREE');
+
     await Demande.findByIdAndUpdate(demande._id, {
         etat: attenteEtat._id,
         motif: req.body.rejection_reason
     }, {
         new: true,
     })
+    if (demande.incoming) {
+        await Escale.findByIdAndUpdate(demande.escale, {
+            etat: prevueEtat._id
+        }, {new: true})
+    } else {
+        await Escale.findByIdAndUpdate(demande.escale, {
+            etat: entryEtat._id
+        }, {new: true})
+    }
 
-    await Escale.findByIdAndUpdate(demande.escale, {
-        etat: prevueEtat._id
-    }, {new: true})
 
     res.status(200).json({
         status: "success", message: "La demande a été devalidée avec succès",

@@ -97,8 +97,6 @@ escaleSchema.pre('save', async function (next) {
         }
     });
 
-    console.log('count', count)
-
     // Incrément de la séquence
     const sequence = count + 1;
 

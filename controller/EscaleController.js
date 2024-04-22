@@ -301,7 +301,7 @@ exports.getEscales = AsyncHandler(async (req, res) => {
 
     const escales = await Escale.find().sort('-createdAt')
         .populate('navire', {nom: 1})
-        .populate('etat', {libelle: 1})
+        .populate('etat', {libelle: 1, code: 1})
         .populate('dossierEscale')
         .populate('zone', {libelle: 1})
         .populate('quai', {code: 1})
