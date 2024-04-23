@@ -46,14 +46,16 @@ exports.createDemande = AsyncHandler(async (req, res) => {
 exports.getDemandes = AsyncHandler(async (req, res) => {
     const demandes = await Demande.find().sort('-createdAt')
         .populate({
-            path: 'escale', populate: [{
-                path: 'user', model: 'User', populate: [{path: 'agence', model: 'Agence'},],
-            }, {path: 'navire', model: 'Navire'}, {path: 'etat', model: 'Etat'}, {path: 'quai', model: 'Quai'}, {
-                path: 'acconier',
-                model: 'Acconier'
-            },],
+            path: 'escale',
+            populate: [
+                {path: 'user', model: 'User'},
+                {path: 'agence', model: 'Agence'},
+                {path: 'navire', model: 'Navire'},
+                {path: 'etat', model: 'Etat'},
+                {path: 'quai', model: 'Quai'},
+                {path: 'acconier', model: 'Acconier'},
+            ],
         })
-
         .populate('etat').populate('user');
     res.status(200).json({
         status: "Success", message: "La liste des demandes a été récupérée avec succès", data: demandes
