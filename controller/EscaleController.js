@@ -23,6 +23,7 @@ const Notification = require("../model/Notification");
 const DossierEscale = require("../model/DossierEscale");
 const TypeDocument = require("../model/TypeDocument");
 const Document = require("../model/Document");
+const ExcelJS = require('exceljs');
 
 
 exports.createEscale = AsyncHandler(async (req, res) => {
@@ -737,3 +738,47 @@ exports.getDocuments = AsyncHandler(async (req, res) => {
 });
 
 
+exports.situationsPortToExcel = AsyncHandler(async (req, res) => {
+
+    const workbook = new ExcelJS.Workbook();
+
+    const sheetsData = {
+        'NAVIRES ATTENDUS': [
+            ['NAVIRE', 'ETA', 'HEURE', 'LONG', 'TE AV', 'TE AR', 'CARG,(IMP)', 'TON', 'CARG,(EXP)', 'TON', 'AGENCE'],
+            ['MSC SANTHYA', '2023-09-13', '15H00', '', '', '', '', '', '', '', 'MSC BENIN'],
+            ['IBERIAN', '2023-09-14', '03H00', '180', '', '', '', '', '', '', 'AGL']
+        ],
+        'NAVIRES AU MOUILLAGE': [
+            ['NAVIRE', 'ARR,RADE', 'A', 'MOUILLAGE', 'A', 'REMOUILLAGE', 'LONGUEUR', 'TE AV'],
+            ['CMA CGM RABELAIS', '2023-09-09 19H35', '23H30', '2023-09-09', '', '', '300', '10.6']
+        ],
+        'NAVIRES DANS LE PORT': [
+            ['NAVIRE', 'ARRIVÉE', 'HEURE', 'LONG', 'TE AV', 'TE AR', 'QUAI', 'SÉJOUR'],
+            ['MSC SANTHYA', '2023-09-16', '12H00', '', '', '', 'Q5', '2 jours']
+        ],
+        'PROGRAMME DU JOUR': [
+            ['TYPE DE MANŒUVRE', 'STATUT', 'HEURE', 'NAVIRE', 'LOA', 'TE AV', 'TE AR', 'QUAI', 'CONSIGNATAIRE'],
+            ['APPAREILLAGE', 'NON RÉALISÉ', '16H00', 'CMA CGM CHIWAN', '261', '', '', 'Q10', 'CMA CGM B']
+        ],
+        'PROGRAMME DU JOUR +1': [
+            ['TYPE DE MANŒUVRE', 'STATUT', 'HEURE', 'NAVIRE', 'LOA', 'TE AV', 'TE AR', 'QUAI', 'CONSIGNATAIRE'],
+            ['APPAREILLAGE', 'NON RÉALISÉ', '02H00', 'RANGIROA', '93', '', '', 'QC', ''],
+            ['APPAREILLAGE', 'NON RÉALISÉ', '07H00', 'MAERSK CUBANGO', '', '', '', 'Q9', 'SHARAF']
+        ]
+    };
+
+    // Créer chaque feuille et ajouter les données
+    for (const [sheetName, data] of Object.entries(sheetsData)) {
+        const sheet = workbook.addWorksheet(sheetName);
+        data.forEach(row => sheet.addRow(row));
+    }
+
+
+    // Sauvegarder le fichier
+    try {
+        await workbook.xlsx.writeFile('Recap_Complet.xlsx');
+        console.log('Le fichier Excel a été créé avec succès!');
+    } catch (error) {
+        console.error('Erreur lors de la création du fichier Excel:', error);
+    }
+});

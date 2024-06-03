@@ -44,8 +44,11 @@ app.use('/uploads', express.static(path.join(dirname, '/uploads')))
 
 //Middlewares
 app.use(express.json());
-app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:3000', // Autorisez le frontend qui s'exécute sur le port 3000
+    methods: ['GET', 'POST'], // Méthodes autorisées pour le CORS
+    credentials: true // Autoriser les cookies cross-origin
+}));
 
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl}`)

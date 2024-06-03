@@ -1,32 +1,45 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
+// Schéma de la conférence
 const conferenceSchema = new mongoose.Schema({
-    close_at: {
+    title: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    host: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    participants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    date: {
         type: Date,
+        required: true,
+        default: Date
     },
-    closed: {
+    isActive: {
         type: Boolean,
-        default: false,
+        default: true
     },
-    heure_debut: {
-        type: String
+    startTime: {
+        type: Date,
+        default: Date.now
     },
-    heure_fin: {
-        type: String
+    endTime: {
+        type: Date
     },
-    user_run: {
+    messages: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-    user_off: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }
+        ref: 'Message'
+    }]
+});
+conferenceSchema.index({ host: 1, date: 1 }, { unique: true });
 
+// Création du modèle
+const Conference = mongoose.model('Conference', conferenceSchema);
 
-}, {
-    timestamps: true
-})
-
-const ConferenceSchema = mongoose.model("Conference", conferenceSchema);
-
-module.exports = ConferenceSchema;
+module.exports = Conference;
