@@ -4,6 +4,9 @@ const https = require('https');
 const app  = require('./app/app');
 require('./config/dbConnect');
 const fs = require("fs");
+const Message = require("./model/Message");
+const Conference = require("./model/Conference");
+const User = require("./model/User");
 const PORT = process.env.PORT || 3005;
 
 const key = fs.readFileSync('./app/private.key')
