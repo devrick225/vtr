@@ -2,8 +2,8 @@ const AsyncHandler = require('express-async-handler');
 const Conference = require('../model/Conference');
 const User = require("../model/User");
 const Notification = require("../model/Notification");
-
 const nodemailer = require('nodemailer');
+const axios = require("axios");
 
 // Créer un transporteur en utilisant le service Gmail et les informations d'authentification
 let transporter = nodemailer.createTransport({
@@ -235,6 +235,27 @@ exports.terminerConference = AsyncHandler(async (req, res) => {
             return res.status(404).send('Conference not found');
         }
 
+        const headers = {
+            'Project-ID': '6f08a0dc-20ad-4819-bb2c-ac40d9cf8854',
+            'User-Name': 'pac',
+            'User-Secret': 'pac2024',
+        };
+        const responseMessage = await axios.get(
+            `https://api.chatengine.io/chats/256648/messages/`,
+            { headers }
+        )
+        const filterTodayMessages = (messages) => {
+            const today = new Date().toISOString().split('T')[0];
+            console.log('today', today)
+
+            return messages.filter(message => {
+                console.log('message', message.created.split(' ')[0])
+                const messageDate = message.created.split(' ')[0];
+                return messageDate === today;
+            });
+        };
+
+        const todayMessages = filterTodayMessages(responseMessage.data);
         conference.isActive = false;
         conference.endTime = new Date();
 
@@ -244,7 +265,7 @@ exports.terminerConference = AsyncHandler(async (req, res) => {
             //to: 'erickoffi29@gmail.com, kemersonsteveelavagnon@gmail.com, rboukari@pac.bj, jdohou@pac.bj', // adresse du destinataire
             to: 'erickoffi29@gmail.com, kemersonsteveelavagnon@gmail.com', // adresse du destinataire
             subject: 'Conférence virtuel du jour : ' +conference.date, // sujet de l'email
-            html: generateEmailContent(req.body.messages) // contenu de l'email en HTML (optionnel)
+            html: generateEmailContent(todayMessages) // contenu de l'email en HTML (optionnel)
         };
 
         await conference.save();
