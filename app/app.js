@@ -82,6 +82,7 @@ app.use("/api/v1/historique-actions", historiqueActionRouter)
 app.use("/api/v1/documents", documentRouter)
 app.use("/api/v1/mouvements", mouvementRouter)
 app.use("/api/v1/operations", operationRouter)
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
 
 //Error Middlewares
 app.use(globalErrHandler);
