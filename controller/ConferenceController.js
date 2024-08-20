@@ -242,7 +242,7 @@ exports.terminerConference = AsyncHandler(async (req, res) => {
         };
         const responseMessage = await axios.get(
             `https://api.chatengine.io/chats/256648/messages/`,
-            { headers }
+            {headers}
         )
         const filterTodayMessages = (messages) => {
             const today = new Date().toISOString().split('T')[0];
@@ -259,12 +259,14 @@ exports.terminerConference = AsyncHandler(async (req, res) => {
         conference.isActive = false;
         conference.endTime = new Date();
 
+
+        const emails = "erickoffi29@gmail.com,cfayomi@pac.bj,ano@gmail.com,daouda@gmail.com,jacques@gmail.com,hamed@gmail.com,aquamarine@gmail.com,deltamarine@gmail.com,oliviergaba@gmail.com,irene@gmail.com,abdallah@gmail.com,cto.tnoutche@cma-cgm.com,fsefoucodjo@pac.bj,atral@gmail.com,pil@gmail.com,rlogic@gmail.com,romeoagri@gmail.com,lokossou@gmail.com,cyrille@gmail.com,aze@gmail.com,rekiath@gmail.com,soufianou@pac.bj,jdohou@pac.bj,kcornilly@pac.bj,kcornilly1@pac.bj,kcornilly2@pac.bj,tdesmed@pac.bj,tdesmed1@pac.bj,tdesmed2@pac.bj,tmichielsen@pac.bj,tmichielsen1@pac.bj,tmichielsen2@pac.bj,kalo@gmail.com,messi@gmail.com,ekoffi@gmail.com,agentvtr21@gmail.com,testcmacgm@gmail.com,danilocombs@gmail.com,afrigo@gmail.com,aldoline@gmail.cm,aquamarine@gmail.cm,maerskline@gmail.com,k.jabou@westatlantic-group.com,ogaba@pac.bj,amamatoure@pac.bj,ihounnounkpe@pac.bj,contact@dmscotonou.com,jdjangbo@pac.bj,cbadet@pac.bj,dahouandokoun@pac.bj,ndossouyovo@pac.bj,lhinwatonou@pac.bj,Jaguessyvognon@pac.bj,sglelekakai@pac.bj,gwene@pac.bj,CTO.LSAIDROBLEH@cma-cgm.com,cto.hhongbete@cma-cgm.com,almero.nonfon@grimaldi-benin.com,cto.tnoutche@msc.com,narouna@pac.bj,v.gnimassou@atralbenin.com,m.houngnon@atralbenin.com,rkoumagnon@pac.bj,jseriki@pac.bj,brim.zannou@bjc.pilship.com,orden.sawanou@bjc.pilship.com,cto.wdansou@cma-cgm.com,h.adissotoun@rlogistic.onmicrosoft.com,ayoussoufou@pac.bj,desire.hessou@navitrans.com,bj.ops@ecowasgroupe.com,ezechielotchere@gmail.com,claude.houtchai@aglgroupe.com,alfred.adda@aglgroupe.com,didier.gaga@aglgroupe.com,oronce.noutche@msc.com,prince.adossou@msc.com,aadjinda@supermaritime.com,nuvevlavo@gmail.Com,bsonon@supermaritime.com,maimouna.wazir@omagroup.com,arnaud.adjou-moumouni@omagroup.com,ragri@pac.bj,ayouba.karimou@sobemap.com,dehoueharold@gmail.com,fredilfoodsshipping@gmail.com,ignace.hangnon@aquamarine-bj.com,info@rmlogisticsbenin.com,trinitefatondji@gmail.com,gkedji@citc-inter.com,shipping.cbct@cbctgroup.com,clglele@pac.bj,credo@sharafbenin.com,benoit@sharafbenin.com,ksambianou@pac.bj,otchereezechiel@gmail.com,direction@westport-benin.com,lucoguidan@gmail.com,crew@sharafbein.com,gaudensdicode@gmail.com,gdansi@pac.bj,davahounzo@pac.bj,rbossa@pac.bj,emerick.degan@msc.com,charles.dahzoundji@grimaldi-benin.com,sandrine.gainsi@sobemap.com,claude.houtchai@aglgroup.com,famankpassa@pac.bj,operations.bj@navtrans.com,n.essou@r-logistic.com,waps_benin@westatlantic-group.com,mohammed.tchenegnon@maersk.com,caleb@sharafbenin.com,operationsteam@sharafbenin.com,balogoun@sharafbenin.com,ernest.migan@navitrans.com,CTO.RKOUEVIDJIN@cma-cgm.com,cto.cagnikpe@cma-cgm.com,m.toudonou@atralbenin.com,orden.sowanou@bjc.pilship.com,germain.foutouna@bjc.pilship.com,clement.hounhouenou@aglgroup.com,support.ivoprest-benin@ivoprest.com"
         // Configuration de l'email à envoyer
         let mailOptions = {
             from: 'ivoprestalertes@gmail.com', // adresse de l'expéditeur
             //to: 'erickoffi29@gmail.com, kemersonsteveelavagnon@gmail.com, rboukari@pac.bj, jdohou@pac.bj', // adresse du destinataire
-            to: 'erickoffi29@gmail.com, kemersonsteveelavagnon@gmail.com', // adresse du destinataire
-            subject: 'Conférence virtuel du jour : ' +conference.date, // sujet de l'email
+            to: emails, // adresse du destinataire
+            subject: 'Conférence virtuel du jour : ' + conference.date, // sujet de l'email
             html: generateEmailContent(todayMessages) // contenu de l'email en HTML (optionnel)
         };
 

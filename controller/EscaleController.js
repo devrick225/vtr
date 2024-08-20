@@ -24,6 +24,7 @@ const DossierEscale = require("../model/DossierEscale");
 const TypeDocument = require("../model/TypeDocument");
 const Document = require("../model/Document");
 const ExcelJS = require('exceljs');
+const {hashPassword} = require("../utils/helpers");
 
 
 exports.createEscale = AsyncHandler(async (req, res) => {
@@ -336,6 +337,8 @@ exports.getShippingEscales = AsyncHandler(async (req, res) => {
     })
 });
 
+
+
 exports.getEscaleOperations = AsyncHandler(async (req, res) => {
     const operations = await Operation.find().where('escale').equals(req.params.id)
         .populate('marchandise')
@@ -425,7 +428,7 @@ exports.getSituations = AsyncHandler(async (req, res) => {
     const escalesAttendus = allEscales.filter(escale => {
         const escaleDate = new Date(escale.date_accostage_prevue);
         return (
-            (escaleDate >= today) && // Check if date is greater than or equal to tomorrow
+            (escaleDate >= today) && escale && // Check if date is greater than or equal to tomorrow
             escale.etat?.equals(prevueEtat._id) && // Check if etat matches entryEtat._id
             escale.zone?.equals(outsideZone._id) // Check if zone matches outsideZone._id
         );

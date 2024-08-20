@@ -58,6 +58,10 @@ const userSchema = new mongoose.Schema({
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"
+    },
+    is_disabled: {
+        type: Boolean,
+        default: false
     }
 
 }, {

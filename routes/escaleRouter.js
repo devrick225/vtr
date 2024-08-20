@@ -3,7 +3,7 @@ const express = require('express')
 const {
     createEscale, getEscales, getEscaleOperations, getEscalePrestations, getEscale, getEscaleMouvements,
     updateDossierEscale, getDossierEscale, getDocuments, getShippingEscales, updateEtaEscale, updateEtdEscale,
-    getSituations, situationsPortToExcel
+    getSituations, situationsPortToExcel, updateNavire
 } = require("../controller/EscaleController")
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const historiqueDesActions = require("../middlewares/historiqueDesActions");
