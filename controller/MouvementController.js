@@ -9,6 +9,58 @@ const Mouvement = require('../model/Mouvement');
 
 exports.getMouvements = AsyncHandler(async (req, res) => {
     const date = new Date();
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Ajouter une marge de 72h aux dates actuelles
+    const todayPlus72h = new Date(today);
+    todayPlus72h.setHours(todayPlus72h.getHours() + 72);
+    const tomorrowPlus72h = new Date(tomorrow);
+    tomorrowPlus72h.setHours(tomorrowPlus72h.getHours() + 72);
+
+    const allMouvements = await Mouvement.find({})
+        .populate('etat', { libelle: 1, code: 1 })
+        .populate('zone', { libelle: 1 })
+        .populate('quai', { libelle: 1 })
+        .populate({
+            path: 'escale',
+            populate: [
+                { path: 'agence', model: 'Agence' },
+                { path: 'navire', model: 'Navire' },
+                { path: 'dossierEscale', model: 'DossierEscale' },
+            ],
+        });
+
+    const filterMovements = (mouvements, dateStart, dateEnd, code) => mouvements.filter(movement => {
+        const accostageDate = new Date(movement.date_accostage_prevue);
+        const appareillageDate = new Date(movement.date_appareillage_prevue);
+        return (
+            (accostageDate >= dateStart && accostageDate <= dateEnd && movement.etat.code === code) ||
+            (appareillageDate >= dateStart && appareillageDate <= dateEnd && movement.etat.code === code)
+        );
+    });
+
+    // Mouvements programmés du jour avec 72h de marge
+    const mouvementsProgrammesDuJour = filterMovements(allMouvements, today, todayPlus72h, 'PROGRAMME_EN_ENTREE')
+        .concat(filterMovements(allMouvements, today, todayPlus72h, 'PROGRAMMER_EN_SORTIE'));
+
+    // Mouvements programmés pour demain avec 72h de marge
+    const mouvementsProgrammesDuJourPlusUn = filterMovements(allMouvements, tomorrow, tomorrowPlus72h, 'PROGRAMME_EN_ENTREE')
+        .concat(filterMovements(allMouvements, tomorrow, tomorrowPlus72h, 'PROGRAMMER_EN_SORTIE'));
+
+    return res.status(200).json({
+        status: "Success",
+        message: "La liste des mouvements a été récupérée avec succès",
+        data: {
+            mouvementsProgrammesDuJour: mouvementsProgrammesDuJour,
+            mouvementsProgrammesDuJourPlusUn: mouvementsProgrammesDuJourPlusUn,
+        },
+    });
+});
+
+exports.getMouvementsTEST2 = AsyncHandler(async (req, res) => {
+    const date = new Date();
     const tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
     const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const allMouvements = await Mouvement.find({})

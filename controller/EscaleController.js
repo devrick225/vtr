@@ -326,6 +326,8 @@ exports.getEscale = AsyncHandler(async (req, res) => {
 });
 
 
+
+
 exports.getShippingEscales = AsyncHandler(async (req, res) => {
     const axios = require('axios');
 
@@ -677,6 +679,65 @@ exports.getDossierEscale = AsyncHandler(async (req, res) => {
 
 });
 
+exports.updateQuaiEscale = AsyncHandler(async (req, res) => {
+    const idEscale = req.params.id;
+    const escale = await Escale.findById(idEscale);
+    const {quai} = req.body;
+    if (!escale) {
+        throw new Error(`L'escale n'existe pas`);
+    }
+    const updateEscaleQUAI = await Escale.findByIdAndUpdate(idEscale, {
+        quai,
+    }, {new: true})
+
+    res.status(200).json({
+        status: "Success",
+        message: "Le quai a été modifié avec succès",
+        data: updateEscaleQUAI
+    })
+
+});
+
+
+exports.updateZoneEscale = AsyncHandler(async (req, res) => {
+    const idEscale = req.params.id;
+    const escale = await Escale.findById(idEscale);
+    const {zone} = req.body;
+    if (!escale) {
+        throw new Error(`L'escale n'existe pas`);
+    }
+    const updateEscaleQUAI = await Escale.findByIdAndUpdate(idEscale, {
+        zone,
+    }, {new: true})
+
+    res.status(200).json({
+        status: "Success",
+        message: "La zone a été modifié avec succès",
+        data: updateEscaleQUAI
+    })
+
+});
+
+exports.updateEtatEscale = AsyncHandler(async (req, res) => {
+    const idEscale = req.params.id;
+    const escale = await Escale.findById(idEscale);
+    const {etat} = req.body;
+    if (!escale) {
+        throw new Error(`L'escale n'existe pas`);
+    }
+    const updateEscaleQUAI = await Escale.findByIdAndUpdate(idEscale, {
+        etat,
+    }, {new: true})
+
+    res.status(200).json({
+        status: "Success",
+        message: "La situation a été modifié avec succès",
+        data: updateEscaleQUAI
+    })
+
+});
+
+
 
 exports.updateDossierEscale = AsyncHandler(async (req, res) => {
 
@@ -785,3 +846,5 @@ exports.situationsPortToExcel = AsyncHandler(async (req, res) => {
         console.error('Erreur lors de la création du fichier Excel:', error);
     }
 });
+
+

@@ -9,7 +9,6 @@ const navireSchema = new mongoose.Schema({
     longueur: String,
     volume: String,
     mmsi: String,
-    tirant_deau: String
 }, {
     timestamps: true
 })
