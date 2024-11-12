@@ -15,9 +15,9 @@ exports.getMouvements = AsyncHandler(async (req, res) => {
 
     // Ajouter une marge de 72h aux dates actuelles
     const todayPlus72h = new Date(today);
-    todayPlus72h.setHours(todayPlus72h.getHours() + 72);
+    todayPlus72h.setHours(todayPlus72h.getHours() + 720);
     const tomorrowPlus72h = new Date(tomorrow);
-    tomorrowPlus72h.setHours(tomorrowPlus72h.getHours() + 72);
+    tomorrowPlus72h.setHours(tomorrowPlus72h.getHours() + 720);
 
     const allMouvements = await Mouvement.find({})
         .populate('etat', { libelle: 1, code: 1 })
@@ -49,12 +49,15 @@ exports.getMouvements = AsyncHandler(async (req, res) => {
     const mouvementsProgrammesDuJourPlusUn = filterMovements(allMouvements, tomorrow, tomorrowPlus72h, 'PROGRAMME_EN_ENTREE')
         .concat(filterMovements(allMouvements, tomorrow, tomorrowPlus72h, 'PROGRAMMER_EN_SORTIE'));
 
+    const mouvementsTotaux = allMouvements;
+
     return res.status(200).json({
         status: "Success",
         message: "La liste des mouvements a été récupérée avec succès",
         data: {
             mouvementsProgrammesDuJour: mouvementsProgrammesDuJour,
             mouvementsProgrammesDuJourPlusUn: mouvementsProgrammesDuJourPlusUn,
+            mouvementsTotaux: mouvementsTotaux,  // Ajout de tous les mouvements
         },
     });
 });

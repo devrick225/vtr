@@ -14,6 +14,12 @@ const userSchema = new mongoose.Schema({
         type: String,
 
     },
+
+    active: {
+    type: Boolean,
+    default: true,
+},
+
     email: {
         type: String,
         required: true,
@@ -58,10 +64,6 @@ const userSchema = new mongoose.Schema({
     agence: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Agence"
-    },
-    is_disabled: {
-        type: Boolean,
-        default: false
     }
 
 }, {

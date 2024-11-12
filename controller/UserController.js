@@ -133,6 +133,29 @@ exports.updateUser = AsyncHandler(async (req, res) => {
 })
 
 
+exports.toggleUserStatus = AsyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+        throw new Error("L'utilisateur n'existe pas");
+    }
+
+    // Inverse l'état actuel du champ `active`
+    const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { active: !user.active },
+        { new: true }
+    );
+
+    res.status(200).json({
+        status: "Success",
+        message: `Le statut de l'utilisateur a été mis à jour avec succès. Le compte est maintenant ${updatedUser.active ? 'activé' : 'désactivé'}.`,
+        data: updatedUser
+    });
+});
+
+
 
 
 

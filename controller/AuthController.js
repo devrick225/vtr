@@ -94,11 +94,17 @@ exports.login = AsyncHandler(async (req, res) => {
 
     const isMatched = await isPasswordMatched(password, user.password);
     if (!isMatched) {
-        return res.status(404).json({
+        return res.status(40).json({
             status: "Error",
             message: "Mot de passe ou Email invalide"
         })
-    } else {
+    }else if (user.active === false) {
+
+        return res.status(405).json({
+            status: "Error",
+            message: "Compte utilisateur bloqué"
+        })
+    }else {
         await new HistoriqueAction({user: user._id, type: actions.authentification}).save();
         return res.status(200).json({
             status: "Success",

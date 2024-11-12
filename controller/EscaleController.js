@@ -165,7 +165,6 @@ exports.createEscale = AsyncHandler(async (req, res) => {
             }, {new: true})
 
 
-
             /* if (operationCreate) {
                 for (const mouvement of operation.mouvements) {
                     const typeMouvementExist = await TypeMouvement.findById(mouvement.typeMouvement);
@@ -326,8 +325,6 @@ exports.getEscale = AsyncHandler(async (req, res) => {
 });
 
 
-
-
 exports.getShippingEscales = AsyncHandler(async (req, res) => {
     const axios = require('axios');
 
@@ -338,7 +335,6 @@ exports.getShippingEscales = AsyncHandler(async (req, res) => {
         data: response.data
     })
 });
-
 
 
 exports.getEscaleOperations = AsyncHandler(async (req, res) => {
@@ -427,14 +423,17 @@ exports.getSituations = AsyncHandler(async (req, res) => {
         });
 
 
-    const escalesAttendus = allEscales.filter(escale => {
-        const escaleDate = new Date(escale.date_accostage_prevue);
-        return (
-            (escaleDate >= today) && escale && // Check if date is greater than or equal to tomorrow
-            escale.etat?.equals(prevueEtat._id) && // Check if etat matches entryEtat._id
-            escale.zone?.equals(outsideZone._id) // Check if zone matches outsideZone._id
-        );
-    });
+    const escalesAttendus = allEscales
+        .filter(escale => {
+            const escaleDate = new Date(escale.date_accostage_prevue);
+            return (
+                (escaleDate >= today) &&
+                escale.etat?.equals(prevueEtat._id) &&
+                escale.zone?.equals(outsideZone._id)
+            );
+        })
+        .sort((a, b) => new Date(a.date_accostage_prevue) - new Date(b.date_accostage_prevue));
+
     const escalesAttendusNonMisAJour = allEscales.filter(escale => {
         const escaleDate = new Date(escale.date_accostage_prevue);
         return (
@@ -736,7 +735,6 @@ exports.updateEtatEscale = AsyncHandler(async (req, res) => {
     })
 
 });
-
 
 
 exports.updateDossierEscale = AsyncHandler(async (req, res) => {

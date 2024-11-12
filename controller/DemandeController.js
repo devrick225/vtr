@@ -54,11 +54,16 @@ exports.getDemandes = AsyncHandler(async (req, res) => {
                 {path: 'etat', model: 'Etat'},
                 {path: 'quai', model: 'Quai'},
                 {path: 'acconier', model: 'Acconier'},
+                {path: 'zone', model: 'Zone'},
             ],
         })
         .populate('etat').populate('user');
+
+
+    const demandesFilter = demandes.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     res.status(200).json({
-        status: "Success", message: "La liste des demandes a été récupérée avec succès", data: demandes
+        status: "Success", message: "La liste des demandes a été récupérée avec succès", data: demandesFilter
     })
 
 });
