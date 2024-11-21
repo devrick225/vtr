@@ -3,7 +3,8 @@ const express = require('express')
 const {
     createEscale, getEscales, getEscaleOperations, getEscalePrestations, getEscale, getEscaleMouvements,
     updateDossierEscale, getDossierEscale, getDocuments, getShippingEscales, updateEtaEscale, updateEtdEscale,
-    getSituations, situationsPortToExcel, updateNavire, updateQuaiEscale, updateZoneEscale, updateEtatEscale
+    getSituations, situationsPortToExcel, updateNavire, updateQuaiEscale, updateZoneEscale, updateEtatEscale,
+    deleteEscale
 } = require("../controller/EscaleController")
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const historiqueDesActions = require("../middlewares/historiqueDesActions");
@@ -25,7 +26,7 @@ escaleRouter.put('/:id/etd', isAuthenticated, updateEtdEscale);
 escaleRouter.put('/:id/quai', isAuthenticated, updateQuaiEscale);
 escaleRouter.put('/:id/zone', isAuthenticated, updateZoneEscale);
 escaleRouter.put('/:id/etat', isAuthenticated, updateEtatEscale);
-
+escaleRouter.delete('/:id', isAuthenticated, deleteEscale);
 escaleRouter.get('/lists/shipping', getShippingEscales);
 escaleRouter.get('/situations/port', getSituations);
 escaleRouter.get('/situations/excel', situationsPortToExcel);

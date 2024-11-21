@@ -298,6 +298,434 @@ exports.createEscale = AsyncHandler(async (req, res) => {
     })
 });
 
+exports.createEscaleNew = AsyncHandler(async (req, res) => {
+
+
+    const today = new Date();exports.createEscale = AsyncHandler(async (req, res) => {
+        try {
+            const today = new Date();
+            const {
+                navire,
+                agence,
+                acconier,
+                quai,
+                date_accostage_prevue,
+                date_appareillage_prevue,
+                heure_accostage_prevue,
+                heure_appareillage_prevue,
+                operations,
+                is_commerciale,
+                is_dangerous
+            } = req.body;
+
+            // Validation initiale
+            if (!navire || !agence || !quai || !date_accostage_prevue || !date_appareillage_prevue) {
+                return res.status(400).json({ status: "Error", message: "Des champs obligatoires sont manquants." });
+            }
+
+            const userAuth = req.userAuth;
+
+            // Récupérer les données en parallèle
+            const [
+                outsideZone,
+                prevueEtat,
+                waitingEtat,
+                navireExist,
+                berthZoneExist,
+                quaiExist,
+                defautPrestataire,
+                commandeEtat,
+                userDefaultRessource,
+                serviceAssistances,
+                typeDocuments,
+                escalesExistantes
+            ] = await Promise.all([
+                Zone.findOne({ code: 'OUTSIDE' }),
+                Etat.findOne({ code: 'PREVUE' }),
+                Etat.findOne({ code: 'EN_ATTENTE' }),
+                Navire.findById(navire),
+                Zone.findOne({ code: 'BERTH' }),
+                Quai.findById(quai),
+                Prestataire.findOne({ code: 'PAC' }),
+                Etat.findOne({ code: 'COMMANDEE' }),
+                User.findOne({ username: 'default' }),
+                ServiceAssistance.find({ auto_generated: true }),
+                TypeDocument.find(),
+                Escale.find({ navire, date_accostage_estimee: date_accostage_prevue })
+            ]);
+
+            // Vérifications de données
+            if (!navireExist) return res.status(404).json({ status: "Error", message: "Navire introuvable." });
+            if (!quaiExist) return res.status(404).json({ status: "Error", message: "Quai introuvable." });
+            if (escalesExistantes.length > 0) {
+                return res.status(203).json({
+                    status: "Warning",
+                    message: "Escale existe déjà."
+                });
+            }
+
+            // Création de l'escale
+            const escaleCreate = await Escale.create({
+                acconier,
+                agence,
+                user: userAuth._id,
+                zone: outsideZone._id,
+                etat: prevueEtat._id,
+                navire: navireExist._id,
+                quai: quaiExist._id,
+                date_accostage_prevue,
+                date_appareillage_prevue,
+                heure_accostage_prevue,
+                heure_appareillage_prevue,
+                is_commerciale,
+                is_dangerous,
+                date_accostage_estimee: date_accostage_prevue,
+                date_appareillage_estimee: date_appareillage_prevue,
+                heure_accostage_estimee: heure_accostage_prevue,
+                heure_appareillage_estimee: heure_appareillage_prevue,
+            });
+
+            // Création du dossier escale
+            const dossierEscale = await DossierEscale.create({
+                escale: escaleCreate._id,
+                date_accostage_estimee: date_accostage_prevue,
+                heure_accostage_estimee: heure_accostage_prevue,
+                agence,
+                etat: prevueEtat._id
+            });
+
+            // Création des demandes d'entrée et sortie
+            const demandes = [
+                {
+                    user: req.userAuth._id,
+                    incoming: true,
+                    escale: escaleCreate._id,
+                    etat: waitingEtat._id,
+                    date: date_accostage_prevue,
+                    heure: heure_accostage_prevue,
+                },
+                {
+                    user: req.userAuth._id,
+                    incoming: false,
+                    escale: escaleCreate._id,
+                    etat: waitingEtat._id,
+                    date: date_appareillage_prevue,
+                    heure: heure_appareillage_prevue,
+                }
+            ];
+            await Demande.insertMany(demandes);
+
+            // Création des opérations commerciales
+            if (is_commerciale && operations?.length > 0) {
+                for (const operation of operations) {
+                    const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
+                    if (conditionnementExist) {
+                        const operationCreated = await Operation.create({
+                            escale: escaleCreate._id,
+                            typeOperation: operation.typeOperation,
+                            marchandise: operation.marchandise,
+                            conditionnement: operation.conditionnement,
+                            nombre_prevu: operation.nombre_prevu,
+                            tonnage_prevu: operation.tonnage_prevu
+                        });
+                        escaleCreate.operations.push(operationCreated._id);
+                    }
+                }
+                await escaleCreate.save();
+            }
+
+            // Création des mouvements et notifications
+            const mouvements = [
+                { type: 'Entrée', date_accostage_prevue, heure_accostage_prevue, date_appareillage_prevue, heure_appareillage_prevue },
+                { type: 'Sortie', date_accostage_prevue, heure_accostage_prevue, date_appareillage_prevue, heure_appareillage_prevue }
+            ];
+            await Promise.all(mouvements.map(mouvement => Mouvement.create({ ...mouvement, escale: escaleCreate._id, etat: prevueEtat._id, zone: berthZoneExist._id, quai: quaiExist._id })));
+
+            // Création des documents et prestations
+            await Promise.all([
+                ...typeDocuments.map(typeDoc => Document.create({ escale: escaleCreate._id, typeDocument: typeDoc._id, etat: waitingEtat._id })),
+                ...serviceAssistances.map(service => Prestation.create({ prestataire: defautPrestataire._id, user: userDefaultRessource._id, serviceAssistance: service._id, date_commande: date_accostage_prevue, heure_commande: heure_accostage_prevue, escale: escaleCreate._id, etat: commandeEtat._id }))
+            ]);
+
+            res.status(201).json({
+                status: "Success",
+                message: "L'escale a été créée avec succès.",
+                data: escaleCreate,
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ status: "Error", message: "Erreur interne du serveur." });
+        }
+    });
+
+
+    const {
+        navire,
+        agence,
+        acconier,
+        quai,
+        date_accostage_prevue,
+        date_appareillage_prevue,
+        heure_accostage_prevue,
+        heure_appareillage_prevue,
+        operations,
+        is_commerciale,
+        is_dangerous
+    } = req.body;
+
+    const userAuth = req.userAuth;
+
+    const outsideZone = await Zone.findOne().where('code').equals('OUTSIDE');
+    const prevueEtat = await Etat.findOne().where('code').equals('PREVUE');
+    const waitingEtat = await Etat.findOne().where('code').equals('EN_ATTENTE');
+    const navireExist = await Navire.findById(navire);
+    const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
+
+    const quaiExist = await Quai.findById(quai);
+    const defautPrestataire = await Prestataire.findOne().where('code').equals('PAC');
+    const commandeEtat = await Etat.findOne().where('code').equals('COMMANDEE');
+    const userDefaultRessource = await User.findOne().where('username').equals('default');
+    const serviceAssistances = await ServiceAssistance.find().where('auto_generated').equals(true);
+    const typeDocuments = await TypeDocument.find();
+
+
+    const escales = await Escale.find({
+        navire: navireExist._id,
+        date_accostage_estimee: date_accostage_prevue,
+    });
+
+    if (escales.length > 0) {
+        res.status(203).json({
+            status: "Warning",
+            message: "Escale existe déjà",
+        })
+    }
+    const escaleCreate = await Escale.create({
+
+        acconier: acconier,
+        agence: agence,
+        user: userAuth._id,
+        zone: outsideZone._id,
+        etat: prevueEtat._id,
+        navire: navireExist._id,
+        quai: quaiExist._id,
+        date_accostage_prevue,
+        date_appareillage_prevue,
+        heure_accostage_prevue,
+        heure_appareillage_prevue,
+        is_commerciale,
+        is_dangerous,
+        date_accostage_estimee: date_accostage_prevue,
+        date_appareillage_estimee: date_appareillage_prevue,
+        heure_accostage_estimee: heure_accostage_prevue,
+        heure_appareillage_estimee: heure_appareillage_prevue,
+    });
+
+    const dossierEscale = await DossierEscale.create({
+        escale: escaleCreate._id,
+        date_accostage_estimee: date_accostage_prevue,
+        heure_accostage_estimee: heure_accostage_prevue,
+        agence: agence,
+        pol: 'n/a', atp: 'n/a', numero_escale: escaleCreate.numero_voyage,
+        date_appareillage_estimee: date_appareillage_prevue,
+        heure_appareillage_estimee: heure_appareillage_prevue,
+        pod: 'n/a',
+        tel: '/a',
+        etat: prevueEtat._id,
+        date_arrivee_rade: '',
+        heure_arrivee_rade: '',
+        date_arrivee_mouillage: '',
+        heure_arrivee_mouillage: '',
+        motif_attente: '', sejour_rade: '', date_accostage: '',
+        heure_accostage: '', entree_tirant_eau_arr: '',
+        entree_tirant_eau_av: '',
+        date_accostage_prevue: '',
+        heure_accostage_prevue: '',
+        cause_retard: '',
+        sejour_prevu: '',
+        date_depart_rade: '',
+        heure_depart_rade: '',
+        date_depart_mouillage: '',
+        heure_depart_mouillage: '',
+        date_appareillage: '',
+        heure_appareillage: '',
+        sortie_tirant_eau_arr: '',
+        sortie_tirant_eau_av: '',
+        date_appareillage_prevue: '',
+        heure_appareillage_prevue: '',
+        sejour_effectif: '',
+        sejour_duree: ''
+    })
+
+    await Demande.create({
+        user: req.userAuth._id,
+        incoming: true,
+        escale: escaleCreate._id,
+        etat: waitingEtat._id,
+        date: date_accostage_prevue,
+        heure: heure_accostage_prevue,
+    });
+
+    await Demande.create({
+        user: req.userAuth._id,
+        incoming: false,
+        escale: escaleCreate._id,
+        etat: waitingEtat._id,
+        date: date_appareillage_prevue,
+        heure: heure_appareillage_prevue,
+    });
+    if (is_commerciale) {
+        for (const operation of operations) {
+            const conditionnementExist = await Conditionnement.findById(operation.conditionnement);
+
+            const operationCreated = await Operation.create({
+                escale: escaleCreate._id,
+                typeOperation: operation.typeOperation,
+                marchandise: operation.marchandise,
+                conditionnement: operation.conditionnement,
+                nombre_prevu: operation.nombre_prevu,
+                tonnage_prevu: operation.tonnage_prevu
+            })
+
+            await Escale.findByIdAndUpdate(escaleCreate._id, {
+                $push: {operations: operationCreated._id},
+            }, {new: true})
+
+
+            /* if (operationCreate) {
+                for (const mouvement of operation.mouvements) {
+                    const typeMouvementExist = await TypeMouvement.findById(mouvement.typeMouvement);
+                    const positionNavireExist = await PositionNavire.findById(mouvement.positionNavire);
+                    const berthZoneExist = await Zone.findOne().where('code').equals('BERTH');
+                    const quaiMouvementExist = await Quai.findById(mouvement.quai);
+                    if (typeMouvementExist && positionNavireExist && berthZoneExist && quaiMouvementExist) {
+                        const createMouvement = await Mouvement.create({
+                            operation: operationCreate._id,
+                            typeMouvement: typeMouvementExist._id,
+                            positionNavire: positionNavireExist._id,
+                            zone: berthZoneExist._id,
+                            etat: prevueEtat._id,
+                            quai: quaiMouvementExist._id,
+                            date_accostage_prevue: mouvement.date_accostage_prevue,
+                            date_appareillage_prevue: mouvement.date_appareillage_prevue,
+                            heure_accostage_prevue: mouvement.heure_accostage_prevue,
+                            heure_appareillage_prevue: mouvement.heure_appareillage_prevue,
+                            nombre_remorque_demande: mouvement.nombre_remorque_demande
+                        });
+
+                        await Operation.findByIdAndUpdate(
+                            operationCreate._id,
+                            { $push: { mouvements: createMouvement._id } },
+                            { new: true, useFindAndModify: false }
+                        );
+                    }
+                }
+            } */
+        }
+    }
+
+    await Mouvement.create({
+        escale: escaleCreate._id,
+        type: 'Entrée',
+        mouvement_accostage: 'Entrée',
+        mouvement_appareillage: 'Sortie',
+        date_accostage_prevue: escaleCreate.date_accostage_estimee,
+        heure_accostage_prevue: escaleCreate.heure_accostage_estimee,
+        date_appareillage_prevue: escaleCreate.date_appareillage_estimee,
+        heure_appareillage_prevue: escaleCreate.heure_appareillage_estimee,
+        pab_accostage_date: escaleCreate.date_accostage_estimee,
+        pab_accostage_heure: escaleCreate.heure_accostage_estimee,
+        pab_appareillage_date: escaleCreate.date_appareillage_estimee,
+        pab_appareillage_heure: escaleCreate.heure_appareillage_estimee,
+        quai: escaleCreate.quai._id,
+        etat: prevueEtat._id,
+        zone: berthZoneExist._id
+    })
+    await Mouvement.create({
+        escale: escaleCreate._id,
+        type: 'Sortie',
+        mouvement_accostage: 'Entrée',
+        mouvement_appareillage: 'Sortie',
+        date_accostage_prevue: escaleCreate.date_accostage_estimee,
+        heure_accostage_prevue: escaleCreate.heure_accostage_estimee,
+        date_appareillage_prevue: escaleCreate.date_appareillage_estimee,
+        heure_appareillage_prevue: escaleCreate.heure_appareillage_estimee,
+        pab_accostage_date: escaleCreate.date_accostage_estimee,
+        pab_accostage_heure: escaleCreate.heure_accostage_estimee,
+        pab_appareillage_date: escaleCreate.date_appareillage_estimee,
+        pab_appareillage_heure: escaleCreate.heure_appareillage_estimee,
+        quai: escaleCreate.quai._id,
+        etat: prevueEtat._id,
+        zone: berthZoneExist._id
+    })
+
+
+    for (const typeDoc of typeDocuments) {
+        await Document.create({
+            escale: escaleCreate._id,
+            typeDocument: typeDoc._id,
+            etat: waitingEtat._id,
+        })
+    }
+
+    for (const serviceAssistance of serviceAssistances) {
+        await Prestation.create({
+            prestataire: defautPrestataire._id,
+            user: userDefaultRessource._id,
+            serviceAssistance: serviceAssistance._id,
+            date_commande: escaleCreate.date_accostage_prevue,
+            heure_commande: escaleCreate.heure_accostage_prevue,
+            escale: escaleCreate._id,
+            etat: commandeEtat._id
+        })
+        await Prestation.create({
+            prestataire: defautPrestataire._id,
+            user: userDefaultRessource._id,
+            serviceAssistance: serviceAssistance._id,
+            date_commande: escaleCreate.date_appareillage_prevue,
+            heure_commande: escaleCreate.heure_appareillage_prevue,
+            etat: commandeEtat._id,
+            escale: escaleCreate._id,
+            type_prestation: 'Sortie',
+        })
+    }
+
+
+    const users = await User.find().where('fonction').equals('Capitaine');
+    const messageEscale = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a annoncé une escale (ID Escale : ${escaleCreate._id}) pour le navire ${navireExist.nom} dont l' ETA est le ${date_accostage_prevue} à ${heure_accostage_prevue} le quai sollicité est le quai : ${quaiExist.code}. `
+    const messageDemandeEntree = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande d'entrée (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_accostage_prevue} à ${heure_accostage_prevue}. `
+    const messageDemandeSortie = `Le consignataire ${req.userAuth.lastname} ${req.userAuth.firstname} a effectué une demande de sortie (ID Escale : ${escaleCreate._id}) du navire ${navireExist.nom} le ${date_appareillage_prevue} à ${heure_appareillage_prevue}. `
+    for (const receiver of users) {
+        const notificationEscale = new Notification({
+            sender: req.userAuth._id,
+            receivers: [receiver],
+            message: messageEscale
+        });
+        const notificationDemandeEntree = new Notification({
+            sender: req.userAuth._id,
+            receivers: [receiver],
+            message: messageDemandeEntree
+        });
+        const notificationDemandeSortie = new Notification({
+            sender: req.userAuth._id,
+            receivers: [receiver],
+            message: messageDemandeSortie
+        });
+        await notificationEscale.save();
+        await notificationDemandeEntree.save();
+        await notificationDemandeSortie.save();
+    }
+    await Escale.findByIdAndUpdate(escaleCreate._id, {
+        dossierEscale: dossierEscale._id,
+    }, {new: true})
+    res.status(201).json({
+        status: "Success",
+        message: "L'escale a été crée avec succès",
+        data: escaleCreate,
+    })
+});
+
+
 exports.getEscales = AsyncHandler(async (req, res) => {
 
     const escales = await Escale.find().sort('-createdAt')
@@ -845,4 +1273,29 @@ exports.situationsPortToExcel = AsyncHandler(async (req, res) => {
     }
 });
 
+exports.deleteEscale = AsyncHandler(async (req, res) => {
+    const idEscale = req.params.id;
+
+    try {
+        // Supprimer les entités associées
+        await Promise.all([
+            DossierEscale.deleteMany({ escale: idEscale }),
+            Document.deleteMany({ escale: idEscale }),
+            Demande.deleteMany({ escale: idEscale }),
+            Mouvement.deleteMany({ escale: idEscale }),
+            Prestation.deleteMany({ escale: idEscale }),
+        ]);
+
+        // Supprimer l'escale
+        const deletedEscale = await Escale.findByIdAndDelete(idEscale);
+
+        if (!deletedEscale) {
+            return res.status(404).json({ message: "Escale non trouvée" });
+        }
+
+        res.status(200).json({ message: "Escale et ses entités associées supprimées avec succès" });
+    } catch (error) {
+        res.status(500).json({ message: "Erreur lors de la suppression", error });
+    }
+});
 
