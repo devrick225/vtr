@@ -1,0 +1,2642 @@
+[{
+  "_id": {
+    "$oid": "6505bc8bd49e9ace37daff0a"
+  },
+  "username": "erickoffi",
+  "firstname": "Eric Rainier",
+  "lastname": "Koffi",
+  "email": "erickoffi29@gmail.com",
+  "password": "$2a$10$e4EuP9dYZxx3.t90yESmT.80rwUccSQ3hktef3DQYNt8yB/5C1qfS",
+  "contact": "+2250779038069",
+  "userGroup": {
+    "$oid": "65047e36b93f56f90354bc3e"
+  },
+  "createdAt": {
+    "$date": "2023-09-16T14:32:43.281Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-12T03:41:11.333Z"
+  },
+  "__v": 0,
+  "fonction": "Administrateur",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "667ed33aaf0656050c2ff14d"
+  },
+  "username": "ndossouyovo",
+  "firstname": "Nancy",
+  "lastname": "DOSSOU-YOVO",
+  "email": "ndossouyovo@pac.bj",
+  "password": "$2a$10$JZZmtZJV1q3GipfUISGlQ.gW8vOVk/edIfQkDh550SLcpz2WMgNEu",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T15:14:02.753Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T15:14:02.753Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "65d650249ae3a50ed43e516d"
+  },
+  "username": "rekiathboukary",
+  "firstname": "Rékiath",
+  "lastname": "Boukary",
+  "email": "rekiath@gmail.com",
+  "password": "$2a$10$de0TnrXs2oJ4nLUEvHMqOOA4E7R/FSAlK9YSKeg04zk6fNUXFAyMi",
+  "userGroup": {
+    "$oid": "65047e36b93f56f90354bc3e"
+  },
+  "fonction": "Administrateur",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-02-21T19:33:56.032Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-21T19:33:56.032Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "65fd4bcb3e36b1efbffbe347"
+  },
+  "username": "soufianou",
+  "firstname": "Soufianou",
+  "lastname": "IMOROU",
+  "email": "soufianou@pac.bj",
+  "password": "$2a$10$GORXuQB7kg.6/gMAVwwxnuUeNyRrXQMzbQWyCQ4ABbaCySqfVOUaW",
+  "userGroup": {
+    "$oid": "661dab7bbe0d9a68bf39fb68"
+  },
+  "fonction": "Observateur",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-03-22T09:13:47.373Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-11T19:57:29.881Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ec77faf0656050c2ff0e4"
+  },
+  "username": "jdjangbo",
+  "firstname": "Jules",
+  "lastname": "DJANGBO",
+  "email": "jdjangbo@pac.bj",
+  "password": "$2a$10$pZpXLXI1Nbb7U7GAle0nu.qe6MKsOcBjsycZmTOiwfRnOOUA4vud.",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T14:23:59.171Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-13T08:55:53.604Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "650c97fb523187829b6a8763"
+  },
+  "username": "cfayomi",
+  "firstname": "Charles",
+  "lastname": "FAYOMI",
+  "email": "cfayomi@pac.bj",
+  "password": "$2a$10$Bk8gu88fW03cPr4mf6Njq.VJ2J9zhjUbOfzH3FPF0.4hdwpQzbEfW",
+  "contact": "+2250779038069",
+  "userGroup": {
+    "$oid": "650c97db523187829b6a875e"
+  },
+  "createdAt": {
+    "$date": "2023-09-21T19:22:35.596Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-12T16:10:28.749Z"
+  },
+  "__v": 0,
+  "fonction": "Commandant",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "signature": {
+    "$binary": {
+      "base64": "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",
+      "subType": "00"
+    }
+  },
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "65d468e91ab6b74b48c63eb4"
+  },
+  "username": "FOUAD SEFOU CODJO",
+  "firstname": "FOUAD",
+  "lastname": "SEFOU CODJO",
+  "email": "fsefoucodjo@pac.bj",
+  "password": "$2a$10$U2G2/yDqKO3kbBkvJqcKieihvHYSUZxlnF79i9/mc9BZb4f0ZNIje",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-02-20T08:55:05.803Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-16T15:46:53.506Z"
+  },
+  "__v": 0,
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "667edfaaaf0656050c2ff1de"
+  },
+  "username": "gwene",
+  "firstname": "Gedeon",
+  "lastname": "WENE",
+  "email": "gwene@pac.bj",
+  "password": "$2a$10$On2eBzVNlP57YSv0J2vZIetnoM9l9m4Q5TFpXgFHR1SHO8FeOapy.",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:07:06.142Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T16:07:06.142Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667e96a2af0656050c2fefc4"
+  },
+  "username": "ogaba",
+  "firstname": "Olivier",
+  "lastname": "GABA",
+  "email": "ogaba@pac.bj",
+  "password": "$2a$10$tJ1.VtzTm8uHpw.amn29P.AspG2i7WVVeGd1SqZgt7pMnHSUz8B0K",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T10:55:30.550Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T09:00:18.343Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ee11baf0656050c2ff1fc"
+  },
+  "username": "hhongbete",
+  "firstname": "Hugues",
+  "lastname": "HONGBETE",
+  "email": "cto.hhongbete@cma-cgm.com",
+  "password": "$2a$10$zKRXzKoxlLXCkQOeUojce.PsdwNtgg3tn8ejmTDxFGVrvMRzzEeym",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515461"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:13:15.799Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T16:13:15.799Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667e8cdeaf0656050c2fef65"
+  },
+  "username": "okinifo",
+  "firstname": "Orince",
+  "lastname": "KINIFO",
+  "email": "k.jabou@westatlantic-group.com",
+  "password": "$2a$10$jOKt06Iggqpx3nA/wXv41eucnEZlN6XePNHTXfLAFLQc9VtbiNNby",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "667e8be6af0656050c2fef55"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T10:13:50.687Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T10:25:20.088Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ec1f0af0656050c2ff096"
+  },
+  "username": "ihounnounkpe",
+  "firstname": "Iréné",
+  "lastname": "HOUNNOUKPE",
+  "email": "ihounnoukpe@pac.bj",
+  "password": "$2a$10$oSJBUcXzPjwyj1w.2P4ASeNkSgykIfQlu7kNI3dDZ3N8QWtKZP6hC",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T14:00:16.988Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-21T08:54:17.068Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ec7ecaf0656050c2ff0ff"
+  },
+  "username": "cbadet",
+  "firstname": "Charbel",
+  "lastname": "BADET",
+  "email": "cbadet@pac.bj",
+  "password": "$2a$10$dog3DiknrFNO73XRU7wIZ.hig0DlzsOT9qugIR2fzcQ14puaAzCum",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T14:25:48.712Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T14:25:48.712Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ec83faf0656050c2ff10e"
+  },
+  "username": "dahouandokoun",
+  "firstname": "Damien",
+  "lastname": "AHOUANDOKOUN",
+  "email": "dahouandokoun@pac.bj",
+  "password": "$2a$10$GHvYuBrBkdUzEcPt/8g8LuQNTR22WBbCO26lZt6QTTjlxILHrqBAq",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T14:27:11.617Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T07:52:33.745Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ec683af0656050c2ff0d5"
+  },
+  "username": "mkouton",
+  "firstname": "Mireille",
+  "lastname": "KOUTON",
+  "email": "contact@dmscotonou.com",
+  "password": "$2a$10$Y53nfiNzLg3cZXX9F0m.LuAavAdANlPwjJbwRRJCns8D2jAhvq3sm",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd51546b"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T14:19:47.251Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T14:19:47.251Z"
+  },
+  "__v": 0,
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "667edf3faf0656050c2ff1c3"
+  },
+  "username": "sglelekakai",
+  "firstname": "Sonia",
+  "lastname": "GLELE KAKAI",
+  "email": "sglelekakai@pac.bj",
+  "password": "$2a$10$oORJat53k8Lj0t4rheT9UuAxVqW15lVvD.ZpPU93pK0P4KJAyG3Rm",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:05:19.478Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T16:05:19.478Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ee09aaf0656050c2ff1ed"
+  },
+  "username": "sliban",
+  "firstname": "Said Robleh",
+  "lastname": "LIBAN",
+  "email": "CTO.LSAIDROBLEH@cma-cgm.com",
+  "password": "$2a$10$.iDNj4a5LqcKKTjRkSWB2OFrfKMECKNL2teMVPMA35rV1do0qHQjW",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515461"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:11:06.137Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T16:11:06.137Z"
+  },
+  "__v": 0,
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "6601906d0ef5c1d7113b88cc"
+  },
+  "username": "jdohou",
+  "firstname": "Jean Eude",
+  "lastname": "DOHOU",
+  "email": "jdohou@pac.bj",
+  "password": "$2a$10$mE2aU.5YmhN2AWQpYqaW8OlF8aVqIk.PKUkWQ3SJGjPdrTX/etuf.",
+  "userGroup": {
+    "$oid": "65047e36b93f56f90354bc3e"
+  },
+  "fonction": "Administrateur",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-03-25T14:55:41.121Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-25T10:43:37.934Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ede14af0656050c2ff1a5"
+  },
+  "username": "lhinwatonou",
+  "firstname": "Ludovic",
+  "lastname": "HINWATONOU",
+  "email": "lhinwatonou@pac.bj",
+  "password": "$2a$10$4XdTSRTs7KrC6XO4Cw4gmeWaNs9WOSMqa3bnLVeU1d324N77Rcu.K",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:00:20.356Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T08:58:26.767Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667edea3af0656050c2ff1b4"
+  },
+  "username": "jaguessyvognon",
+  "firstname": "Jules",
+  "lastname": "AGUESSY-VOGNON",
+  "email": "Jaguessyvognon@pac.bj",
+  "password": "$2a$10$gUWoWpCYpFunrMpxoldkd.1.jjzvS4JaYfc9sNsIpKIg9LWua82NK",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:02:43.769Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T15:34:12.807Z"
+  },
+  "__v": 0,
+  "signature": {
+    "$binary": {
+      "base64": "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",
+      "subType": "00"
+    }
+  },
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "667ee308af0656050c2ff23f"
+  },
+  "username": "narouna",
+  "firstname": "Nassirou",
+  "lastname": "AROUNA",
+  "email": "narouna@pac.bj",
+  "password": "$2a$10$SoyvjKtAjWxyAF//Px3WBevlQsDqCZaMDeG.W6xy0ZFKsqahjcJTG",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:21:28.966Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T08:16:34.235Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb5ec2353e6c07fcce9c22"
+  },
+  "username": "cfanoudh",
+  "firstname": "Caleb",
+  "lastname": "FANOUDH",
+  "email": "caleb@sharafbenin.com",
+  "password": "$2a$10$i/qbHFOFK0pTbo.mWCD2selHASXtw1eTvfauQ2z8aRJuvcL5Uhp1u",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515463"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T13:25:22.235Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T13:25:22.235Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8aea0353e6c07fcce5aca"
+  },
+  "username": "aadda",
+  "firstname": "Alfred",
+  "lastname": "ADDA",
+  "email": "alfred.adda@aglgroupe.com",
+  "password": "$2a$10$Lv78yedas3lg3WwQ9K2ef.sFLfqVoylHN8lk/qPZBujT.5b6Z7hQO",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8ad76353e6c07fcce5a9f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T09:13:04.917Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T09:13:04.917Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ef5d5af0656050c2ff317"
+  },
+  "username": "badissotoun",
+  "firstname": "Bernard",
+  "lastname": "ADISSOTOUN",
+  "email": "h.adissotoun@rlogistic.onmicrosoft.com",
+  "password": "$2a$10$u2lsemRxFxM0Tk/ZZJNdhut7Y0wfr/zBMtCp6hKbHP..HQyoQg6Ka",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd515449"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:41:41.903Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T11:50:26.330Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8af0d353e6c07fcce5ad9"
+  },
+  "username": "Didier",
+  "firstname": "Didier",
+  "lastname": "GAGA",
+  "email": "didier.gaga@aglgroup.com",
+  "password": "$2a$10$yBfqxiQjTRSsDWz8vrBf2eItd10QwyMFz88OLwrgN3UrJlt4M1sju",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8ad76353e6c07fcce5a9f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T09:14:53.949Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-17T07:25:45.181Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ef44eaf0656050c2ff2de"
+  },
+  "username": "bzannou",
+  "firstname": "Brim",
+  "lastname": "ZANNOU",
+  "email": "brim.zannou@bjc.pilship.com",
+  "password": "$2a$10$jdENiJYrTDGN7tquQeUhLulukaykAkswjNQUMZ9BapJ.TGeHsryrW",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd515469"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:35:10.774Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T15:38:26.338Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ef395af0656050c2ff2cf"
+  },
+  "username": "jseriki",
+  "firstname": "José",
+  "lastname": "SERIKI",
+  "email": "jseriki@pac.bj",
+  "password": "$2a$10$R6rGCL5Y3P5BhWwx8NNdVuR2i4970RE8mLhadDJqOxQwFAcgCIq7e",
+  "userGroup": {
+    "$oid": "650c97db523187829b6a875e"
+  },
+  "fonction": "Commandant",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:32:05.679Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T17:32:05.679Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8a893353e6c07fcce5a50"
+  },
+  "username": "magnikpe",
+  "firstname": "MA",
+  "lastname": "AGNIKPE",
+  "email": "bj.ops@ecowasgroupe.com",
+  "password": "$2a$10$/rZCACl7qsywApEU27OYHOX6.O.fXqA8r48DRpsA69YgVxZ4tY/mO",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8a826353e6c07fcce5a40"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T08:47:15.686Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T08:47:15.686Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8ae14353e6c07fcce5aaf"
+  },
+  "username": "choutchai",
+  "firstname": "Claude",
+  "lastname": "HOUTCHAI",
+  "email": "claude.houtchai@aglgroupe.com",
+  "password": "$2a$10$8frEa8muY1xQtYRu.q2KjeT.esfNlDXCzE6oFm5nsac6w2HScTOvu",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8ad76353e6c07fcce5a9f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T09:10:44.846Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T09:10:44.846Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66b67c11353e6c07fcce8827"
+  },
+  "username": "rbossa",
+  "firstname": "Roland",
+  "lastname": "BOSSA",
+  "email": "rbossa@pac.bj",
+  "password": "$2a$10$atO6lE4VWMGRDLJfkyx.De3hSCCdZNztZ17iZFtug.b8uwBYC0WOq",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-08-09T20:29:05.879Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-09T20:29:05.879Z"
+  },
+  "__v": 0,
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "66bb75e5353e6c07fcce9f32"
+  },
+  "username": "CAGNIKPE",
+  "firstname": "Carin",
+  "lastname": "AGNIKPE",
+  "email": "cto.cagnikpe@cma-cgm.com",
+  "password": "$2a$10$CBtCBwvDTcx0NP2p4QCBVe/d3FYlGEA/oJBnQqNwvAFr4RvpUuVNG",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515461"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T15:04:05.256Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T16:15:45.030Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ee197af0656050c2ff20b"
+  },
+  "username": "anonfon",
+  "firstname": "Almero",
+  "lastname": "NONFON",
+  "email": "almero.nonfon@grimaldi-benin.com",
+  "password": "$2a$10$k.OJ1wYaIlXIhTD4L8Ua7uxs1Nij.ubTDGg8W36eNVfNuyIxW/cya",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fef6f30ff3fd51543d"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:15:19.701Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T16:15:19.701Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb611e353e6c07fcce9c6d"
+  },
+  "username": "bbernard",
+  "firstname": "Bernard",
+  "lastname": "BATTA DOSSOU",
+  "email": "operationsteam@sharafbenin.com",
+  "password": "$2a$10$DDbm9eH6z3NZCg2f6hg1D.wIZFBxDnMVWwxeut6cBxTi40ZNN50Q6",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515463"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T13:35:26.323Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T13:35:26.323Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92354353e6c07fcce5d80"
+  },
+  "username": "hdehoue",
+  "firstname": "Harold",
+  "lastname": "DEHOUE",
+  "email": "dehoueharold@gmail.com",
+  "password": "$2a$10$qxr79F6.dhZhTT2mglcxGeWEZU3FYpiGNfO56f2RyvJpsLFNTM6vu",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fdf6f30ff3fd51543b"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:31:00.190Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T11:22:12.026Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92548353e6c07fcce5daf"
+  },
+  "username": "srodriguez",
+  "firstname": "Samson Raoul",
+  "lastname": "RODRIGUEZ",
+  "email": "fregilfoodsshipping@gmail.com",
+  "password": "$2a$10$MqUpjL.IxfnbhgEV2BAlnelO78Gl8rSLK19EyHmoFy1m0DK173qjq",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a923e3353e6c07fcce5d8d"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:39:20.685Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-26T15:26:48.619Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66b68235353e6c07fcce885d"
+  },
+  "username": "cdahzoundji",
+  "firstname": "Charles",
+  "lastname": "Dahzoundji",
+  "email": "charles.dahzoundji@grimaldi-benin.com",
+  "password": "$2a$10$auMZ2uFCspDUNJM8dvjwcO9IjnRlgYthaXpl3GQwwKR0Z8Nn/L8aW",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fef6f30ff3fd51543d"
+  },
+  "createdAt": {
+    "$date": "2024-08-09T20:55:17.389Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-09T20:55:17.389Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb09e7353e6c07fcce90fe"
+  },
+  "username": "clhoutchai",
+  "firstname": "Claude",
+  "lastname": "HOUTCHAI",
+  "email": "claude.houtchai@aglgroup.com",
+  "password": "$2a$10$9KvZlzbfEG8B6OGV7HqWB.p82H4TtffBBKeDIadnQPbrqoedvRv82",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8ad76353e6c07fcce5a9f"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T07:23:19.432Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T08:28:13.056Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb650a353e6c07fcce9cb8"
+  },
+  "username": "MBALOGOUN",
+  "firstname": "MADIT",
+  "lastname": "BALOGOUN",
+  "email": "balogoun@sharafbenin.com",
+  "password": "$2a$10$mZzxxiy6FWJgLLARcRLtau..xi6tsf.AjbXy9rVtsptIQeewXBx9q",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515463"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T13:52:10.328Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T13:52:10.328Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb66ad353e6c07fcce9ceb"
+  },
+  "username": "EMIGAN",
+  "firstname": "Ernest",
+  "lastname": "MIGAN",
+  "email": "ernest.migan@navitrans.com",
+  "password": "$2a$10$.M2INz6EhOk8QUyWq5x9RuHLg1whpTFvuyp7PsLEmiEUID1.S8ZQ6",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545f"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T13:59:09.479Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T13:59:09.479Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb88c7353e6c07fccea31c"
+  },
+  "username": "GFOUTOUNA",
+  "firstname": "Germain",
+  "lastname": "FOUTOUNA",
+  "email": "germain.foutouna@bjc.pilship.com",
+  "password": "$2a$10$f4S1RULk2qV/puCZcEYNP.DZOwRdAoxVgFpjXhhqbKfbPOE8Srpfy",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd515469"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T16:24:39.795Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T16:24:39.795Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92730353e6c07fcce5df7"
+  },
+  "username": "gkedji",
+  "firstname": "Georges",
+  "lastname": "KEDJI",
+  "email": "gkedji@citc-inter.com",
+  "password": "$2a$10$B4NiFsY8n3Wwxn.bEk87U.qOE0KnRsauKiOb3SH9kuVnqoLeUIIly",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545d"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:47:28.413Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T07:13:50.869Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb882d353e6c07fccea2fc"
+  },
+  "username": "OSOWANOU",
+  "firstname": "Orden",
+  "lastname": "SOWANOU",
+  "email": "orden.sowanou@bjc.pilship.com",
+  "password": "$2a$10$bLpAaNgo32maMkgVfU.juO0m5zEQSgkDCekmrZbDhIEfodjsqwZDi",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd515469"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T16:22:05.685Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T16:22:05.685Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a91c36353e6c07fcce5ce1"
+  },
+  "username": "nvlavo",
+  "firstname": "Nuve",
+  "lastname": "VLAVO",
+  "email": "nuvevlavo@gmail.Com",
+  "password": "$2a$10$4CpAI23RfmZ8FcWWwvhwyOO0v1KFqIv/HuOkjXq6qmZKMJegZ//Eq",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd51544f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:00:38.037Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T17:00:38.037Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a926b1353e6c07fcce5de8"
+  },
+  "username": "tfatondji",
+  "firstname": "Trinité",
+  "lastname": "FATONDJI",
+  "email": "trinitefatondji@gmail.com",
+  "password": "$2a$10$1eqxX/l2J/Y7OxMl/vnuaOuOfJw45IjehaK4ljkzWg9.Tn8qd2Vk6",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a923e3353e6c07fcce5d8d"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:45:21.508Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T17:45:21.508Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66b686b0353e6c07fcce8884"
+  },
+  "username": "sgainsi",
+  "firstname": "Sandrine",
+  "lastname": "GAINSI",
+  "email": "sandrine.gainsi@sobemap.com",
+  "password": "$2a$10$7WErU3fCmFZHX7hskpg3ZuiI4LF0JyI2aZxAgm9R8dHL7GerQu3w2",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fdf6f30ff3fd51543b"
+  },
+  "createdAt": {
+    "$date": "2024-08-09T21:14:24.393Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-09T21:14:24.393Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a91eeb353e6c07fcce5d31"
+  },
+  "username": "aadjou",
+  "firstname": "Armand",
+  "lastname": "ADJOU",
+  "email": "armand.adjou-moumouni@omagroup.com",
+  "password": "$2a$10$vNpL/h4mDPSh/BqwnPhsVOcjEK.yZucXt1Q6aGosFDNUqF4SdwBrq",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545b"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:12:11.311Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-28T08:33:05.237Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a9204c353e6c07fcce5d40"
+  },
+  "username": "ragri",
+  "firstname": "Roméo",
+  "lastname": "AGRI",
+  "email": "ragri@pac.bj",
+  "password": "$2a$10$rKY5xMMqHIv5FlmboL9ETuV3socX2tH7lXiYRnyqYb7EbIfu7AeE.",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:18:04.770Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T10:16:47.343Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92c1b353e6c07fcce5e38"
+  },
+  "username": "cglele",
+  "firstname": "Chimène",
+  "lastname": "GLELE",
+  "email": "clglele@pac.bj",
+  "password": "$2a$10$ACEEK4Q3KKPc2z2Z/fTMheZraVDg0AiEbp7X1EWxT3izsGuDRglMK",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:08:27.984Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:08:27.984Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb305c353e6c07fcce93c4"
+  },
+  "username": "nessou",
+  "firstname": "Noel",
+  "lastname": "ESSOU",
+  "email": "n.essou@r-logistic.com",
+  "password": "$2a$10$7moO4iN.81EeEOcBKMARiuLj4tkyimAHfx.Xmy5I.rYzM2.NQyxgC",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd515449"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T10:07:24.152Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T10:08:24.011Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8f345353e6c07fcce5bed"
+  },
+  "username": "pdossou",
+  "firstname": "Prince",
+  "lastname": "ADOSSOU",
+  "email": "prince.adossou@msc.com",
+  "password": "$2a$10$d/Y67uF13.GicQSaXAF/5espLCIr5n67TV6K.4b1FSelvkOufaK9O",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd515459"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T14:05:57.447Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T14:05:57.447Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb1813353e6c07fcce9201"
+  },
+  "username": "mafouda",
+  "firstname": "Mikael",
+  "lastname": "AFOUDA",
+  "email": "operations.bj@navitrans.com",
+  "password": "$2a$10$13FF7kplFlfRBeM3Jqgb5OrpQcsL4rJyYUjDDMjQXf2ikRjAha8i6",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545f"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T08:23:47.474Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-28T13:05:51.301Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667eef9eaf0656050c2ff28a"
+  },
+  "username": "pgnimassou",
+  "firstname": "Pascal",
+  "lastname": "GNIMASSOU",
+  "email": "v.gnimassou@atralbenin.com",
+  "password": "$2a$10$YaFRb63ozmwA3liFo3g1UexBGcW.UOqijFjWeAgFVLDsedw69GGa2",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd515447"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:15:10.126Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T17:15:10.126Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ef21caf0656050c2ff2b1"
+  },
+  "username": "mhoungnon",
+  "firstname": "Martin",
+  "lastname": "HOUNGNON",
+  "email": "m.houngnon@atralbenin.com",
+  "password": "$2a$10$uvmUl0GV936OazTsxcKPU.aIUwETPMRsRU5psdvooj/91LoWv8zL.",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd515447"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:25:48.647Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T17:25:48.647Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92e7f353e6c07fcce5e71"
+  },
+  "username": "ksambianou",
+  "firstname": "Kouagou",
+  "lastname": "SAMBIANOU",
+  "email": "ksambianou@pac.bj",
+  "password": "$2a$10$d63AK.DUaBh0krJcs2Lx2e6VZ86mMwenOaFXqphFYQnqzQgtBPPuu",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:18:39.991Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:18:39.991Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a9331d353e6c07fcce5eda"
+  },
+  "username": "bbatta",
+  "firstname": "Bernard",
+  "lastname": "BATTA",
+  "email": "crew@sharafbein.com",
+  "password": "$2a$10$gVy5LDwLD8tcqKZc3ySmpOyPt6qNDaJhxhZCbuMNP1ZPdxfqa/GWW",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515463"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:38:21.546Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:38:21.546Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a9337b353e6c07fcce5ee9"
+  },
+  "username": "gdicode",
+  "firstname": "Gaudens",
+  "lastname": "DICODE",
+  "email": "gaudensdicode@gmail.com",
+  "password": "$2a$10$arfoRBI5IsNstqXw/nK5a.yI3AVAzb9VC4kTlvjVcNOmwqcPPPh5m",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd515465"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:39:55.117Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:39:55.117Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ef256af0656050c2ff2c0"
+  },
+  "username": "rkoumagnon",
+  "firstname": "Raoul",
+  "lastname": "KOUMAGNON",
+  "email": "rkoumagnon@pac.bj",
+  "password": "$2a$10$w0BVKqHuIqsVA9lK/1JHBeZFDCO.ssLcwVXmbznCb.10TtIxetzAW",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:26:46.563Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T17:26:46.563Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ee231af0656050c2ff230"
+  },
+  "username": "tnoutche",
+  "firstname": "Toufic",
+  "lastname": "NOUTCHE",
+  "email": "cto.tnoutche@msc.com",
+  "password": "$2a$10$F/z1oTtWW3uZ/XnO5IC6Ae5FPOJ4MioLNXM1lRKg47OpiFs2jJax2",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515461"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T16:17:53.701Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T16:17:53.701Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "667ef4e0af0656050c2ff2f9"
+  },
+  "username": "osawanou",
+  "firstname": "Orden",
+  "lastname": "SAWANOU",
+  "email": "orden.sawanou@bjc.pilship.com",
+  "password": "$2a$10$u6BCcip.ojA5J8OhnfG2T.Q4KWyU/BbJDYcHtiRRQdYe5Zg783apu",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd515469"
+  },
+  "createdAt": {
+    "$date": "2024-06-28T17:37:36.644Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-28T17:37:36.644Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8a727353e6c07fcce5a33"
+  },
+  "username": "dhessou",
+  "firstname": "Désiré",
+  "lastname": "HESSOU",
+  "email": "desire.hessou@navitrans.com",
+  "password": "$2a$10$gBl8GOD1vbFulJacgNTfT.A/6G1F0nQ0J4QKtoGxShtpb3gcnqbLK",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T08:41:11.154Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T08:41:11.154Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92787353e6c07fcce5e06"
+  },
+  "username": "dadjinda",
+  "firstname": "Dieudonné",
+  "lastname": "ADJINDA",
+  "email": "shipping.cbct@cbctgroup.com",
+  "password": "$2a$10$n/U0GtnVQl1walgktCvBvepswU2eeDW2A.sPef7aBT4jHryjP88dK",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a9247c353e6c07fcce5d95"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:48:55.732Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T17:48:55.732Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb34d5353e6c07fcce94a1"
+  },
+  "username": "amoussa",
+  "firstname": "Abdallah",
+  "lastname": "MOUSSA",
+  "email": "waps_benin@westatlantic-group.com",
+  "password": "$2a$10$4yDqHKpW7EZNAugjE04HZOSXDa6KHNqBSUgKixMzqooijl12Oob1y",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "667e8be6af0656050c2fef55"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T10:26:29.609Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T10:26:29.609Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92f27353e6c07fcce5e8c"
+  },
+  "username": "aotchere",
+  "firstname": "A.",
+  "lastname": "OTCHERE",
+  "email": "otchereezechil@gmail.com",
+  "password": "$2a$10$Qv5SYsIzETjsBeAaWk4g2.F99Zsk/HUasTYVILFsx5UXY8QbFSzAK",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd51546b"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:21:27.966Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-23T13:18:27.005Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a932b3353e6c07fcce5ecb"
+  },
+  "username": "loguidan",
+  "firstname": "Luc",
+  "lastname": "OGUIDAN",
+  "email": "lucoguidan@gmail.com",
+  "password": "$2a$10$s49hEVifCrX7pYP0/rOifu.48djsjjfTIC/DE9s.nrnk2GooP4XWK",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66c4834f7c1e8b6a09872807"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:36:35.309Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T11:55:18.229Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a922e4353e6c07fcce5d65"
+  },
+  "username": "akarimou",
+  "firstname": "Ayouba",
+  "lastname": "KARIMOU",
+  "email": "ayouba.karimou@sobemap.com",
+  "password": "$2a$10$/gLYV0Fwm9qj1lDA6OQ0ju29.0/.RIsiPhga4CgW9gdR.YWT.C0M6",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fdf6f30ff3fd51543b"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:29:08.158Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T17:29:08.158Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66b67b3a353e6c07fcce880c"
+  },
+  "username": "davahounzo",
+  "firstname": "Dorias",
+  "lastname": "AVAHOUNZO",
+  "email": "davahounzo@pac.bj",
+  "password": "$2a$10$IQWMjCPmQzBUp9MY3RLCfum9wYUa64ShuQry2fRSVOzm.NHZpzc4m",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-08-09T20:25:30.785Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-09T20:25:30.785Z"
+  },
+  "__v": 0,
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "66b67d18353e6c07fcce8836"
+  },
+  "username": "edegan",
+  "firstname": "Emerick",
+  "lastname": "DEGAN",
+  "email": "emerick.degan@msc.com",
+  "password": "$2a$10$45HK6giOZLid7OxhPeuKceUVh5Nz1/rkODpDyI8LsnEIN1lk7/uPO",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd515459"
+  },
+  "createdAt": {
+    "$date": "2024-08-09T20:33:28.626Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-09T20:33:28.626Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb750d353e6c07fcce9f17"
+  },
+  "username": "Kouevidjin",
+  "firstname": "KOUEVIDJIN",
+  "lastname": "KOUEVIDJIN",
+  "email": "CTO.RKOUEVIDJIN@cma-cgm.com",
+  "password": "$2a$10$.Tto7TeO8rPhIgYIkxWQXO0auWD.QSgZgDQHa6QAodmCotzXM431e",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515461"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T15:00:29.975Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T15:00:29.975Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8f2b3353e6c07fcce5bde"
+  },
+  "username": "onoutche",
+  "firstname": "Oronce",
+  "lastname": "NOUTCHE",
+  "email": "oronce.noutche@msc.com",
+  "password": "$2a$10$oAa4Y9haFZFDfzkxHtsq4uQkvHmsFtfBC85RpfZkrG5P9M088ufza",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd515459"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T14:03:31.090Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T14:03:31.090Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92d89353e6c07fcce5e53"
+  },
+  "username": "cgbehoun",
+  "firstname": "Crédo",
+  "lastname": "GBEHOUN",
+  "email": "credo@sharafbenin.com",
+  "password": "$2a$10$j5u6J.1AOYg/ZPbJwHdV8.nnwJTT8GP.GJpU9xyx1tHm712qFcaAC",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515463"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:14:33.137Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:14:33.137Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a93144353e6c07fcce5e9b"
+  },
+  "username": "ptcha",
+  "firstname": "Tcha",
+  "lastname": "PLANTE",
+  "email": "direction@westport-benin.com",
+  "password": "$2a$10$Pt.0lFEEB6enOHN/wE/mvOPYrn6NhZ0zHUxSkJzqNwbRd0HrrsZYq",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd51544b"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:30:28.763Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:30:28.763Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb1246353e6c07fcce9131"
+  },
+  "username": "famankpassa",
+  "firstname": "Firmin",
+  "lastname": "AMANKPASSA",
+  "email": "famankpassa@pac.bj",
+  "password": "$2a$10$P8Hk8Qf6P1Qk5omGT2aJh.jVWi8lAA3KPW61oLOi9fB.Qxnbxhu7K",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T07:59:02.403Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T07:59:02.403Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb519b353e6c07fcce9ae9"
+  },
+  "username": "mtchenegnon",
+  "firstname": "Mohammed",
+  "lastname": "TCHENEGNON",
+  "email": "mohammed.tchenegnon@maersk.com",
+  "password": "$2a$10$NK1ZpNrnA8Xt/HceJYhc4epxzdnPPo3.RlKL.gM7VMkQ2wgCSaxhe",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fef6f30ff3fd515443"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T12:29:15.769Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T12:29:15.769Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb8733353e6c07fccea266"
+  },
+  "username": "MTOUDONOU",
+  "firstname": "Marx",
+  "lastname": "TOUDONOU",
+  "email": "m.toudonou@atralbenin.com",
+  "password": "$2a$10$S2RwwmLPwyPCic4BL2hwW.viyDdiTHEnrNE/gfEZ1pjQMrqSLZXZG",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd515447"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T16:17:55.545Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T16:17:55.545Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8fc0f353e6c07fcce5c36"
+  },
+  "username": "aadjinda",
+  "firstname": "Albert",
+  "lastname": "ADJINDA",
+  "email": "aadjinda@supermaritime.com",
+  "password": "$2a$10$Y3oSdVckcEEZh2LkRGOQ7erWChC/v.dtbe9/M2HRdsov8tXn2bO3C",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd51544f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T14:43:27.901Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T14:43:27.901Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66aa5c39353e6c07fcce6801"
+  },
+  "username": "gdansi",
+  "firstname": "Gaston",
+  "lastname": "DANSI",
+  "email": "gdansi@pac.bj",
+  "password": "$2a$10$jPxe7ecGLoiF5Z6dQFcm2OyLaYBKY/J/62njzHtrx8pp3pfaY1zjq",
+  "userGroup": {
+    "$oid": "661dab7bbe0d9a68bf39fb68"
+  },
+  "fonction": "Observateur",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-07-31T15:46:01.361Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-11T20:59:36.150Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a8ab4a353e6c07fcce5a86"
+  },
+  "username": "PLANTE TCHA",
+  "firstname": "AHAKTOM",
+  "lastname": "PLANTE TCHA",
+  "email": "miloplante25@gmail.com",
+  "password": "$2a$10$sRNNaGl4X7nbjLQdpjB6ReOFrS3c1KxRuTfKOeRpf26SDAgd8.x6y",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd51544b"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T08:58:50.201Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-23T15:12:35.868Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a91c92353e6c07fcce5cfc"
+  },
+  "username": "bsonon",
+  "firstname": "Beaugar",
+  "lastname": "SONON",
+  "email": "bsonon@supermaritime.com",
+  "password": "$2a$10$zMGb0wvlxz67iHH/qTwo8.tuYMg6yJ.VODbBWFqEIIaU.pQp0BmWa",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd51544f"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T17:02:10.800Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-31T07:09:24.443Z"
+  },
+  "__v": 0,
+  "signature": {
+    "$binary": {
+      "base64": "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",
+      "subType": "00"
+    }
+  },
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66a92e00353e6c07fcce5e62"
+  },
+  "username": "bdossa",
+  "firstname": "Benoît",
+  "lastname": "DOSSA",
+  "email": "benoit@sharafbenin.com",
+  "password": "$2a$10$fyCAM2MhmUGa0VQaBRnvYew2T7vpET3nbaShv7aDV/n.XGrHmPLom",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515463"
+  },
+  "createdAt": {
+    "$date": "2024-07-30T18:16:32.260Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-30T18:16:32.260Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c5c5e77c1e8b6a0987719b"
+  },
+  "username": "WDANSOU",
+  "firstname": "Wilfried",
+  "lastname": "DANSOU",
+  "email": "cto.wdansou@cma-cgm.com",
+  "password": "$2a$10$UBZsk2KQT5E79dqVqG4WhODWdPlRpa9FZ96zCVmwaebU/SAgtX2wu",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd515461"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-21T10:48:07.981Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-21T10:48:07.981Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66bb8fce353e6c07fccea5ad"
+  },
+  "username": "CHOUNHOUENOU",
+  "firstname": "Clément",
+  "lastname": "HOUNHOUENOU",
+  "email": "clement.hounhouenou@aglgroup.com",
+  "password": "$2a$10$NzUVxN4tsfyIwyQlKzUMDeIgyVR3x5bc9gHeRgI5NuwXbvGT0DUDG",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8ad76353e6c07fcce5a9f"
+  },
+  "createdAt": {
+    "$date": "2024-08-13T16:54:38.166Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T16:54:38.166Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66ebde57ffa6d3dafc15160c"
+  },
+  "username": "NOEL",
+  "firstname": "Noel",
+  "lastname": "ESSOU",
+  "email": "n.essou@r-logisticgroup.com",
+  "password": "$2a$10$0w6K8nmTZxQAzF2WgAIZ6uWg89eRnW5QpsZD0JoEFtTvRLJoMLv7W",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fff6f30ff3fd515449"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-09-19T08:18:31.482Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-19T08:18:31.482Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "672dca9c4f86731095bd874c"
+  },
+  "username": "KOUHIKO",
+  "firstname": "Elie",
+  "lastname": "KOUHIKO",
+  "email": "ekouhiko@pac.bj",
+  "password": "$2a$10$//n6XhuBu0M4ipr6/BbUiexXREBbLQVmCKTLpOcXcALozrTDKQe5y",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-11-08T08:23:56.542Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T08:23:56.542Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66d1e02974f384fa52d29842"
+  },
+  "username": "ALBERT",
+  "firstname": "Albert",
+  "lastname": "ADJINDA",
+  "email": "AAdjinda@supermaritime.com",
+  "password": "$2a$10$tMnUflLWShUm7gjEAzWWUeaqX9.fqqx2O3s/wNZWIvNszDyc9d11S",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd51544f"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-30T15:07:21.310Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T15:07:21.310Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c5c3857c1e8b6a09877093"
+  },
+  "username": "RDOSSOU",
+  "firstname": "Roland",
+  "lastname": "DOSSOU",
+  "email": "roland.dossou@benin-terminal.com",
+  "password": "$2a$10$xTo7aaT8s.Gj4ALdwKSrie8l0DiHRRPWL/0lhRHKz.2sLJb7mIxvq",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540f8f6f30ff3fd515407"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-21T10:37:57.054Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-21T10:56:44.945Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c84d6e74f384fa52d06b9d"
+  },
+  "username": "YLAGUIDE",
+  "firstname": "Yezide",
+  "lastname": "LAGUIDE",
+  "email": "mmafcommodities@gmail.com",
+  "password": "$2a$10$GP6FU3JUgfmzmz1rFgKRSesmK2X7lCOTIO4XAgFiI7jVc23jESyp6",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66c45f1c7c1e8b6a0986ff58"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-23T08:50:54.967Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-23T08:50:54.967Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c7139374f384fa52d04675"
+  },
+  "username": "WAZIR",
+  "firstname": "MAIMOUNA",
+  "lastname": "WAZIR",
+  "email": "maimouna.wazir@omagroup.com",
+  "password": "$2a$10$4V/7VxQwkclS.22GBjLrtub/pKoiJgO3JFEzgy3/GVpVOPXphIDG2",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545b"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-22T10:31:47.192Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T10:31:47.192Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c85d3374f384fa52d0815a"
+  },
+  "username": "NEPHTHALI",
+  "firstname": "Nephthali",
+  "lastname": "GBAGUIDI",
+  "email": "shipping@mameribj.com",
+  "password": "$2a$10$/Lm.CsWdHZvNZTmY5I2VdOo0QsUpZqmIqwFXe4SvvIbVcvA81ZR8C",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66c85ccb74f384fa52d08121"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-23T09:58:11.892Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-23T09:58:11.892Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66d1e0d874f384fa52d298be"
+  },
+  "username": "NUVE",
+  "firstname": "Nuvé",
+  "lastname": "VLAVO",
+  "email": "nvlavo@supermaritime.com",
+  "password": "$2a$10$1LAjbKfJ.HYcr6HlZpqqG.8dcbET9..b5VeAA40QLTAAB7jcIACb2",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd51544f"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-30T15:10:16.557Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T15:10:16.557Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "672dd9634f86731095bd8dae"
+  },
+  "username": "KLEBER",
+  "firstname": "Kleber",
+  "lastname": "DEGBOE",
+  "email": "jdegboe@pac.bj",
+  "password": "$2a$10$NWV6dxCDd7GkUdrDFYMBV.AtXSHPnj9Bu9qkLdx7dGg4KmYbiLPmO",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-11-08T09:26:59.552Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T09:35:43.904Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c4b87b7c1e8b6a0987414b"
+  },
+  "username": "gkissezounon",
+  "firstname": "Geraud",
+  "lastname": "KISSEZOUNON",
+  "email": "bj-g.kissezounon@ecowasgroupe.com",
+  "password": "$2a$10$JAO0seYg2uHOsjZbO1p5WOGzBw8cQ9Svy7W67txAR/f4i6OKLOw.q",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66a8a826353e6c07fcce5a40"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-20T15:38:35.496Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T15:38:35.496Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c4c1047c1e8b6a0987473c"
+  },
+  "username": "KJABOU",
+  "firstname": "Kascim",
+  "lastname": "JABOU",
+  "email": "pams@pacificmarine-serv.com",
+  "password": "$2a$10$wRnDfX5n9V0Sne.ttLu1peHptgmRjeKpkExMvUZ12smlo7SD1H8JO",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66c4aff27c1e8b6a09873df1"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-20T16:15:00.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T16:15:00.512Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c8400074f384fa52d06643"
+  },
+  "username": "DIDIER",
+  "firstname": "Didier",
+  "lastname": "ADIKPETO",
+  "email": "badikpeto@pac.bj",
+  "password": "$2a$10$.eoUC5s7JIwgK5Gs6kMzbOMucabnP6reKUBQ.oHUilGEJHCx/vAz2",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-23T07:53:36.875Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-23T07:53:36.875Z"
+  },
+  "__v": 0,
+  "active": false
+},
+{
+  "_id": {
+    "$oid": "66cdb37c74f384fa52d1791b"
+  },
+  "username": "GNON",
+  "firstname": "GNON",
+  "lastname": "OROU BAGOU",
+  "email": "arefgnonra2000@yahoo.fr",
+  "password": "$2a$10$9p1QLc37I5CAEpYk1WdSBec2/F6uUF.4b5rKyLXRFA9V80KbZtZ82",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fdf6f30ff3fd51543b"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-27T11:07:40.732Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T11:07:40.732Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66d1dbe674f384fa52d296ce"
+  },
+  "username": "PATRICK",
+  "firstname": "Patrick",
+  "lastname": "KOSSOU",
+  "email": "patrick.kossou@omagroup.com",
+  "password": "$2a$10$4/pf94InTe5heZ77ZTlrBOgmEq7jXAmb.OXbNX8qcVCBe9Y6CazIG",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154101f6f30ff3fd51545b"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-30T14:49:10.569Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:49:10.569Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "6729e7ce879b578a72b7d1b1"
+  },
+  "username": "IGNANCE",
+  "firstname": "Ignance",
+  "lastname": "HANGNON",
+  "email": "reports@aquamarine-bj.com",
+  "password": "$2a$10$E3U7iBDs8mRIpCAfZFiTnuyyO3zHSgGyc4WR8DMNtBJdVSHO6oulO",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154100f6f30ff3fd515453"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-11-05T09:39:26.926Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-05T09:39:26.926Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c35c8a353e6c07fccecac5"
+  },
+  "username": "skongnon",
+  "firstname": "Steve",
+  "lastname": "KONGNON",
+  "email": "support.ivoprest-benin@ivoprest.com",
+  "password": "$2a$10$I2V8WoCJLwgmospyLa3qf.5cgi2JNkczqbHF.qy8Pma3Ct3oGR5Qy",
+  "userGroup": {
+    "$oid": "65047e36b93f56f90354bc3e"
+  },
+  "fonction": "Administrateur",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "createdAt": {
+    "$date": "2024-08-19T14:54:02.254Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-19T14:54:02.254Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "67287771879b578a72b79e0b"
+  },
+  "username": "AYOUSSOUFOU",
+  "firstname": "Youssoufou",
+  "lastname": "LAWANI",
+  "email": "ayoussoufou@pac.bj",
+  "password": "$2a$10$TxOBCBCErz0LWGRHhJMu5eZfiPtNzhT2Fbe7o/LqM8NSjMY1WKCBe",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-11-04T07:27:45.250Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-04T07:27:45.250Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c4d7ed7c1e8b6a09874b33"
+  },
+  "username": "TDJOSSOU",
+  "firstname": "Thierry",
+  "lastname": "DJOSSOU",
+  "email": "thidjos@gmail.com",
+  "password": "$2a$10$UVEh.mI94kHpfJW9txQYbuZLVE4Mvaj19OQrVkn6m1W70ZkShLzA.",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "66c4d7c57c1e8b6a09874b19"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-20T17:52:45.276Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T17:52:45.276Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c86f2f74f384fa52d094b4"
+  },
+  "username": "Bernard",
+  "firstname": "Bernard",
+  "lastname": "GBEHOUN",
+  "email": "opssharafbenin2@gmail.com",
+  "password": "$2a$10$e3hN/T5RaHqCPjloY1cw7urTbHyov3bcrrA08yIYrpe/9aE.kbdF.",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540fef6f30ff3fd515443"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-23T11:14:55.051Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-23T11:14:55.051Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c5bfce7c1e8b6a09876b04"
+  },
+  "username": "JAVANNAH",
+  "firstname": "Jules",
+  "lastname": "AVANNAH",
+  "email": "jules.avannah@benin-terminal.com",
+  "password": "$2a$10$Fp1isbxPPRfQB16tbpWliOL.kubxl9990yFLNvQG3OMIEhmnHhU7.",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "651540f8f6f30ff3fd515407"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-21T10:22:06.557Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-21T10:56:18.789Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "66c8414374f384fa52d066bb"
+  },
+  "username": "Enock",
+  "firstname": "Enock",
+  "lastname": "BOGLO",
+  "email": "eboglo@pac.bj",
+  "password": "$2a$10$Cvlk6hKs0ExlUGEpUHmPTuqleFA9dcLloObjj1HahfRN74q.eMV3.",
+  "userGroup": {
+    "$oid": "65047d13b93f56f90354bc36"
+  },
+  "fonction": "Capitaine",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-08-23T07:58:59.057Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-23T07:58:59.057Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "672dd8794f86731095bd8cf6"
+  },
+  "username": "HYPOLITE",
+  "firstname": "Hypolite",
+  "lastname": "NOUWATIN",
+  "email": "hnouwatin@pac.bj",
+  "password": "$2a$10$AlBhu9CnDNqZ6s/lntX2E.Od9ZNs0TsubBV94xj.83Ye90rhU5D9y",
+  "userGroup": {
+    "$oid": "65047cceb93f56f90354bc32"
+  },
+  "fonction": "Vigie",
+  "agence": {
+    "$oid": "6514e53f3a340ef26abccec4"
+  },
+  "is_disabled": false,
+  "createdAt": {
+    "$date": "2024-11-08T09:23:05.098Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T09:23:05.098Z"
+  },
+  "__v": 0,
+  "active": true
+},
+{
+  "_id": {
+    "$oid": "67361779e2478d4b5382683c"
+  },
+  "username": "Deltamarine",
+  "firstname": "MARINE",
+  "lastname": "DELTA",
+  "active": true,
+  "email": "deltamarine@gmail.com",
+  "password": "$2a$10$8Yd1VZrHJ5qGbFGIJp6ti.PsLlVOptJQ4Lt2i/ChBH94qdQwo52py",
+  "userGroup": {
+    "$oid": "65047888c59a7e0e4ae06a7e"
+  },
+  "fonction": "Consignataire",
+  "agence": {
+    "$oid": "65154102f6f30ff3fd51546b"
+  },
+  "createdAt": {
+    "$date": "2024-11-14T15:30:01.314Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:30:01.314Z"
+  },
+  "__v": 0
+}]

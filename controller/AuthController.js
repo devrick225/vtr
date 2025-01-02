@@ -32,7 +32,7 @@ exports.register = AsyncHandler(async (req, res) => {
         throw new Error(`L'agence n'existe pas`);
     }
 
-    const secret = "pac2024";
+   /* const secret = "pac2024";
     try {
         await axios.post(
             'https://api.chatengine.io/users/',
@@ -58,7 +58,7 @@ exports.register = AsyncHandler(async (req, res) => {
     } catch (error) {
         res.status(500);
         throw new Error('Error communicating with ChatEngine');
-    }
+    } */
 
 
     const user = await User.create({
