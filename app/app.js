@@ -40,7 +40,6 @@ const {notFoundErr, globalErrHandler} = require("../middlewares/globalErrHandler
 const app = express();
 const dirname = path.dirname(__dirname);
 app.use('/uploads', express.static(path.join(dirname, '/uploads')))
-app.use('/.well-known/pki-validation', express.static(path.join(dirname, '/uploads/.well-known/pki-validation')));
 
 
 //Middlewares
@@ -83,6 +82,8 @@ app.use("/api/v1/historique-actions", historiqueActionRouter)
 app.use("/api/v1/documents", documentRouter)
 app.use("/api/v1/mouvements", mouvementRouter)
 app.use("/api/v1/operations", operationRouter)
+
+app.use('/.well-known/pki-validation', express.static(path.join(__dirname, '.well-known/pki-validation')));
 
 //Error Middlewares
 app.use(globalErrHandler);
