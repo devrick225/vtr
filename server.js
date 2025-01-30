@@ -18,7 +18,7 @@ const cred = {
 //middleware
 
 //server
-const server = http.createServer(app);
-//const httpsServer = https.createServer(cred, app)
-server.listen(PORT, console.log(`Server http is running on port ${PORT}`))
-//httpsServer.listen(443, console.log(`Server https is running on port ${PORT}`))
+//const server = http.createServer(app);
+const httpsServer = https.createServer(cred, app)
+//server.listen(PORT, console.log(`Server http is running on port ${PORT}`))
+httpsServer.listen(443, console.log(`Server https is running on port ${PORT}`))
