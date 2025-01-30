@@ -83,8 +83,14 @@ app.use("/api/v1/documents", documentRouter)
 app.use("/api/v1/mouvements", mouvementRouter)
 app.use("/api/v1/operations", operationRouter)
 
-app.use('/.well-known/pki-validation', express.static(path.join(__dirname, '.well-known/pki-validation')));
-
+app.get('/.well-known/pki-validation/:filename', (req, res) => {
+    const filePath = path.join(dirname+'/.well-known/pki-validation/', req.params.filename);
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send('File not found');
+    }
+});
 //Error Middlewares
 app.use(globalErrHandler);
 app.use(notFoundErr);
